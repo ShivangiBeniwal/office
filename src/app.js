@@ -22,6 +22,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
+// Static routes
+app.get("/privacypolicy", (req, res) => {
+  res.render("privacypolicy");
+});
+
+app.get("/termsofuse", (req, res) => {
+  res.render("termsofuse");
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
