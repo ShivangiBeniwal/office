@@ -111,8 +111,8 @@
 
     }
 
-    // initializeConsentButton();
+    initializeConsentButton();
 
-    getAuthToken();
+    // getAuthToken();
     
 })();
