@@ -79,16 +79,14 @@
     }
 
     var startTime;
-    var maxCount = 5;
+    var maxCount;
     function checkPerformance() {
-        var btn = document.getElementById("promptForConsentButton")
-        btn.onclick = () => {
-            startTime = new Date().getTime();
-            printLogItem("StartTime = " + startTime);
+        maxCount = document.querySelector('input[name=countVal]').value;
+        startTime = new Date().getTime();
+        printLogItem("StartTime = " + startTime);
 
-            for ( var i = 1; i <= maxCount; i++) {
-                getAuthToken(i);
-            }
+        for ( var i = 1; i <= maxCount; i++) {
+            getAuthToken(i);
         }
     }
 
