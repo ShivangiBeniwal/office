@@ -18,17 +18,19 @@ a {
 }
 
 input {
-  width: fit-content;
+  width: max-content;
+  padding-left: 5%;
+  padding-right: 5%;
 }
 
 button {
   position: relative;
   background-color: #008CBA;
   border-radius: 8px;
-  font-size: 28px;
+  font-size: 14px;
   color: #FFFFFF;
-  padding: 20px;
-  width: 200px;
+  padding: 8%;
+  width: max-content;
   text-align: center;
   transition-duration: 0.4s;
   text-decoration: none;
