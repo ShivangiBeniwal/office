@@ -1,10 +1,5 @@
 (function() {
     'use strict';
- 
-    function initializePages() {
-        initializeConsentButton();
-        checkPerformance();
-    }
 
     function initializeConsentButton() {
         var btn = document.getElementById("promptForConsentButton")
@@ -38,6 +33,13 @@
 
     // ------------------------------------------------------------------------
 
+    
+
+    initializeConsentButton();
+    
+})();
+
+function clickAuthPerf() {
     var startTime;
     var maxCount = 1000;
     function checkPerformance() {
@@ -95,7 +97,4 @@
 
         return dateTime;
     }
-
-    initializePages();
-    
-})();
+}
