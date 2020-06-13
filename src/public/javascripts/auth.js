@@ -113,13 +113,13 @@
         // Get auth token
         var authTokenRequest = {
             successCallback: (result) =>  {
-                document.getElementById('countSuccess').innerHTML = "Total success calls - " + count;
+                // document.getElementById('countSuccess').innerHTML = "Total success calls - " + count;
                 if (count == maxCount) {
                     printEndtime();
                 }
             },
             failureCallback: function(error) { 
-                document.getElementById('countError').innerHTML = "Total error calls - " + count;
+                // document.getElementById('countError').innerHTML = "Total error calls - " + count;
                 if (count == maxCount) {
                     printEndtime();
                 }
