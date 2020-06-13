@@ -1,7 +1,6 @@
 (function() {
     'use strict';
-
-/* 
+ 
     // 1. Get auth token
     // Ask Teams to get us a token from AAD, we should exchange it when it n
     function getAuthToken(){
@@ -53,7 +52,6 @@
         });
     }
 
-
     // 3. Ask for additional consent from the user
     // If the on-behalf-of-flow failed due to requiring further consent, then we need to have the
     // user click a button to show the AAD consent dialog and ask for additional permission
@@ -92,17 +90,20 @@
         }
 
     }
-*/
+
 
     var startTime;
     var maxCount = 1000;
     function checkPerformance() {
-        // maxCount = document.querySelector('input[name=countVal]').value;
-        startTime = new Date().getTime();
-        printLogItem("StartTime = " + startTime);
+        var btn = document.getElementById("promptForAuthPerf")
+        btn.onclick = () => {
+            // maxCount = document.querySelector('input[name=countVal]').value;
+            startTime = new Date().getTime();
+            printLogItem("StartTime = " + startTime);
 
-        for ( var i = 1; i <= maxCount; i++) {
-            getAuthToken(i);
+            for ( var i = 1; i <= maxCount; i++) {
+                getAuthToken(i);
+            }
         }
     }
 
@@ -154,7 +155,7 @@
         var logDiv = document.getElementById('logs');
         var p = document.createElement("p");
         logDiv.prepend(finalMessage, p);
-        console.log("Auth: " + finalMessage);
+        console.log("Auth : " + finalMessage);
     }
 
     initializeConsentButton();
