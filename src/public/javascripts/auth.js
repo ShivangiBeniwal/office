@@ -102,12 +102,12 @@
             printLogItem("StartTime = " + startTime);
 
             for ( var i = 1; i <= maxCount; i++) {
-                getAuthToken(i);
+                getAuthTokenWithCount(i);
             }
         }
     }
 
-    function getAuthToken(count) {
+    function getAuthTokenWithCount(count) {
         // Get auth token
         var authTokenRequest = {
             successCallback: (result) =>  {
