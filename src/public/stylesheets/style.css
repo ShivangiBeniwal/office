@@ -18,7 +18,6 @@ a {
 }
 
 input {
-  min-width: 10px;
   width: max-content;
   padding: 0.2%;
 }
@@ -29,7 +28,7 @@ button {
   border-radius: 8px;
   font-size: 14px;
   color: #FFFFFF;
-  padding: 0.8%;
+  padding: 0.6%;
   width: max-content;
   text-align: center;
   transition-duration: 0.4s;
