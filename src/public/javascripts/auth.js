@@ -3,7 +3,7 @@
  
     function initializePages() {
         initializeConsentButton();
-        // checkPerformance();
+        checkPerformance();
     }
 
     function initializeConsentButton() {
@@ -99,8 +99,3 @@
     initializePages();
     
 })();
-
-function hello() {
-    var endTime = new Date().getTime();
-        printLogItem("EndTime = " + getCurrentDateTime());
-}
