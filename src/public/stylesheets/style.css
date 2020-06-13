@@ -21,10 +21,10 @@ input {
   width: fit-content;
 }
 
-.button {
+button {
   position: relative;
   background-color: #008CBA;
-  border: none;
+  border-radius: 8px;
   font-size: 28px;
   color: #FFFFFF;
   padding: 20px;
@@ -36,7 +36,7 @@ input {
   cursor: pointer;
 }
 
-.button:after {
+button:after {
   content: "";
   background: #f1f1f1;
   display: block;
@@ -49,7 +49,7 @@ input {
   transition: all 0.8s
 }
 
-.button:active:after {
+button:active:after {
   padding: 0;
   margin: 0;
   opacity: 1;
