@@ -87,10 +87,6 @@
             for ( var i = 1; i <= 100; i++) {
                 getAuthToken(i);
             }
-
-            var endTime = getCurrentDateTime();
-            printLogItem("EndTime = " + endTime);
-            printLogItem("Total time taken = " + (endTime - startTime) + " ms");
         }
     }
 
@@ -98,15 +94,19 @@
         // Get auth token
         var authTokenRequest = {
             successCallback: (result) =>  {
-                document.getElementById('countSuccess').innerText = "Total success calls : " + count;
+                document.getElementById('countSuccess').innerText = "Total success calls - " + count;
             },
             failureCallback: function(error) { 
-                document.getElementById('countError').innerText = "Total error calls : " + count;
+                document.getElementById('countError').innerText = "Total error calls - " + count;
             },
         };
-
-        printLog("Get Auth Token Call is made.");
         microsoftTeams.authentication.getAuthToken(authTokenRequest);
+    }
+
+    function printEndtime() {
+        var endTime = getCurrentDateTime();
+        printLogItem("EndTime = " + endTime);
+        printLogItem("Total time taken = " + (endTime - startTime) + " ms");
     }
 
     function printLogItem(text) {
