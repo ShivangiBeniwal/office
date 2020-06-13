@@ -32,7 +32,7 @@ app.get("/termsofuse", (req, res) => {
 });
 
 app.get("/perf", (req, res) => {
-  res.render("performance");
+  res.render("performance", { title: 'Auth Perf Testing' });
 });
 
 // catch 404 and forward to error handler
