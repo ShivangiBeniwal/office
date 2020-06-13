@@ -98,16 +98,16 @@
         printLogItem("hi = ");
         var btn = document.getElementById("promptForAuthPerf");
         printLogItem("maxCount = " + maxCount);
-        // btn.onclick = () => {
-        //     printLogItem("StartTime = " + getCurrentDateTime());
-        //     maxCount = document.querySelector('input[name=countVal]').value;
-        //     startTime = new Date().getTime();
-        //     printLogItem("StartTime = " + startTime);
+        btn.onclick = () => {
+            printLogItem("StartTime = " + getCurrentDateTime());
+            maxCount = document.querySelector('input[name=countVal]').value;
+            startTime = new Date().getTime();
+            printLogItem("StartTime = " + startTime);
 
-        //     // for ( var i = 1; i <= maxCount; i++) {
-        //     //     getAuthTokenWithCount(i);
-        //     // }
-        // }
+            // for ( var i = 1; i <= maxCount; i++) {
+            //     getAuthTokenWithCount(i);
+            // }
+        }
     }
 
     function getAuthTokenWithCount(count) {
