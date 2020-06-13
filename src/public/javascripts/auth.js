@@ -56,7 +56,7 @@
     // 3. Ask for additional consent from the user
     // If the on-behalf-of-flow failed due to requiring further consent, then we need to have the
     // user click a button to show the AAD consent dialog and ask for additional permission
-    function initializeConsentButton(){
+    function initializeConsentButton() {
         var btn = document.getElementById("promptForConsentButton")
         btn.onclick = () => {
             getAuthToken();
@@ -75,8 +75,45 @@
             //         // handleAuthError(reason);
             //     }
             // });
-            
         }
+    }
+
+    function checkPerformance() {
+        var btn = document.getElementById("promptForConsentButton")
+        btn.onclick = () => {
+            var startTime = getCurrentDateTime();
+            printLogItem("StartTime = " + startTime);
+
+            for ( var i = 1; i <= 100; i++) {
+                getAuthToken(i);
+            }
+
+            var endTime = getCurrentDateTime();
+            printLogItem("EndTime = " + endTime);
+            printLogItem("Total time taken = " + (endTime - startTime) + " ms");
+        }
+    }
+
+    function getAuthToken(count) {
+        // Get auth token
+        var authTokenRequest = {
+            successCallback: (result) =>  {
+                document.getElementById('countSuccess').innerText = "Total success calls : " + count;
+            },
+            failureCallback: function(error) { 
+                document.getElementById('countError').innerText = "Total error calls : " + count;
+            },
+        };
+
+        printLog("Get Auth Token Call is made.");
+        microsoftTeams.authentication.getAuthToken(authTokenRequest);
+    }
+
+    function printLogItem(text) {
+        var node = document.createElement("li");
+        var textNode = document.createTextNode(text);
+        node.appendChild(textNode);
+        document.getElementById('logItems').appendChild(node);
     }
 
     // ------------------------------------------------------------------------
@@ -89,6 +126,7 @@
 
         return dateTime;
     }
+
     function printLog(msg) {
         var finalMessage = '['+getCurrentDateTime()+'] '+msg;
         var logDiv = document.getElementById('logs');
@@ -114,5 +152,7 @@
     initializeConsentButton();
 
     // getAuthToken();
+
+    checkPerformance();
     
 })();
