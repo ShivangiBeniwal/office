@@ -79,11 +79,11 @@
     }
 
     var startTime;
-    var maxCount = 1000;
+    var maxCount = 5;
     function checkPerformance() {
         var btn = document.getElementById("promptForConsentButton")
         btn.onclick = () => {
-            startTime = getCurrentDateTime();
+            startTime = new Date().getTime();
             printLogItem("StartTime = " + startTime);
 
             for ( var i = 1; i <= maxCount; i++) {
@@ -112,7 +112,7 @@
     }
 
     function printEndtime() {
-        var endTime = getCurrentDateTime();
+        var endTime = new Date().getTime();
         printLogItem("EndTime = " + endTime);
         printLogItem("Total time taken = " + (endTime - startTime) + " ms");
     }
