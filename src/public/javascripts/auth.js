@@ -95,17 +95,19 @@
     var startTime;
     var maxCount = 1000;
     function checkPerformance() {
+        printLog(hi1);
         printLogItem("hi = " + getCurrentDateTime());
-        var btn = document.getElementById("promptForAuthPerf");
-        btn.onclick = () => {
-            maxCount = document.querySelector('input[name=countVal]').value;
-            startTime = new Date().getTime();
-            printLogItem("StartTime = " + getCurrentDateTime());
+        printLog(hi2);
+        // var btn = document.getElementById("promptForAuthPerf");
+        // btn.onclick = () => {
+        //     maxCount = document.querySelector('input[name=countVal]').value;
+        //     startTime = new Date().getTime();
+        //     printLogItem("StartTime = " + getCurrentDateTime());
 
-            for ( var i = 1; i <= maxCount; i++) {
-                getAuthTokenWithCount(i);
-            }
-        }
+        //     for ( var i = 1; i <= maxCount; i++) {
+        //         getAuthTokenWithCount(i);
+        //     }
+        // }
     }
 
     function getAuthTokenWithCount(count) {
