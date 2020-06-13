@@ -95,9 +95,9 @@
 */
 
     var startTime;
-    var maxCount;
+    var maxCount = 1000;
     function checkPerformance() {
-        maxCount = document.querySelector('input[name=countVal]').value;
+        // maxCount = document.querySelector('input[name=countVal]').value;
         startTime = new Date().getTime();
         printLogItem("StartTime = " + startTime);
 
