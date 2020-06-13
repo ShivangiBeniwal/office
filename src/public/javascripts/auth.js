@@ -161,10 +161,10 @@
         console.log("Auth : " + finalMessage);
     }
 
-    // initializeConsentButton();
+    initializeConsentButton();
 
     // getAuthToken();
 
-    checkPerformance();
+    // checkPerformance();
     
 })();
