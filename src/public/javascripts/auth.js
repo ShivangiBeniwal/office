@@ -1,6 +1,7 @@
 (function() {
     'use strict';
-
+    
+/* 
     // 1. Get auth token
     // Ask Teams to get us a token from AAD, we should exchange it when it n
     function getAuthToken(){
@@ -78,6 +79,21 @@
         }
     }
 
+    function handleServerResponse(data) {
+        printLog("Backend returned: " + JSON.stringify(data));
+        var error = data.error;
+        // Error: enable the grantPermission button
+        if (error != null) {
+            printLog("Enabling the 'Grant Permission' button");
+            document.getElementById("promptForConsentButton").disabled = false
+        // Success: server returned a valid acess token
+        } else {
+            printLog("Success! You have a valid token from your backend with extra permissions.");
+        }
+
+    }
+*/
+
     var startTime;
     var maxCount;
     function checkPerformance() {
@@ -139,20 +155,6 @@
         var p = document.createElement("p");
         logDiv.prepend(finalMessage, p);
         console.log("Auth: " + finalMessage);
-    }
-
-    function handleServerResponse(data) {
-        printLog("Backend returned: " + JSON.stringify(data));
-        var error = data.error;
-        // Error: enable the grantPermission button
-        if (error != null) {
-            printLog("Enabling the 'Grant Permission' button");
-            document.getElementById("promptForConsentButton").disabled = false
-        // Success: server returned a valid acess token
-        } else {
-            printLog("Success! You have a valid token from your backend with extra permissions.");
-        }
-
     }
 
     // initializeConsentButton();
