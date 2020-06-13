@@ -78,13 +78,15 @@
         }
     }
 
+    var startTime;
+    var maxCount = 1000;
     function checkPerformance() {
         var btn = document.getElementById("promptForConsentButton")
         btn.onclick = () => {
-            var startTime = getCurrentDateTime();
+            startTime = getCurrentDateTime();
             printLogItem("StartTime = " + startTime);
 
-            for ( var i = 1; i <= 100; i++) {
+            for ( var i = 1; i <= maxCount; i++) {
                 getAuthToken(i);
             }
         }
@@ -94,10 +96,16 @@
         // Get auth token
         var authTokenRequest = {
             successCallback: (result) =>  {
-                document.getElementById('countSuccess').innerText = "Total success calls - " + count;
+                document.getElementById('countSuccess').innerHTML = "Total success calls - " + count;
+                if (count == maxCount) {
+                    printEndtime();
+                }
             },
             failureCallback: function(error) { 
-                document.getElementById('countError').innerText = "Total error calls - " + count;
+                document.getElementById('countError').innerHTML = "Total error calls - " + count;
+                if (count == maxCount) {
+                    printEndtime();
+                }
             },
         };
         microsoftTeams.authentication.getAuthToken(authTokenRequest);
