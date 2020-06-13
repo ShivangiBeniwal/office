@@ -97,7 +97,7 @@
     function checkPerformance() {
         var btn = document.getElementById("promptForAuthPerf")
         btn.onclick = () => {
-            // maxCount = document.querySelector('input[name=countVal]').value;
+            maxCount = document.querySelector('input[name=countVal]').value;
             startTime = new Date().getTime();
             printLogItem("StartTime = " + startTime);
 
