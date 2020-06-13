@@ -19,7 +19,7 @@ a {
 
 input {
   width: max-content;
-  padding: 2%;
+  padding: 0.2%;
 }
 
 button {
@@ -28,7 +28,7 @@ button {
   border-radius: 8px;
   font-size: 14px;
   color: #FFFFFF;
-  padding: 2%;
+  padding: 0.2%;
   width: max-content;
   text-align: center;
   transition-duration: 0.4s;
