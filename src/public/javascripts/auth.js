@@ -155,10 +155,10 @@
 
     }
 
-    initializeConsentButton();
+    // initializeConsentButton();
 
     // getAuthToken();
 
-    checkPerformance();
+    // checkPerformance();
     
 })();
