@@ -31,6 +31,10 @@ app.get("/termsofuse", (req, res) => {
   res.render("termsofuse");
 });
 
+app.get("/perf", (req, res) => {
+  res.render("performance");
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
