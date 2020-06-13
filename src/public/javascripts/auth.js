@@ -1,6 +1,6 @@
 (function() {
     'use strict';
- /*
+ 
     // 1. Get auth token
     // Ask Teams to get us a token from AAD, we should exchange it when it n
     function getAuthToken(){
@@ -90,7 +90,7 @@
         }
 
     }
-*/
+
 
     var startTime;
     var maxCount = 1000;
