@@ -3,7 +3,7 @@
  
     function initializePages() {
         initializeConsentButton();
-        checkPerformance();
+        // checkPerformance();
     }
 
     function initializeConsentButton() {
@@ -35,14 +35,14 @@
         logDiv.prepend(finalMessage, p);
         console.log("Auth : " + finalMessage);
     }
-    
+
     // ------------------------------------------------------------------------
 
     var startTime;
     var maxCount = 1000;
     function checkPerformance() {
-        var btn = document.getElementById("promptForAuthPerf");
-        btn.onclick = () => {
+        // var btn = document.getElementById("promptForAuthPerf");
+        // btn.onclick = () => {
             maxCount = document.querySelector('input[name=countVal]').value;
             startTime = new Date().getTime();
             printLogItem("StartTime = " + getCurrentDateTime());
@@ -50,7 +50,7 @@
             for ( var i = 1; i <= maxCount; i++) {
                 getAuthTokenWithCount(i);
             }
-        }
+        // }
     }
 
     function getAuthTokenWithCount(count) {
