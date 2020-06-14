@@ -21,15 +21,19 @@
 
       for (var i = 1, ct = 1; i <= maxCount; i++, ct++) {
         if (ct == batchCount && batchInterval > 0) {
-            setTimeout(function() {
-                getAuthTokenWithCount(i);
-            }, batchInterval);
+            setDelay(i);
             ct = 1;
         } else {
             getAuthTokenWithCount(i);
         }
       }
     };
+  }
+
+  function setDelay(i) {
+    setTimeout(function() {
+        getAuthTokenWithCount(i);
+    }, batchInterval);
   }
 
   function createNewRow() {
