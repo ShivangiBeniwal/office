@@ -111,8 +111,85 @@
 
     }
 
-    initializeConsentButton();
+// ------------------------------------------------------------------------
 
-    // getAuthToken();
+var startTime;
+
+var maxCount = 1000;
+
+function checkPerformance() {
+
+printLog(hi1);
+printLogItem("hi = " + getCurrentDateTime());
+
+printLog(hi2);
+// var btn = document.getElementById("promptForAuthPerf");
+// btn.onclick = () => {
+// maxCount = document.querySelector('input[name=countVal]').value;
+// startTime = new Date().getTime();
+// printLogItem("StartTime = " + getCurrentDateTime());
+
+
+// for ( var i = 1; i <= maxCount; i++) {
+// getAuthTokenWithCount(i);
+// }
+// }
+}
+
+
+function getAuthTokenWithCount(count) {
+
+// Get auth token
+var authTokenRequest = {
+
+successCallback: (result) => {
+
+document.getElementById('countSuccess').innerHTML = "Total success calls : " + count;
+
+if (count == maxCount) {
+
+printEndtime();
+}
+},
+failureCallback: function(error) {
+
+document.getElementById('countError').innerHTML = "Total error calls : " + count;
+
+if (count == maxCount) {
+
+printEndtime();
+}
+},
+};
+microsoftTeams.authentication.getAuthToken(authTokenRequest);
+}
+
+
+function printEndtime() {
+
+var endTime = new Date().getTime();
+
+printLogItem("EndTime = " + getCurrentDateTime());
+
+printLogItem("Total time taken = " + (endTime - startTime) + " ms");
+
+}
+
+
+function printLogItem(text) {
+
+var node = document.createElement("li");
+
+var textNode = document.createTextNode(text);
+
+node.appendChild(textNode);
+document.getElementById('logItems').appendChild(node);
+}
+
+
+// ------------------------------------------------------------------------
+
+    initializeConsentButton();
+    checkPerformance();
     
 })();
