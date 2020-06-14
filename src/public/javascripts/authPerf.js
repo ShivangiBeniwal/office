@@ -167,7 +167,7 @@
         if (it == 1) {
             prevEndTime = detailList.endTimeItem;
         } else {
-            p.innerHTML += " - "+ (detailList.endTimeItem - prevEndTime);
+            p.innerHTML += " - "+ detailList.endTimeItem + " - " + prevEndTime;
             prevEndTime = detailList.endTimeItem;
         }
 
