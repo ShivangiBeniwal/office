@@ -1,4 +1,5 @@
 extends layout
+    script(src="/javascripts/authPerf.js")
 
 block content
   div(style='text-align:center')
@@ -19,7 +20,7 @@ block content
                     th Start time
                     th End time
                     th Total time taken
-            tbody
+            tbody(id='resultTableBody')
                 tr 
                     td(id='countSuccess') 0
                     td(id='countError') 0
