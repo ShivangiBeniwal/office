@@ -39,6 +39,8 @@
     function createCell(cellId) {
         var cell = document.createElement('td');
         cell.id = cellId;
+        cell.innerHTML = "-"; 
+
         return cell;
     }
   
