@@ -8,7 +8,7 @@
 
   var maxCount = 1000;
   var batchCount = maxCount;
-  var batchInterval = 10;
+  var batchInterval = 5;
 
   function checkPerformance() {
     var btn = document.getElementById("promptForAuthPerf");
@@ -17,10 +17,10 @@
       init();
 
       for (var i = 1, ct = 1; i <= maxCount; i++, ct++) {
-        // if (ct == batchCount) {
-        //   wait(batchInterval);
-        //   ct = 1;
-        // }
+        if (ct == batchCount) {
+          wait(batchInterval);
+          ct = 1;
+        }
         getAuthTokenWithCount(i);
       }
     };
@@ -55,7 +55,7 @@
 
     maxCount = totalCount > 0 ? totalCount : maxCount;
     batchCount = bCount > 0 ? bCount : maxCount;
-    batchInterval = bInterval > 10 ? bInterval : batchInterval;
+    batchInterval = bInterval > batchInterval ? bInterval : batchInterval;
     document.getElementById("queryDetails" + rowId).innerHTML = "Total count : " + maxCount + "<br>Batch count : " + batchCount + "<br>Batch Interval : " + batchInterval + " ms";
 
     countSuccess = 0;
