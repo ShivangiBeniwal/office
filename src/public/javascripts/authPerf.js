@@ -52,6 +52,7 @@
     var totalCount = document.querySelector("input[name=totalCount]").value;
     var bCount = document.querySelector("input[name=batchCount]").value;
     var bInterval = document.querySelector("input[name=batchInterval]").value;
+    document.getElementById("queryDetails" + rowId).innerHTML = "Total count : " + totalCount + "\nBatch count : " + bCount + "\nBatch Interval : " + bInterval + " ms";
 
     maxCount = totalCount > 0 ? totalCount : maxCount;
     batchCount = bCount > 0 ? bCount : maxCount;
