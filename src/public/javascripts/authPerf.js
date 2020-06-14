@@ -58,7 +58,7 @@
 
     button.onclick = () => {
         button.classList.toggle("active");
-        var details = document.getElementById("details" + rowId);
+        var details = document.getElementById("details" + button.className.substr(12));
         if (details.style.maxHeight) {
            details.style.maxHeight = null;
         } else {
