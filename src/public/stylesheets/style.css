@@ -13,21 +13,23 @@ body {
   color: #00b7ff;
 }
 
-.details {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.2s ease-out;
-  background-color: #f1f1f1;
-}
-
 .active, .collapsible:hover {
-  background-color: #00b7ff;
+  background-color: #05151b;
 }
 
 .collapsible:after {
   color: white;
   font-weight: bold;
-  float: initial;
+  float: right;
+  margin-left: 5px;
+}
+
+.details {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
 }
 
 table {
