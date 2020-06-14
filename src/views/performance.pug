@@ -1,7 +1,8 @@
 extends layout
-script(src="/javascripts/authPerf.js")
 
 block content
+  script(src="/javascripts/authPerf.js")
+
   div(style='text-align:center')
     h1 Platform Extensibility App
     p Welcome to #{title}
@@ -12,18 +13,18 @@ block content
     br
     br
     div
-        table
-            thead
-                tr
-                    th Total success calls
-                    th Total error calls
-                    th Start time
-                    th End time
-                    th Total time taken
-            tbody(id='resultTableBody')
-                tr 
-                    td(id='countSuccess') 0
-                    td(id='countError') 0
-                    td(id='startTime') -
-                    td(id='endTime') -
-                    td(id='totalTime') -      
+      table
+        thead
+          tr
+            th Total success calls
+            th Total error calls
+            th Start time
+            th End time
+            th Total time taken
+        tbody(id='resultTableBody')
+          tr 
+            td(id='countSuccess') 0
+            td(id='countError') 0
+            td(id='startTime') -
+            td(id='endTime') -
+            td(id='totalTime') -      
