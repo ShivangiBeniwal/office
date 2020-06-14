@@ -10,12 +10,11 @@
     function checkPerformance() {
       var btn = document.getElementById("promptForAuthPerf");
       btn.onclick = () => {
-        var row = createNewRowWithId();
-        document.getElementById("countError").innerHTML = row.id;
-
+        createNewRow();
         maxCount = document.querySelector("input[name=countVal]").value;
+
         startTime = new Date().getTime();
-        document.getElementById('startTime').innerHTML = getCurrentDateTime();
+        document.getElementById('startTime'+rowId).innerHTML = getCurrentDateTime();
   
         for (var i = 1; i <= maxCount; i++) {
           getAuthTokenWithCount(i);
@@ -23,28 +22,38 @@
       };
     }
 
-    function createNewRowWithId() {
+    function createNewRow() {
         var tableBody = document.getElementById('resultTableBody');
         var row = document.createElement('tr');
+        row.id = rowId;
 
-        row.id = rowId++;
+        row.appendChild(createCell('countSuccess'+rowId));
+        row.appendChild(createCell('countError'+rowId));
+        row.appendChild(createCell('startTime'+rowId));
+        row.appendChild(createCell('endTime'+rowId));
+        row.appendChild(createCell('totalTime'+rowId));
+
         tableBody.insertBefore(row, tableBody.firstChild);
+    }
 
-        return row;
+    function createCell(cellId) {
+        var cell = document.createElement('td');
+        cell.id = cellId;
+        return cell;
     }
   
     function getAuthTokenWithCount(count) {
       // Get auth token
       var authTokenRequest = {
         successCallback: result => {
-          document.getElementById("countSuccess").innerHTML = count;
+          document.getElementById('countSuccess'+rowId).innerHTML = count;
   
           if (count == maxCount) {
             printEndtime();
           }
         },
         failureCallback: function(error) {
-          document.getElementById("countError").innerHTML = count;
+          document.getElementById('countError'+rowId).innerHTML = count;
   
           if (count == maxCount) {
             printEndtime();
@@ -56,8 +65,9 @@
   
     function printEndtime() {
       var endTime = new Date().getTime();
-      document.getElementById('endTime').innerHTML = getCurrentDateTime();
-      document.getElementById('totalTime').innerHTML = (endTime - startTime) + " ms";
+      document.getElementById('endTime'+rowId).innerHTML = getCurrentDateTime();
+      document.getElementById('totalTime'+rowId).innerHTML = (endTime - startTime) + " ms";
+      rowId++;
     }
   
     // ------------------------------------------------------------------------
