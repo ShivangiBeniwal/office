@@ -54,7 +54,7 @@
     var bInterval = document.querySelector("input[name=batchInterval]").value;
 
     maxCount = totalCount > 0 ? totalCount : maxCount;
-    batchCount = bCount > 0 ? bCount : batchCount;
+    batchCount = bCount > 0 ? bCount : maxCount;
     batchInterval = bInterval > 0 ? bInterval : batchInterval;
     document.getElementById("queryDetails" + rowId).innerHTML = maxCount + " [ " + batchCount + " - " + batchInterval + " ms]";
 
