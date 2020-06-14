@@ -50,6 +50,10 @@
   }
 
   function init() {
+    maxCount = 1000;
+    batchCount = maxCount;
+    batchInterval = 0;
+    
     var totalCount = document.querySelector("input[name=totalCount]").value;
     var bCount = document.querySelector("input[name=batchCount]").value;
     var bInterval = document.querySelector("input[name=batchInterval]").value;
