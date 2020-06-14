@@ -10,7 +10,9 @@
     function checkPerformance() {
       var btn = document.getElementById("promptForAuthPerf");
       btn.onclick = () => {
-        createNewRowWithId();
+        var row = createNewRowWithId();
+        document.getElementById("countError").innerHTML = row.id;
+
         maxCount = document.querySelector("input[name=countVal]").value;
         startTime = new Date().getTime();
         document.getElementById('startTime').innerHTML = getCurrentDateTime();
