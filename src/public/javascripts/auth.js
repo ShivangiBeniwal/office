@@ -1,6 +1,13 @@
 (function() {
   "use strict";
 
+  function initializeConsentButton() {
+    var btn = document.getElementById("promptForConsentButton");
+    btn.onclick = () => {
+      getAuthToken();
+    };
+  }
+
   function getAuthToken() {
     var authTokenRequest = {
       successCallback: result => {
@@ -13,13 +20,6 @@
 
     printLog("Get Auth Token Call is made.");
     microsoftTeams.authentication.getAuthToken(authTokenRequest);
-  }
-
-  function initializeConsentButton() {
-    var btn = document.getElementById("promptForConsentButton");
-    btn.onclick = () => {
-      getAuthToken();
-    };
   }
 
   function printLog(msg) {
