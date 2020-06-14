@@ -47,25 +47,25 @@
     var button = document.createElement('button');
     button.className = "collapsible";
     button.id = "collapsible" + rowId;
-    button.innerHTML = "collapsible button";
     collapsibleItem.appendChild(button);
 
     var tr = document.createElement('tr');
     tr.className = "details";
     tr.id = "details" + rowId;
     tr.innerHTML = "details rowId"+rowId;
+    tr.style.maxHeight = null;
     tableBody.insertBefore(tr, tableBody.firstChild);
   
-    // button.addEventListener("click", function() {
-    //     this.classList.toggle("active");
-    //     var fetchRowId = this.id.substr(12);
-    //     var details = document.getElementById("details" + fetchRowId);
-    //     if (details.style.maxHeight){
-    //        details.style.maxHeight = null;
-    //     } else {
-    //       details.style.maxHeight = details.scrollHeight + "px";
-    //     } 
-    // });
+    button.addEventListener("click", function() {
+        this.classList.toggle("active");
+        var fetchRowId = this.id.substr(12);
+        var details = document.getElementById("details" + fetchRowId);
+        if (details.style.maxHeight){
+           details.style.maxHeight = null;
+        } else {
+          details.style.maxHeight = details.scrollHeight + "px";
+        } 
+    });
   }
 
   function createCell(cellId) {
