@@ -100,17 +100,17 @@
         detailListMap.set(t, detailList);
     }
     storageList.set(rowId, detailListMap);
-
-    startTime = new Date().getTime();
-    document.getElementById("startTime" + rowId).innerHTML = getCurrentDateTime();
   }
 
   function getAuthTokenWithCount(count) {
     var detailListMap = storageList.get(rowId);
     var detailList = detailListMap.get(count);
 
+    startTime = new Date().getTime();
+    document.getElementById("startTime" + rowId).innerHTML = getCurrentDateTime();
+
     if (detailList.id == count) {
-        detailList.startTimeItem = new Date().getTime();
+        detailList.startTimeItem = startTime;
         detailListMap.set(count, detailList);
         storageList.set(rowId, detailListMap);
     }
