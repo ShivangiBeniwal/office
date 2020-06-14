@@ -37,9 +37,7 @@
   var maxCount = 1000;
 
   function checkPerformance() {
-    printLog(hi1);
     printLogItem("hi = " + getCurrentDateTime());
-    printLog(hi2);
     var btn = document.getElementById("promptForAuthPerf");
     btn.onclick = () => {
       maxCount = document.querySelector("input[name=countVal]").value;
