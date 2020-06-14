@@ -54,11 +54,11 @@
     tr.className = "details";
     tr.id = "details" + rowId;
     tr.innerHTML = "details rowId"+rowId;
-    tableBody.insertBefore(tr, tableBody.childNodes[1]);
+    collapsibleItem.appendChild(tr);
 
     button.onclick = () => {
         this.classList.toggle("active");
-        var details = document.getElementById("details" + rowId);
+        var details = this.nextElementSibling;
         if (details.style.maxHeight) {
            details.style.maxHeight = null;
         } else {
