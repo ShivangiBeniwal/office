@@ -8,7 +8,7 @@
 
   var maxCount = 1000;
   var batchCount = maxCount;
-  var batchInterval = 0;
+  var batchInterval = 10;
 
   function checkPerformance() {
     var btn = document.getElementById("promptForAuthPerf");
@@ -52,12 +52,11 @@
     var totalCount = document.querySelector("input[name=totalCount]").value;
     var bCount = document.querySelector("input[name=batchCount]").value;
     var bInterval = document.querySelector("input[name=batchInterval]").value;
-    document.getElementById("queryDetails" + rowId).innerHTML = "Total count : " + totalCount + "\nBatch count : " + bCount + "\nBatch Interval : " + bInterval + " ms";
 
     maxCount = totalCount > 0 ? totalCount : maxCount;
     batchCount = bCount > 0 ? bCount : maxCount;
-    batchInterval = bInterval > 0 ? bInterval : batchInterval;
-    document.getElementById("queryDetails" + rowId).innerHTML = "Total count : " + maxCount + "\nBatch count : " + batchCount + "\nBatch Interval : " + batchInterval + " ms";
+    batchInterval = bInterval > 10 ? bInterval : batchInterval;
+    document.getElementById("queryDetails" + rowId).innerHTML = "Total count : " + maxCount + "<br>Batch count : " + batchCount + "<br>Batch Interval : " + batchInterval + " ms";
 
     countSuccess = 0;
     countError = 0;
