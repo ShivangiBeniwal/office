@@ -17,10 +17,10 @@
       init();
 
       for (var i = 1, ct = 1; i <= maxCount; i++, ct++) {
-        if (ct == batchCount) {
-          wait(batchInterval);
-          ct = 1;
-        }
+        // if (ct == batchCount) {
+        //   wait(batchInterval);
+        //   ct = 1;
+        // }
         getAuthTokenWithCount(i);
       }
     };
