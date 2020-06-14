@@ -146,7 +146,7 @@
         detailListMap.set(count, detailList);
         storageList.set(rowId, detailListMap);
     }
-    document.getElementById("totalCount" + rowId).innerHTML = "(" + countSuccess + "/" + countError + ")";
+    document.getElementById("totalCount" + rowId).innerHTML = "(" + detailList.endTimeItem + "/" + detailList.startTimeItem + ")";
   }
 
   function printEndtime() {
