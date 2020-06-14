@@ -50,21 +50,20 @@
     button.innerHTML = "Arrow";
     collapsibleItem.appendChild(button);
 
-    // var tr = document.createElement('tr');
-    // tr.className = "details";
-    // tr.id = "details" + rowId;
-    // tr.innerHTML = "details rowId"+rowId;
-    // collapsibleItem.appendChild(tr);
+    var div = document.createElement('div');
+    div.className = "details";
+    div.id = "details" + rowId;
+    div.innerHTML = "details rowId"+rowId;
+    collapsibleItem.appendChild(div);
 
     button.onclick = () => {
-        button.innerHTML = "clicked";
-        // this.classList.toggle("active");
-        // var details = this.nextElementSibling;
-        // if (details.style.maxHeight) {
-        //    details.style.maxHeight = null;
-        // } else {
-        //   details.style.maxHeight = details.scrollHeight + "px";
-        // } 
+        button.classList.toggle("active");
+        var details = button.nextElementSibling;
+        if (details.style.maxHeight) {
+           details.style.maxHeight = null;
+        } else {
+          details.style.maxHeight = details.scrollHeight + "px";
+        } 
     };
   }
 
