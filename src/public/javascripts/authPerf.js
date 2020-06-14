@@ -47,6 +47,7 @@
     var button = document.createElement('button');
     button.className = "collapsible";
     button.id = "collapsible" + rowId;
+    collapsibleItem.innerText = "";
     collapsibleItem.appendChild(button);
 
     var div = document.createElement('div');
