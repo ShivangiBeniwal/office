@@ -56,8 +56,8 @@
     tr.innerHTML = "details rowId"+rowId;
     tr.style.maxHeight = null;
     tableBody.insertBefore(tr, tableBody.childNodes[1]);
-  
-    button.addEventListener("click", function() {
+
+    button.onclick = () => {
         this.classList.toggle("active");
         var fetchRowId = this.id.substr(12);
         var details = document.getElementById("details" + fetchRowId);
@@ -66,7 +66,8 @@
         } else {
           details.style.maxHeight = details.scrollHeight + "px";
         } 
-    });
+    };
+
   }
 
   function createCell(cellId) {
