@@ -60,7 +60,7 @@
     var bInterval = document.querySelector("input[name=batchInterval]").value;
 
     maxCount = totalCount > 0 ? totalCount : defaultCount;
-    batchCount = bCount > 0 ? bCount : defaultCount;
+    batchCount = bCount > 0 ? bCount : maxCount;
     batchInterval = bInterval > 0 ? bInterval : batchInterval;
     document.getElementById("queryDetails" + rowId).innerHTML = "Total count : " + maxCount + "<br>Batch count : " + batchCount + "<br>Batch Interval : " + batchInterval + " ms";
 
