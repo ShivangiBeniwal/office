@@ -16,14 +16,13 @@
       createNewRow();
       init();
 
-      var ct = 1;
-      for (var i = 1; i <= maxCount; i++) {
+      for (var i = 1, ct = 1; i <= maxCount; i++, ct++) {
         if (ct == batchCount) {
-          wait(batchInterval);
-          ct = 1;
+            setTimeout(getAuthTokenWithCount(i), batchInterval);
+            ct = 1;
+        } else {
+            getAuthTokenWithCount(i);
         }
-        getAuthTokenWithCount(i);
-        ct++;
       }
     };
   }
@@ -65,14 +64,6 @@
 
     startTime = new Date().getTime();
     document.getElementById("startTime" + rowId).innerHTML = getCurrentDateTime();
-  }
-
-  function wait(ms) {
-    var start = new Date().getTime();
-    var end = start;
-    while (end < start + ms) {
-      end = new Date().getTime();
-    }
   }
 
   function getAuthTokenWithCount(count) {
