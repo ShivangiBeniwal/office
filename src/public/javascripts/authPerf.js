@@ -11,6 +11,8 @@
   var batchCount = defaultCount;
   var batchInterval = 0;
 
+  var storageList = new Map();
+
   function checkPerformance() {
     var btn = document.getElementById("promptForAuthPerf");
     btn.onclick = () => {
@@ -39,7 +41,31 @@
     row.appendChild(createCell("endTime" + rowId));
     row.appendChild(createCell("totalTime" + rowId));
 
+    var ttItem = document.getElementById("totalTime" + rowId);
+    var button = document.createElement('button');
+    button.className = "collapsible";
+    button.id = "collapsible" + rowId;
+    button.innerHTML = "<b>V</b>";
+    ttItem.appendChild(button);
+
+    var tr = document.createElement('tr');
+    tr.className = "detials";
+    tr.id = "detials" + rowId;
+    tr.innerHTML = "detials rowId"+rowId;
+    
+    tableBody.insertBefore(tr, tableBody.firstChild);
     tableBody.insertBefore(row, tableBody.firstChild);
+  
+    button.addEventListener("click", function() {
+        this.classList.toggle("active");
+        var fetchRowId = this.id.substr(12);
+        var detials = document.getElementById("detials" + fetchRowId);
+        if (detials.style.maxHeight){
+           detials.style.maxHeight = null;
+        } else {
+          detials.style.maxHeight = detials.scrollHeight + "px";
+        } 
+    });
   }
 
   function createCell(cellId) {
@@ -64,16 +90,37 @@
     batchInterval = bInterval > 0 ? bInterval : batchInterval;
     document.getElementById("queryDetails" + rowId).innerHTML = "Total count : " + maxCount + "<br>Batch count : " + batchCount + "<br>Batch Interval : " + batchInterval + " ms";
 
+    var detailListArray = new Map();
+    for (var t = 1; t <= maxCount; t++) {
+        var time = new Date().getTime();
+        var detailList = {
+            id : t,
+            startTimeItem: time,
+            endTimeItem: time,
+            totalTimeItem : 0
+        }
+        detailListArray.set(t, detailList);
+    }
+    storageList.set(rowId, detailListArray);
+
     startTime = new Date().getTime();
     document.getElementById("startTime" + rowId).innerHTML = getCurrentDateTime();
   }
 
   function getAuthTokenWithCount(count) {
-    // Get auth token
+    var detailListArray = storageList.get(rowId);
+    var detailList = detailListArray.get(count);
+
+    if (detailList.id == count) {
+        detailList.startTimeItem = new Date().getTime();
+        detailListArray.set(count, detailList);
+        storageList.set(rowId, detailListArray);
+    }
+
     var authTokenRequest = {
       successCallback: result => {
         countSuccess++;
-        printCallCount();
+        printCallCount(count);
 
         if (count == maxCount) {
           printEndtime();
@@ -81,7 +128,7 @@
       },
       failureCallback: function(error) {
         countError++;
-        printCallCount();
+        printCallCount(count);
 
         if (count == maxCount) {
           printEndtime();
@@ -91,7 +138,16 @@
     microsoftTeams.authentication.getAuthToken(authTokenRequest);
   }
 
-  function printCallCount() {
+  function printCallCount(count) {
+    var detailListArray = storageList.get(rowId);
+    var detailList = detailListArray.get(count);
+
+    if (detailList.id == count) {
+        detailList.endTimeItem = new Date().getTime();
+        detailList.totalTimeItem = detailList.endTimeItem - detailList.startTimeItem;
+        detailListArray.set(count, detailList);
+        storageList.set(rowId, detailListArray);
+    }
     document.getElementById("totalCount" + rowId).innerHTML = "(" + countSuccess + "/" + countError + ")";
   }
 

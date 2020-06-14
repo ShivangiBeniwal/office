@@ -13,6 +13,30 @@ body {
   color: #00b7ff;
 }
 
+.active, .collapsible:hover {
+  background-color: #00b7ff;
+}
+
+.collapsible:after {
+  content: '\002B';
+  color: white;
+  font-weight: bold;
+  float: right;
+  margin-left: 5px;
+}
+
+.active:after {
+  content: "\2212";
+}
+
+.detials {
+  padding: 0 18px;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+  background-color: #f1f1f1;
+}
+
 table {
   border-collapse: collapse;
   width: 100%;
