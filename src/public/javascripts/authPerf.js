@@ -53,7 +53,6 @@
     var div = document.createElement('div');
     div.className = "details";
     div.id = "details" + rowId;
-    div.innerHTML = "details rowId"+rowId;
     collapsibleItem.appendChild(div);
 
     button.onclick = () => {
@@ -89,7 +88,7 @@
     batchInterval = bInterval > 0 ? bInterval : batchInterval;
     document.getElementById("queryDetails" + rowId).innerHTML = "Total count : " + maxCount + "<br>Batch count : " + batchCount + "<br>Batch Interval : " + batchInterval + " ms";
 
-    var detailListArray = new Map();
+    var detailListMap = new Map();
     for (var t = 1; t <= maxCount; t++) {
         var time = new Date().getTime();
         var detailList = {
@@ -98,22 +97,22 @@
             endTimeItem: time,
             totalTimeItem : 0
         }
-        detailListArray.set(t, detailList);
+        detailListMap.set(t, detailList);
     }
-    storageList.set(rowId, detailListArray);
+    storageList.set(rowId, detailListMap);
 
     startTime = new Date().getTime();
     document.getElementById("startTime" + rowId).innerHTML = getCurrentDateTime();
   }
 
   function getAuthTokenWithCount(count) {
-    var detailListArray = storageList.get(rowId);
-    var detailList = detailListArray.get(count);
+    var detailListMap = storageList.get(rowId);
+    var detailList = detailListMap.get(count);
 
     if (detailList.id == count) {
         detailList.startTimeItem = new Date().getTime();
-        detailListArray.set(count, detailList);
-        storageList.set(rowId, detailListArray);
+        detailListMap.set(count, detailList);
+        storageList.set(rowId, detailListMap);
     }
 
     var authTokenRequest = {
@@ -138,14 +137,14 @@
   }
 
   function printCallCount(count) {
-    var detailListArray = storageList.get(rowId);
-    var detailList = detailListArray.get(count);
+    var detailListMap = storageList.get(rowId);
+    var detailList = detailListMap.get(count);
 
     if (detailList.id == count) {
         detailList.endTimeItem = new Date().getTime();
         detailList.totalTimeItem = detailList.endTimeItem - detailList.startTimeItem;
-        detailListArray.set(count, detailList);
-        storageList.set(rowId, detailListArray);
+        detailListMap.set(count, detailList);
+        storageList.set(rowId, detailListMap);
     }
     document.getElementById("totalCount" + rowId).innerHTML = "(" + countSuccess + "/" + countError + ")";
   }
@@ -154,6 +153,16 @@
     var endTime = new Date().getTime();
     document.getElementById("endTime" + rowId).innerHTML = getCurrentDateTime();
     document.getElementById("totalTime" + rowId).innerHTML = endTime - startTime + " ms";
+
+    var detailsDiv = document.getElementById("details" + rowId);
+    var detailListMap = storageList.get(rowId);
+
+    for (const iterator of detailListMap) {
+        var p =  document.createElement('p');
+        p.innerHTML = iterator.id + ") " + iterator.startTimeItem + " to " + iterator.endTimeItem + " : " + iterator.totalTimeItem;
+        detailsDiv.appendChild(p);
+    }
+
     rowId++;
   }
 
