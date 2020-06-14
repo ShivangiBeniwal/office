@@ -51,9 +51,11 @@
     collapsibleItem.appendChild(button);
 
     var tr = document.createElement('tr');
-    tr.className = "details";
-    tr.id = rowId;
-    tr.innerHTML = "details rowId"+rowId;
+    var div = document.createElement('div');
+    div.className = "details";
+    div.id = rowId;
+    div.innerHTML = "details rowId"+rowId;
+    tr.appendChild(div);
     tableBody.insertBefore(tr, tableBody.childNodes[1]);
 
     button.onclick = () => {
