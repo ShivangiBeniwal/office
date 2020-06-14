@@ -40,30 +40,30 @@
     row.appendChild(createCell("startTime" + rowId));
     row.appendChild(createCell("endTime" + rowId));
     row.appendChild(createCell("totalTime" + rowId));
+    row.appendChild(createCell("collapsible" + rowId));
     tableBody.insertBefore(row, tableBody.firstChild);
 
-    var ttItem = document.getElementById("totalTime" + rowId);
+    var collapsibleItem = document.getElementById("collapsible" + rowId);
     var button = document.createElement('button');
     button.className = "collapsible";
     button.id = "collapsible" + rowId;
-    button.innerHTML = "<b>V</b>";
-    ttItem.appendChild(button);
+    button.innerHTML = "collapsible button";
+    collapsibleItem.innerHTML = button;
 
     var tr = document.createElement('tr');
-    tr.className = "detials";
-    tr.id = "detials" + rowId;
-    tr.innerHTML = "detials rowId"+rowId;
-    
+    tr.className = "details";
+    tr.id = "details" + rowId;
+    tr.innerHTML = "details rowId"+rowId;
     tableBody.insertBefore(tr, tableBody.firstChild);
   
     // button.addEventListener("click", function() {
     //     this.classList.toggle("active");
     //     var fetchRowId = this.id.substr(12);
-    //     var detials = document.getElementById("detials" + fetchRowId);
-    //     if (detials.style.maxHeight){
-    //        detials.style.maxHeight = null;
+    //     var details = document.getElementById("details" + fetchRowId);
+    //     if (details.style.maxHeight){
+    //        details.style.maxHeight = null;
     //     } else {
-    //       detials.style.maxHeight = detials.scrollHeight + "px";
+    //       details.style.maxHeight = details.scrollHeight + "px";
     //     } 
     // });
   }
