@@ -41,19 +41,19 @@
     row.appendChild(createCell("endTime" + rowId));
     row.appendChild(createCell("totalTime" + rowId));
 
-    // var ttItem = document.getElementById("totalTime" + rowId);
-    // var button = document.createElement('button');
-    // button.className = "collapsible";
-    // button.id = "collapsible" + rowId;
-    // button.innerHTML = "<b>V</b>";
-    // ttItem.appendChild(button);
+    var ttItem = document.getElementById("totalTime" + rowId);
+    var button = document.createElement('button');
+    button.className = "collapsible";
+    button.id = "collapsible" + rowId;
+    button.innerHTML = "<b>V</b>";
+    ttItem.appendChild(button);
 
-    // var tr = document.createElement('tr');
-    // tr.className = "detials";
-    // tr.id = "detials" + rowId;
-    // tr.innerHTML = "detials rowId"+rowId;
+    var tr = document.createElement('tr');
+    tr.className = "detials";
+    tr.id = "detials" + rowId;
+    tr.innerHTML = "detials rowId"+rowId;
     
-    // tableBody.insertBefore(tr, tableBody.firstChild);
+    tableBody.insertBefore(tr, tableBody.firstChild);
     tableBody.insertBefore(row, tableBody.firstChild);
   
     // button.addEventListener("click", function() {
