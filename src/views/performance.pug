@@ -9,8 +9,9 @@ block content
     h1 Platform Extensibility App
     p Welcome to #{title}
     br
-    input(type='text', name='countVal' placeholder='No. of auth calls ?')
-    br
+    input(type='text', name='totalCount' placeholder='Total no. of auth calls ?')
+    input(type='text', name='batchCount' placeholder='Total batch calls ?')
+    input(type='text', name='batchInterval' placeholder='Batch interval (in ms) ?')
     button(id='promptForAuthPerf') Check Auth Performance
     br
     br
@@ -18,8 +19,8 @@ block content
       table
         thead
           tr
-            th Total success calls
-            th Total error calls
+            th Query Details
+            th Success / Error
             th Start time
             th End time
             th Total time taken
