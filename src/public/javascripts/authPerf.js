@@ -161,13 +161,12 @@
     for (var it = 1; it <= maxCount; it++) {
         var detailList = detailListMap.get(it);
         var p =  document.createElement('p');
-        var prevEndTime = detailList.endTimeItem;
         p.innerHTML = detailList.id + ") " + detailList.startTimeItem + " to " + detailList.endTimeItem + " : " + detailList.totalTimeItem;
 
         if (it == 1) {
             prevEndTime = detailList.endTimeItem;
         } else {
-            p.innerHTML += " - "+ detailList.endTimeItem + " - " + prevEndTime;
+            p.innerHTML += " - "+ (detailList.endTimeItem - prevEndTime);
             prevEndTime = detailList.endTimeItem;
         }
 
