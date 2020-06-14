@@ -46,19 +46,19 @@
     var collapsibleItem = document.getElementById("collapsible" + rowId);
     var button = document.createElement('button');
     button.className = "collapsible";
-    button.id = "collapsible" + rowId;
+    button.id = rowId;
     button.innerHTML = "Arrow";
     collapsibleItem.appendChild(button);
 
-    var div = document.createElement('div');
-    div.className = "details";
-    div.id = "details" + rowId;
-    div.innerHTML = "details rowId"+rowId;
-    tableBody.insertBefore(div, tableBody.childNodes[1]);
+    var tr = document.createElement('tr');
+    tr.className = "details";
+    tr.id = rowId;
+    tr.innerHTML = "details rowId"+rowId;
+    tableBody.insertBefore(tr, tableBody.childNodes[1]);
 
     button.onclick = () => {
         button.classList.toggle("active");
-        var details = document.getElementById("details" + button.className.substr(12));
+        var details = document.getElementById(button.id);
         if (details.style.maxHeight) {
            details.style.maxHeight = null;
         } else {
