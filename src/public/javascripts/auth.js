@@ -109,6 +109,6 @@
     return dateTime;
   }
 
-  initializeConsentButton();
+//   initializeConsentButton();
   checkPerformance();
 })();
