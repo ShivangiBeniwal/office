@@ -10,18 +10,34 @@
 
 body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
 a {
-  color: #00B7FF;
+  color: #00b7ff;
 }
 
-li {
-  list-style: none;
+table {
+  border-collapse: collapse;
+  width: 100%;
 }
 
-input[type=text] {
+th,
+td {
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+th {
+  background-color: #008cba;
+  color: white;
+}
+
+input[type="text"] {
   padding: 12px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -30,11 +46,11 @@ input[type=text] {
 
 button {
   position: relative;
-  background-color: #008CBA;
+  background-color: #008cba;
   border-radius: 8px;
   font-size: 14px;
-  color: #FFFFFF;
-  padding: 0.6%;
+  color: #ffffff;
+  padding: 0.8%;
   width: max-content;
   text-align: center;
   transition-duration: 0.4s;
@@ -53,12 +69,12 @@ button:after {
   margin-left: -20px !important;
   margin-top: -120%;
   opacity: 0;
-  transition: all 0.8s
+  transition: all 0.8s;
 }
 
 button:active:after {
   padding: 0;
   margin: 0;
   opacity: 1;
-  transition: 0s
+  transition: 0s;
 }

@@ -37,12 +37,11 @@
   var maxCount = 1000;
 
   function checkPerformance() {
-    printLogItem("hi = " + getCurrentDateTime());
     var btn = document.getElementById("promptForAuthPerf");
     btn.onclick = () => {
       maxCount = document.querySelector("input[name=countVal]").value;
       startTime = new Date().getTime();
-      printLogItem("StartTime = " + getCurrentDateTime());
+      document.getElementById('startTime').innerHTML = getCurrentDateTime();
 
       for (var i = 1; i <= maxCount; i++) {
         getAuthTokenWithCount(i);
@@ -54,16 +53,14 @@
     // Get auth token
     var authTokenRequest = {
       successCallback: result => {
-        document.getElementById("countSuccess").innerHTML =
-          "Total success calls : " + count;
+        document.getElementById("countSuccess").innerHTML = count;
 
         if (count == maxCount) {
           printEndtime();
         }
       },
       failureCallback: function(error) {
-        document.getElementById("countError").innerHTML =
-          "Total error calls : " + count;
+        document.getElementById("countError").innerHTML = count;
 
         if (count == maxCount) {
           printEndtime();
@@ -75,19 +72,8 @@
 
   function printEndtime() {
     var endTime = new Date().getTime();
-
-    printLogItem("EndTime = " + getCurrentDateTime());
-
-    printLogItem("Total time taken = " + (endTime - startTime) + " ms");
-  }
-
-  function printLogItem(text) {
-    var node = document.createElement("li");
-
-    var textNode = document.createTextNode(text);
-
-    node.appendChild(textNode);
-    document.getElementById("logItems").appendChild(node);
+    document.getElementById('endTime').innerHTML = getCurrentDateTime();
+    document.getElementById('totalTime').innerHTML = (endTime - startTime) + " ms";
   }
 
   // ------------------------------------------------------------------------

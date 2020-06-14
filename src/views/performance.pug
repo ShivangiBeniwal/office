@@ -10,7 +10,19 @@ block content
     button(id='promptForAuthPerf') Check Auth Performance
     br
     br
-    div(id='logs')
-        ul(id='logItems')
-           li(id='countSuccess')
-           li(id='countError')
+    div
+        table
+            thead
+                tr
+                    th Total success calls
+                    th Total error calls
+                    th Start time
+                    th End time
+                    th Total time taken
+            tbody
+                tr 
+                    th(id='countSuccess')
+                    th(id='countError')
+                    th(id='startTime')
+                    th(id='endTime')
+                    th(id='totalTime')         
