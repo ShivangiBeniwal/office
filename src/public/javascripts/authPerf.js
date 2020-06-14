@@ -56,7 +56,7 @@
     maxCount = totalCount > 0 ? totalCount : maxCount;
     batchCount = bCount > 0 ? bCount : maxCount;
     batchInterval = bInterval > 0 ? bInterval : batchInterval;
-    document.getElementById("queryDetails" + rowId).innerHTML = maxCount + " [ " + batchCount + " - " + batchInterval + " ms]";
+    document.getElementById("queryDetails" + rowId).innerHTML = "Total count : " + maxCount + "\nBatch count : " + batchCount + "\nBatch Interval : " + batchInterval + " ms";
 
     countSuccess = 0;
     countError = 0;
