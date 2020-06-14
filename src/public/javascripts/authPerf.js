@@ -20,7 +20,7 @@
       init();
 
       for (var i = 1, ct = 1; i <= maxCount; i++, ct++) {
-        if (ct == batchCount) {
+        if (ct == batchCount && batchInterval > 0) {
             setTimeout(function() {
                 getAuthTokenWithCount(i);
             }, batchInterval);
