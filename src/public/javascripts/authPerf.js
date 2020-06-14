@@ -22,8 +22,12 @@
     }
 
     function createNewRowWithId() {
-        var row = document.getElementById('resultTableBody').insertRow(0);
+        var tableBody = document.getElementById('resultTableBody');
+        var row = document.createElement('tr');
+
         row.id = rowId++;
+        tableBody.insertBefore(row, tableBody.firstChild);
+
         return row;
     }
   

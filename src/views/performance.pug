@@ -1,5 +1,9 @@
 extends layout
 
+block scripts
+  script(src="/javascripts/teamsapp.js")    
+  script(src="/javascripts/authPerf.js")
+
 block content
   div(style='text-align:center')
     h1 Platform Extensibility App
@@ -26,7 +30,3 @@ block content
             td(id='startTime') -
             td(id='endTime') -
             td(id='totalTime') -    
-
-block scripts
-  script(src="/javascripts/teamsapp.js")    
-  script(src="/javascripts/authPerf.js")
