@@ -54,7 +54,7 @@
     tr.id = "details" + rowId;
     tr.innerHTML = "details rowId"+rowId;
     tr.style.maxHeight = null;
-    tableBody.insertBefore(tr, tableBody.firstChild);
+    tableBody.insertBefore(tr, tableBody.childNodes[1]);
   
     button.addEventListener("click", function() {
         this.classList.toggle("active");
