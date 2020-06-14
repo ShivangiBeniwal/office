@@ -1,7 +1,6 @@
 extends layout
 
 block content
-  script(src="/javascripts/auth.js")
   div(style='text-align:center')
     h1 Platform Extensibility App
     p Welcome to #{title}
@@ -9,3 +8,7 @@ block content
     br
     br
     div(id='logs')
+
+block scripts
+  script(src="/javascripts/teamsapp.js")    
+  script(src="/javascripts/auth.js")

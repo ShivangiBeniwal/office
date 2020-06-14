@@ -1,7 +1,6 @@
 extends layout
 
 block content
-  script(src="/javascripts/authPerf.js")
   div(style='text-align:center')
     h1 Platform Extensibility App
     p Welcome to #{title}
@@ -26,4 +25,8 @@ block content
             td(id='countError') 0
             td(id='startTime') -
             td(id='endTime') -
-            td(id='totalTime') -      
+            td(id='totalTime') -    
+
+block scripts
+  script(src="/javascripts/teamsapp.js")    
+  script(src="/javascripts/authPerf.js")
