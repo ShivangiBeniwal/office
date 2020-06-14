@@ -6,8 +6,9 @@
   var countSuccess = 0;
   var countError = 0;
 
-  var maxCount = 10;
-  var batchCount = maxCount;
+  var defaultCount = 10;
+  var maxCount = defaultCount;
+  var batchCount = defaultCount;
   var batchInterval = 0;
 
   function checkPerformance() {
@@ -50,21 +51,18 @@
   }
 
   function init() {
-    maxCount = 1000;
-    batchCount = maxCount;
     batchInterval = 0;
+    countSuccess = 0;
+    countError = 0;
 
     var totalCount = document.querySelector("input[name=totalCount]").value;
     var bCount = document.querySelector("input[name=batchCount]").value;
     var bInterval = document.querySelector("input[name=batchInterval]").value;
 
-    maxCount = totalCount > 0 ? totalCount : maxCount;
-    batchCount = bCount > 0 ? bCount : maxCount;
+    maxCount = totalCount > 0 ? totalCount : defaultCount;
+    batchCount = bCount > 0 ? bCount : defaultCount;
     batchInterval = bInterval > 0 ? bInterval : batchInterval;
     document.getElementById("queryDetails" + rowId).innerHTML = "Total count : " + maxCount + "<br>Batch count : " + batchCount + "<br>Batch Interval : " + batchInterval + " ms";
-
-    countSuccess = 0;
-    countError = 0;
 
     startTime = new Date().getTime();
     document.getElementById("startTime" + rowId).innerHTML = getCurrentDateTime();
