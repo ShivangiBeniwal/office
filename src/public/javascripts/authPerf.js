@@ -40,6 +40,7 @@
     row.appendChild(createCell("startTime" + rowId));
     row.appendChild(createCell("endTime" + rowId));
     row.appendChild(createCell("totalTime" + rowId));
+    tableBody.insertBefore(row, tableBody.firstChild);
 
     var ttItem = document.getElementById("totalTime" + rowId);
     var button = document.createElement('button');
@@ -54,7 +55,6 @@
     tr.innerHTML = "detials rowId"+rowId;
     
     tableBody.insertBefore(tr, tableBody.firstChild);
-    tableBody.insertBefore(row, tableBody.firstChild);
   
     // button.addEventListener("click", function() {
     //     this.classList.toggle("active");
