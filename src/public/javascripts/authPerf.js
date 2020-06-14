@@ -146,7 +146,7 @@
         detailListMap.set(count, detailList);
         storageList.set(rowId, detailListMap);
     }
-    document.getElementById("totalCount" + rowId).innerHTML = "(" + detailList.endTimeItem + "/" + detailList.startTimeItem + ")";
+    document.getElementById("totalCount" + rowId).innerHTML = "(" + countSuccess + "/" + countError + ")";
   }
 
   function printEndtime() {
@@ -157,9 +157,10 @@
     var detailsDiv = document.getElementById("details" + rowId);
     var detailListMap = storageList.get(rowId);
 
-    for (const iterator of detailListMap) {
+    for (var it = 1; it <= maxCount; it++) {
+        var detailList = detailListMap.get(it);
         var p =  document.createElement('p');
-        p.innerHTML = iterator.id + ") " + iterator.startTimeItem + " to " + iterator.endTimeItem + " : " + iterator.totalTimeItem;
+        p.innerHTML = detailList.id + ") " + detailList.startTimeItem + " to " + detailList.endTimeItem + " : " + detailList.totalTimeItem;
         detailsDiv.appendChild(p);
     }
 
