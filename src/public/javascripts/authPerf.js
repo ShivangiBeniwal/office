@@ -47,14 +47,13 @@
     var button = document.createElement('button');
     button.className = "collapsible";
     button.id = "collapsible" + rowId;
-    button.innerHTML = "Arrow";
     collapsibleItem.appendChild(button);
 
     var div = document.createElement('div');
     div.className = "details";
     div.id = "details" + rowId;
     div.innerHTML = "details rowId"+rowId;
-    tableBody.insertBefore(div, tableBody.childNodes[1]);
+    collapsibleItem.appendChild(div);
 
     button.onclick = () => {
         button.classList.toggle("active");
