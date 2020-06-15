@@ -125,7 +125,7 @@
 
   function printDL(i) {
     var detailListMap = storageList.get(rowId);
-    var detailList = detailListMap.get(count);
+    var detailList = detailListMap.get(i);
     printLogs("detailList.id - "+detailList.id);
     printLogs("detailList.startTimeItem - "+detailList.startTimeItem);
     printLogs("detailList.endTimeItem - "+detailList.endTimeItem);
