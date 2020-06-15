@@ -24,16 +24,15 @@
 
   function makeAuthCall(batchNo, callCounts) {
     printLogs("makeAuthCall"+batchNo+" - "+callCounts+" maxct : "+maxCount+", batchct = "+ batchCount);
+    var finalCallCounts = callCounts;
     while (callCounts > 0) {
         var ct = (batchNo * batchCount) + (batchCount - callCounts + 1);
         getAuthTokenWithCount(ct);
         printLogs("getAuthTokenWithCount "+ct);
         callCounts--;
     }
-
-    var callsDoneSoFar = callCounts + (batchNo * batchCount);
-    printLogs("callsDoneSoFar "+callsDoneSoFar);
-    var leftOverCalls = maxCount - callsDoneSoFar;
+    
+    var leftOverCalls = maxCount - finalCallCounts - (batchNo * batchCount);
     printLogs("leftOverCalls"+leftOverCalls);
     if (leftOverCalls > 0) {
         if (batchInterval > 0) {
