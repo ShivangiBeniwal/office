@@ -18,22 +18,27 @@
     btn.onclick = () => {
       createNewRow();
       init();
-
-      for (var i = 1, ct = 1; i <= maxCount; i++, ct++) {
-        if (ct == batchCount && batchInterval > 0) {
-            setDelay(i);
-            ct = 1;
-        } else {
-            getAuthTokenWithCount(i);
-        }
-      }
+      makeAuthCall(0, batchCount);
     };
   }
 
-  function setDelay(i) {
-    setTimeout(function() {
-        getAuthTokenWithCount(i);
-    }, batchInterval);
+  function makeAuthCall(batchNo, callCounts) {
+    while (callCounts > 0) {
+        var ct = (batchNo * batchCount) + (batchCount - callCounts + 1);
+        getAuthTokenWithCount(ct);
+        callCounts--;
+    }
+
+    var leftOverCalls = maxCount - callCounts;
+    if (leftOverCalls > 0) {
+        if (batchInterval > 0) {
+            setTimeout(function () {
+                makeAuthCall(batchNo + 1, leftOverCalls);
+              }, batchInterval);
+          } else {
+              makeAuthCall(batchNo + 1, leftOverCalls);
+          }
+      }
   }
 
   function createNewRow() {
