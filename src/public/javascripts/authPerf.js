@@ -30,15 +30,15 @@
         callCounts--;
     }
 
-    var leftOverCalls = maxCount - callCounts;
+    var leftOverCalls = maxCount - (batchNo * batchCount) - callCounts;
     printLogs("leftOverCalls"+leftOverCalls);
     if (leftOverCalls > 0) {
         if (batchInterval > 0) {
             setTimeout(function () {
-                makeAuthCall(batchNo + 1, leftOverCalls);
+                makeAuthCall(batchNo + 1, Math.min(leftOverCalls, batchCount));
               }, batchInterval);
           } else {
-              makeAuthCall(batchNo + 1, leftOverCalls);
+              makeAuthCall(batchNo + 1, Math.min(leftOverCalls, batchCount));
           }
       }
   }
