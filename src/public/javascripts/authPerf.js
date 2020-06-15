@@ -23,6 +23,7 @@
   }
 
   function makeAuthCall(batchNo, callCounts) {
+    printLogs("makeAuthCall"+batchNo+" - "+callCounts);
     while (callCounts > 0) {
         var ct = (batchNo * batchCount) + (batchCount - callCounts + 1);
         getAuthTokenWithCount(ct);
@@ -30,6 +31,7 @@
     }
 
     var leftOverCalls = maxCount - callCounts;
+    printLogs("leftOverCalls"+leftOverCalls);
     if (leftOverCalls > 0) {
         if (batchInterval > 0) {
             setTimeout(function () {
@@ -39,6 +41,13 @@
               makeAuthCall(batchNo + 1, leftOverCalls);
           }
       }
+  }
+
+  function printLogs(msg) {
+    var finalMessage = "[" + getCurrentDateTime() + "] " + msg;
+    var logDiv = document.getElementById("logs");
+    var p = document.createElement("p");
+    logDiv.prepend(finalMessage, p);
   }
 
   function createNewRow() {
@@ -58,6 +67,7 @@
     var button = document.createElement('button');
     button.className = "collapsible";
     button.id = "collapsible" + rowId;
+    button.innerHTML = "Show Details";
     collapsibleItem.innerText = "";
     collapsibleItem.appendChild(button);
 
@@ -70,9 +80,11 @@
         button.classList.toggle("active");
         var details = button.nextElementSibling;
         if (details.style.maxHeight) {
-           details.style.maxHeight = null;
+            button.innerHTML = "Show Details";
+            details.style.maxHeight = null;
         } else {
-          details.style.maxHeight = details.scrollHeight + "px";
+            button.innerHTML = "Hide Details";
+            details.style.maxHeight = details.scrollHeight + "px";
         } 
     };
   }
