@@ -27,6 +27,7 @@
     while (callCounts > 0) {
         var ct = (batchNo * batchCount) + (batchCount - callCounts + 1);
         getAuthTokenWithCount(ct);
+        printLogs("getAuthTokenWithCount "+ct);
         callCounts--;
     }
 
