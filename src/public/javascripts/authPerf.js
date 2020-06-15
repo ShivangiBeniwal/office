@@ -112,11 +112,10 @@
 
     var detailListMap = new Map();
     for (var t = 1; t <= maxCount; t++) {
-        var time = new Date().getTime();
         var detailList = {
             id : t,
-            startTimeItem: time,
-            endTimeItem: time,
+            startTimeItem: 0,
+            endTimeItem: 0,
             totalTimeItem : 0
         }
         detailListMap.set(t, detailList);
