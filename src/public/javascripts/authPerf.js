@@ -128,11 +128,13 @@
     var detailListMap = storageList.get(rowId);
     var detailList = detailListMap.get(count);
 
-    startTime = new Date().getTime();
-    document.getElementById("startTime" + rowId).innerHTML = getCurrentDateTime();
+    if (count == 1) {
+        startTime = new Date().getTime();
+        document.getElementById("startTime" + rowId).innerHTML = getCurrentDateTime();
+    }
 
     if (detailList.id == count) {
-        detailList.startTimeItem = startTime;
+        detailList.startTimeItem = new Date().getTime();
         detailListMap.set(count, detailList);
         storageList.set(rowId, detailListMap);
     }
