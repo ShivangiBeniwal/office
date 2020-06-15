@@ -23,20 +23,14 @@
   }
 
   function makeAuthCall(batchNo, callCounts) {
-    printLogs("makeAuthCall"+batchNo+" - "+callCounts+" maxct : "+maxCount+", batchct = "+ batchCount);
     var finalCallCounts = callCounts;
-    printLogs("callCounts "+callCounts);
     while (callCounts > 0) {
-        printLogs("enter while lopp "+callCounts);
         var ct = (batchNo * batchCount) + (finalCallCounts - callCounts + 1);
-        printLogs("before getAuthTokenWithCount "+ct);
         getAuthTokenWithCount(ct);
-        printLogs("after getAuthTokenWithCount "+ct);
         callCounts--;
     }
     
     var leftOverCalls = maxCount - finalCallCounts - (batchNo * batchCount);
-    printLogs("leftOverCalls"+leftOverCalls);
     if (leftOverCalls > 0) {
         if (batchInterval > 0) {
             setTimeout(function () {
