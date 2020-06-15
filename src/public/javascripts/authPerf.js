@@ -28,7 +28,7 @@
     printLogs("callCounts "+callCounts);
     while (callCounts > 0) {
         printLogs("enter while lopp "+callCounts);
-        var ct = (batchNo * batchCount) + (batchCount - callCounts + 1);
+        var ct = (batchNo * batchCount) + (finalCallCounts - callCounts + 1);
         printLogs("before getAuthTokenWithCount "+ct);
         getAuthTokenWithCount(ct);
         printLogs("after getAuthTokenWithCount "+ct);
