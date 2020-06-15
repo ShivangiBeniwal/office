@@ -31,7 +31,9 @@
         callCounts--;
     }
 
-    var leftOverCalls = maxCount - (batchNo * batchCount) - callCounts;
+    var callsDoneSoFar = callCounts + (batchNo * batchCount);
+    printLogs("callsDoneSoFar "+callsDoneSoFar);
+    var leftOverCalls = maxCount - callsDoneSoFar;
     printLogs("leftOverCalls"+leftOverCalls);
     if (leftOverCalls > 0) {
         if (batchInterval > 0) {
