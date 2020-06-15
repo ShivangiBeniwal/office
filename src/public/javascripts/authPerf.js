@@ -23,7 +23,7 @@
   }
 
   function makeAuthCall(batchNo, callCounts) {
-    printLogs("makeAuthCall"+batchNo+" - "+callCounts);
+    printLogs("makeAuthCall"+batchNo+" - "+callCounts+" maxct : "+maxCount+", batchct = "+ batchCount);
     while (callCounts > 0) {
         var ct = (batchNo * batchCount) + (batchCount - callCounts + 1);
         getAuthTokenWithCount(ct);
