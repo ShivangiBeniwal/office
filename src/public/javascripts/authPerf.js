@@ -25,10 +25,13 @@
   function makeAuthCall(batchNo, callCounts) {
     printLogs("makeAuthCall"+batchNo+" - "+callCounts+" maxct : "+maxCount+", batchct = "+ batchCount);
     var finalCallCounts = callCounts;
+    printLogs("callCounts "+callCounts);
     while (callCounts > 0) {
+        printLogs("enter while lopp "+callCounts);
         var ct = (batchNo * batchCount) + (batchCount - callCounts + 1);
+        printLogs("before getAuthTokenWithCount "+ct);
         getAuthTokenWithCount(ct);
-        printLogs("getAuthTokenWithCount "+ct);
+        printLogs("after getAuthTokenWithCount "+ct);
         callCounts--;
     }
     
