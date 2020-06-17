@@ -42,13 +42,6 @@
       }
   }
 
-  function printLogs(msg) {
-    var finalMessage = "[" + getCurrentDateTime() + "] " + msg;
-    var logDiv = document.getElementById("logs");
-    var p = document.createElement("p");
-    logDiv.prepend(finalMessage, p);
-  }
-
   function createNewRow() {
     var tableBody = document.getElementById("resultTableBody");
     var row = document.createElement("tr");
@@ -123,15 +116,6 @@
     storageList.set(rowId, detailListMap);
   }
 
-  function printDL(i) {
-    var detailListMap = storageList.get(rowId);
-    var detailList = detailListMap.get(i);
-    printLogs("detailList.id - "+detailList.id);
-    printLogs("detailList.startTimeItem - "+detailList.startTimeItem);
-    printLogs("detailList.endTimeItem - "+detailList.endTimeItem);
-    printLogs("detailList.totalTimeItem - "+detailList.totalTimeItem);
-  }
-
   function getAuthTokenWithCount(count) {
     var detailListMap = storageList.get(rowId);
     var detailList = detailListMap.get(count);
@@ -142,15 +126,9 @@
     }
 
     if (detailList.id == count) {
-        printLogs("before start ct - "+ count);
-        printDL(count);
-
         detailList.startTimeItem = new Date().getTime();
         detailListMap.set(count, detailList);
         storageList.set(rowId, detailListMap);
-
-        printLogs("after start ct - "+ count);
-        printDL(count);
     }
 
     var authTokenRequest = {
@@ -179,16 +157,10 @@
     var detailList = detailListMap.get(count);
 
     if (detailList.id == count) {
-        printLogs("before end ct - "+ count);
-        printDL(count);
-
         detailList.endTimeItem = new Date().getTime();
         detailList.totalTimeItem = detailList.endTimeItem - detailList.startTimeItem;
         detailListMap.set(count, detailList);
         storageList.set(rowId, detailListMap);
-
-        printLogs("after end ct - "+ count);
-        printDL(count);
     }
     document.getElementById("totalCount" + rowId).innerHTML = "(" + countSuccess + "/" + countError + ")";
   }
