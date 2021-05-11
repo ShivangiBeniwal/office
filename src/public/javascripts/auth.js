@@ -1,7 +1,7 @@
 (function() {
   "use strict";
 
-  function initializeConsentButton() {
+  function initializeAuthButton() {
     var btn = document.getElementById("promptForConsentButton");
     btn.onclick = () => {
       getAuthToken();
@@ -47,5 +47,5 @@
     return dateTime;
   }
 
-  initializeConsentButton();
+  initializeAuthButton();
 })();

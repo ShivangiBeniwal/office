@@ -1,0 +1,29 @@
+extends layout
+
+block scripts
+  script(src="/javascripts/teamsapp.js")
+  script(src="/javascripts/deviceCapabilty.js")
+
+block content
+  div(style='text-align:center')
+    h1 Platform Extensibility App
+    p Welcome to #{title}
+    button(id='selectMedia') Select Media
+    br
+    br
+    button(id='getMedia') Get Media
+    br
+    br
+    button(id='viewImages') View Images
+    br
+    br
+    textarea(id='selectMediaTA')
+    br
+    br
+    textarea(id='getMediaTA')
+    br
+    br
+    textarea(id='viewImagesTA')
+    br
+    br
+    div(id='logs')
