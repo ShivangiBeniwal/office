@@ -3,32 +3,41 @@
 
   const defaultValue = "{\"mediaType\":1,\"maxMediaCount\":1,\"imageProps\":{\"sources\":[1,2],\"startMode\":1,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}"
   function initializeDCPButton() {
+
+    document.getElementById("selectMediaITA").value = defaultValue;
+    document.getElementById("getMediaITA").value = defaultValue;
+    document.getElementById("viewImagesITA").value = defaultValue;
+
     var selectMediaBtn = document.getElementById("selectMedia");
     selectMediaBtn.onclick = () => {
-      var selectMediaTA = document.getElementById("selectMediaTA").value;
-      printLog(selectMediaTA);
-      selectMedia();
+      var selectMediaInput = document.getElementById("selectMediaITA").value;
+      printLog(selectMediaInput);
+
+      var mediaInputs = JSON.parse(selectMediaInput);
+      selectMedia(mediaInputs);
     };
 
     var getMediaBtn = document.getElementById("getMedia");
     getMediaBtn.onclick = () => {
-      var getMediaTA = document.getElementById("getMediaTA").value;
-      printLog(getMediaTA);
-      getMedia();
+      var getMediaInput = document.getElementById("getMediaITA").value;
+      printLog(getMediaInput);
+
+      var mediaInputs = JSON.parse(getMediaInput);
+      getMedia(mediaInputs);
     };
 
     var viewImagesBtn = document.getElementById("viewImages");
     viewImagesBtn.onclick = () => {
-      var viewImagesTA = document.getElementById("viewImagesTA").value;
-      printLog(viewImagesTA);
-      viewImages();
+      var viewImagesInput = document.getElementById("viewImagesITA").value;
+      printLog(viewImagesInput);
+
+      var mediaInputs = JSON.parse(viewImagesInput);
+      viewImages(mediaInputs);
     };
   }
 
-  function selectMedia() {
+  function selectMedia(mediaInputs) {
     printLog("selectMedia");
-    var mediaInputs = JSON.parse(defaultValue);
-    printLog("selectMedia - "+ mediaInputs);
     microsoftTeams.media.selectMedia(mediaInputs, (err, medias) => {
       if (err) {
         output(err);
@@ -52,60 +61,58 @@
     });
   }
 
-  function getMedia() {
+  function getMedia(mediaInputs) {
     printLog("getMedia");
-    // microsoftTeams.media.selectMedia(mediaInputs: microsoftTeams.media.MediaInputs,
-    //                                 (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
-    //   if (err) {
-    //     output(err);
-    //     return;
-    //   }
+    microsoftTeams.media.selectMedia(mediaInputs, (err, medias) => {
+      if (err) {
+        output(err);
+        return;
+      }
 
-    //   const media: microsoftTeams.media.Media = medias[0] as microsoftTeams.media.Media;
-    //   media.getMedia((gmErr: microsoftTeams.SdkError, blob: Blob) => {
-    //     if (gmErr) {
-    //       output(gmErr);
-    //       return;
-    //     }
+      const media = medias[0];
+      media.getMedia((gmErr, blob) => {
+        if (gmErr) {
+          output(gmErr);
+          return;
+        }
 
-    //     var reader = new FileReader();
-    //     reader.readAsDataURL(blob);
-    //     reader.onloadend = () => {
-    //       if (reader.result) {
-    //         output("Received Blob");
-    //       }
-    //     }
-    //   });
-    // });
+        var reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => {
+          if (reader.result) {
+            output("Received Blob");
+          }
+        }
+      });
+    });
   }
 
-  function viewImages() {
+  function viewImages(mediaInputs) {
     printLog("viewImages");
-    // microsoftTeams.media.selectMedia(mediaInputs: microsoftTeams.media.MediaInputs,
-    //                                 (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
-    //   if (err) {
-    //     output(err);
-    //     return;
-    //   }
+    microsoftTeams.media.selectMedia(mediaInputs, (err, medias) => {
+      if (err) {
+        output(err);
+        return;
+      }
 
-    //   const urlList: microsoftTeams.media.ImageUri[] = [];
-    //   for (let i = 0; i < medias.length; i++) {
-    //     const media = medias[i];
-    //     urlList.push({
-    //       value: media.content,
-    //       type: 1 //microsoftTeams.ImageUriType.ID
-    //     } as microsoftTeams.media.ImageUri)
-    //   }
+      const urlList = new Array();
+      for (let i = 0; i < medias.length; i++) {
+        const media = medias[i];
+        urlList.push({
+          value: media.content,
+          type: 1 //microsoftTeams.ImageUriType.ID
+        })
+      }
 
-    //   microsoftTeams.media.viewImages(urlList, (gmErr: microsoftTeams.SdkError) => {
-    //     if (gmErr) {
-    //       output(gmErr);
-    //       return;
-    //     }
+      microsoftTeams.media.viewImages(urlList, (gmErr) => {
+        if (gmErr) {
+          output(gmErr);
+          return;
+        }
 
-    //     output("Success");
-    //   });
-    // });
+        output("Success");
+      });
+    });
   }
 
   function getAuthToken() {

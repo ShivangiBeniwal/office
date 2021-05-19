@@ -8,22 +8,30 @@ block content
   div(style='text-align:center')
     h1 Platform Extensibility App
     p Welcome to #{title}
-    button(id='selectMedia') Select Media
+    div
+      table
+        tbody
+          tr
+            td 
+              button(id='selectMedia') Select Media
+            td 
+              textarea(id='selectMediaITA')
+            td 
+              textarea(id='selectMediaOTA')
+          tr
+            td  
+              button(id='getMedia') Get Media
+            td 
+              textarea(id='getMediaITA')   
+            td 
+              textarea(id='getMediaOTA')            
+          tr
+            td  
+              button(id='viewImages') View Images
+            td 
+              textarea(id='viewImagesITA')
+            td 
+              textarea(id='viewImagesOTA')
     br
-    br
-    button(id='getMedia') Get Media
-    br
-    br
-    button(id='viewImages') View Images
-    br
-    br
-    textarea(id='selectMediaTA')
-    br
-    br
-    textarea(id='getMediaTA')
-    br
-    br
-    textarea(id='viewImagesTA')
-    br
-    br
+    br          
     div(id='logs')
