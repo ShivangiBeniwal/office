@@ -38,7 +38,7 @@
 
   function selectMedia(mediaInputs) {
     printLog("selectMedia");
-    microsoftTeams.media.selectMedia(mediaInputs, (err, medias) => {
+    microsoftTeams.media.selectMedia(mediaInputs, (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
       if (err) {
         output(err);
         return;
