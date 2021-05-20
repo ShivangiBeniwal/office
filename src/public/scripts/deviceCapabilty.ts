@@ -7,28 +7,6 @@ export const initializeDCPButton = () => {
   // Call the initialize API first
   microsoftTeams.initialize();
 
-  // Check the initial theme user chose and respect it
-  microsoftTeams.getContext(function(context){
-    if (context)
-      printLog(context.userClickTime + "")
-      if (context && context.theme) {
-          setTheme(context.theme);
-      }
-  });
-
-  // Handle theme changes
-  microsoftTeams.registerOnThemeChangeHandler(function(theme) {
-      setTheme(theme);
-  });
-
-  // Set the desired theme
-  function setTheme(theme: string) {
-    if (theme) {
-        // Possible values for theme: 'default', 'light', 'dark' and 'contrast'
-        document.body.className = 'theme-' + (theme === 'default' ? 'light' : theme);
-    }
-  }
-
   document.getElementById("selectMediaITA")!.innerText = defaultValue;
   document.getElementById("getMediaITA")!.innerText = defaultValue;
   document.getElementById("viewImagesITA")!.innerText = defaultValue;
