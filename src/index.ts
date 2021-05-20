@@ -1,4 +1,4 @@
-import { initializeDCPButton } from './public/javascripts/deviceCapabilty';
+import { initializeDCPButton } from './public/scripts/deviceCapabilty';
 
 (function () {
     initializeDCPButton();

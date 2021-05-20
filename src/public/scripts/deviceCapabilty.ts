@@ -10,7 +10,6 @@ export const initializeDCPButton = () => {
 
   var selectMediaBtn = document.getElementById("selectMedia");
   selectMediaBtn!.onclick = () => {
-    printLog("selectMediaBtn onclick");
     var selectMediaInput = document.getElementById("selectMediaITA")!.innerHTML;
     printLog(selectMediaInput);
 
@@ -37,7 +36,7 @@ export const initializeDCPButton = () => {
   };
 
   function selectMedia(mediaInputs: microsoftTeams.media.MediaInputs) {
-    printLog("selectMedia");
+    printLog("selectMedia - " + mediaInputs);
     microsoftTeams.media.selectMedia(mediaInputs, (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
       if (err) {
         output(err.errorCode + " " + err.message);
@@ -62,7 +61,7 @@ export const initializeDCPButton = () => {
   }
 
   function getMedia(mediaInputs: microsoftTeams.media.MediaInputs) {
-    printLog("getMedia");
+    printLog("getMedia - " + mediaInputs);
     microsoftTeams.media.selectMedia(mediaInputs, (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
       if (err) {
         output(err.errorCode + " " + err.message);
@@ -88,7 +87,7 @@ export const initializeDCPButton = () => {
   }
 
   function viewImages(mediaInputs: microsoftTeams.media.MediaInputs) {
-    printLog("viewImages");
+    printLog("viewImages - " + mediaInputs);
     microsoftTeams.media.selectMedia(mediaInputs, (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
       if (err) {
         output(err.errorCode + " " + err.message);
