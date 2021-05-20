@@ -9,6 +9,8 @@ export const initializeDCPButton = () => {
 
   // Check the initial theme user chose and respect it
   microsoftTeams.getContext(function(context){
+    if (context)
+      printLog(context.userClickTime + "")
       if (context && context.theme) {
           setTheme(context.theme);
       }
