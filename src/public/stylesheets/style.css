@@ -59,6 +59,12 @@ input[type="text"] {
   resize: vertical;
 }
 
+textarea {
+  padding: 12px;
+  height: 100px;
+  width: 250px;
+}
+
 button {
   position: relative;
   background-color: #008cba;

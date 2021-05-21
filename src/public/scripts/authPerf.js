@@ -77,7 +77,7 @@
         } else {
             button.innerHTML = "Hide Details";
             details.style.maxHeight = details.scrollHeight + "px";
-        } 
+        }
     };
   }
 

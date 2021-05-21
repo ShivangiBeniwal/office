@@ -7,34 +7,39 @@ export const initializeDCPButton = () => {
   // Call the initialize API first
   microsoftTeams.initialize();
 
-  document.getElementById("selectMediaITA")!.innerText = defaultValue;
-  document.getElementById("getMediaITA")!.innerText = defaultValue;
-  document.getElementById("viewImagesITA")!.innerText = defaultValue;
+  var clearLogs = document.getElementById("clearLogs") as HTMLButtonElement;
+  clearLogs.onclick = () => {
+    (document.getElementById("logs")as HTMLDivElement).innerText = "";
+  };
 
-  var selectMediaBtn = document.getElementById("selectMedia");
-  selectMediaBtn!.onclick = () => {
-    var selectMediaInput = document.getElementById("selectMediaITA")!.innerHTML;
+  (document.getElementById("selectMediaITA")as HTMLTextAreaElement).value = defaultValue;
+  (document.getElementById("getMediaITA") as HTMLTextAreaElement).value = defaultValue;
+  (document.getElementById("viewImagesITA") as HTMLTextAreaElement).value = defaultValue;
+
+  var selectMediaBtn = (document.getElementById("selectMedia") as HTMLButtonElement);
+  selectMediaBtn.onclick = () => {
+    var selectMediaInput = (document.getElementById("selectMediaITA") as HTMLTextAreaElement).value;
     printLog(selectMediaInput);
 
-    var mediaInputs = JSON.parse(selectMediaInput!);
+    var mediaInputs = JSON.parse(selectMediaInput);
     selectMedia(mediaInputs);
   };
 
-  var getMediaBtn = document.getElementById("getMedia");
-  getMediaBtn!.onclick = () => {
-    var getMediaInput = document.getElementById("getMediaITA")!.innerHTML;
+  var getMediaBtn = (document.getElementById("getMedia") as HTMLButtonElement);
+  getMediaBtn.onclick = () => {
+    var getMediaInput = (document.getElementById("getMediaITA") as HTMLTextAreaElement).value;
     printLog(getMediaInput);
 
-    var mediaInputs = JSON.parse(getMediaInput!);
+    var mediaInputs = JSON.parse(getMediaInput);
     getMedia(mediaInputs);
   };
 
-  var viewImagesBtn = document.getElementById("viewImages");
-  viewImagesBtn!.onclick = () => {
-    var viewImagesInput = document.getElementById("viewImagesITA")!.innerHTML;
+  var viewImagesBtn = (document.getElementById("viewImages") as HTMLButtonElement);
+  viewImagesBtn.onclick = () => {
+    var viewImagesInput = (document.getElementById("viewImagesITA") as HTMLTextAreaElement).value;
     printLog(viewImagesInput);
 
-    var mediaInputs = JSON.parse(viewImagesInput!);
+    var mediaInputs = JSON.parse(viewImagesInput);
     viewImages(mediaInputs);
   };
 
@@ -123,12 +128,12 @@ export const initializeDCPButton = () => {
 
   function printLog(msg?: string | null) {
     var finalMessage = "[" + getCurrentDateTime() + "] " + msg;
-    var logDiv = document.getElementById("logs");
-    var p = document.createElement("p");
+    var logDiv = document.getElementById("logs") as HTMLDivElement;
+    var p = document.createElement("p") as HTMLParagraphElement;
     p.innerText = finalMessage;
 
     if (logDiv)
-        logDiv.insertBefore(p, logDiv.childNodes[0]);
+        logDiv.insertBefore(p, logDiv.firstChild);
 
     console.log("DCP: " + finalMessage);
   }
