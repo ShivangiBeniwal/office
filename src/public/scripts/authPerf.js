@@ -13,7 +13,9 @@
 
   var storageList = new Map();
 
-  function checkPerformance() {
+  function initializeAuthPerf() {
+    printLog("initializeAuthPerf");
+
     var btn = document.getElementById("promptForAuthPerf");
     btn.onclick = () => {
       createNewRow();
@@ -209,5 +211,5 @@
     return dateTime;
   }
 
-  checkPerformance();
+  initializeAuthPerf();
 })();

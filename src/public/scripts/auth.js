@@ -10,7 +10,7 @@
 
   function getAuthToken() {
     var authTokenRequest = {
-      successCallback: function(result) {
+      successCallback: result => {
         printLog("Token received: " + result);
       },
       failureCallback: function(error) {
