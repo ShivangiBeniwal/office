@@ -1,4 +1,4 @@
-import { initializeDCP } from './public/scripts/deviceCapabilty';
+import { initializeDCP } from './scripts/deviceCapabilty';
 
 (function () {
     initializeDCP();
