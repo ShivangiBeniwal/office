@@ -100,6 +100,8 @@
     var bCount = document.querySelector("input[name=batchCount]").value;
     var bInterval = document.querySelector("input[name=batchInterval]").value;
 
+    printLog(totalCount + " - " + bCount + " - " + bInterval);
+
     maxCount = totalCount > 0 ? totalCount : defaultCount;
     batchCount = bCount > 0 ? bCount : maxCount;
     batchInterval = bInterval > 0 ? bInterval : batchInterval;
@@ -192,6 +194,16 @@
     }
 
     rowId++;
+  }
+
+  function printLog(msg) {
+    var finalMessage = "[" + getCurrentDateTime() + "] " + msg;
+    var logDiv = document.getElementById("logs");
+    var p = document.createElement("p");
+    p.innerText = finalMessage;
+    logDiv.insertBefore(p, logDiv.firstChild);
+
+    console.log("AuthPerf: " + finalMessage);
   }
 
   // ------------------------------------------------------------------------
