@@ -1,4 +1,5 @@
 import * as microsoftTeams from '@microsoft/teams-js';
+// import { printLog, getCurrentDateTime } from './../utils/utils.js';
 
 export const initializeDCP = () => {
   const defaultValue = "{\"mediaType\":1,\"maxMediaCount\":1,\"imageProps\":{\"sources\":[1,2],\"startMode\":1,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}"
