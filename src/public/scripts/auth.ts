@@ -1,3 +1,5 @@
+import * as microsoftTeams from '@microsoft/teams-js';
+
 export const initializeAuth = () => {
   printLog("initializeAuth");
 
