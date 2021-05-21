@@ -1,32 +1,35 @@
-(function() {
-  "use strict";
+export const initializeAuth = () => {
+  printLog("initializeAuth");
 
-  function initializeAuthButton() {
-    var btn = document.getElementById("promptForConsentButton");
-    btn.onclick = () => {
-      getAuthToken();
-    };
-  }
+  // Call the initialize API first
+  microsoftTeams.initialize();
+
+  var btn = document.getElementById("promptForConsentButton") as HTMLButtonElement;
+  btn.onclick = () => {
+    getAuthToken();
+  };
 
   function getAuthToken() {
     var authTokenRequest = {
-      successCallback: result => {
+      successCallback: function(result: string) {
         printLog("Token received: " + result);
       },
-      failureCallback: function(error) {
+      failureCallback: function(error: string) {
         printLog("Error getting token: " + error);
       }
-    };
+    } as microsoftTeams.authentication.AuthTokenRequest;
 
     printLog("Get Auth Token Call is made.");
     microsoftTeams.authentication.getAuthToken(authTokenRequest);
   }
 
-  function printLog(msg) {
+  function printLog(msg? : string) {
     var finalMessage = "[" + getCurrentDateTime() + "] " + msg;
-    var logDiv = document.getElementById("logs");
-    var p = document.createElement("p");
-    logDiv.prepend(finalMessage, p);
+    var logDiv = document.getElementById("logs") as HTMLDivElement;
+    var p = document.createElement("p") as HTMLParagraphElement;
+    p.innerText = finalMessage;
+    logDiv.insertBefore(p, logDiv.firstChild);
+
     console.log("Auth: " + finalMessage);
   }
 
@@ -46,6 +49,4 @@
 
     return dateTime;
   }
-
-  initializeAuthButton();
-})();
+};

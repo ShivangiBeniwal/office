@@ -1,8 +1,8 @@
 import * as microsoftTeams from '@microsoft/teams-js';
 
-export const initializeDCPButton = () => {
+export const initializeDCP = () => {
   const defaultValue = "{\"mediaType\":1,\"maxMediaCount\":1,\"imageProps\":{\"sources\":[1,2],\"startMode\":1,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}"
-  printLog("initializeDCPButton");
+  printLog("initializeDCP");
 
   // Call the initialize API first
   microsoftTeams.initialize();
@@ -131,9 +131,7 @@ export const initializeDCPButton = () => {
     var logDiv = document.getElementById("logs") as HTMLDivElement;
     var p = document.createElement("p") as HTMLParagraphElement;
     p.innerText = finalMessage;
-
-    if (logDiv)
-        logDiv.insertBefore(p, logDiv.firstChild);
+    logDiv.insertBefore(p, logDiv.firstChild);
 
     console.log("DCP: " + finalMessage);
   }

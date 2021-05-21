@@ -1,5 +1,8 @@
-import { initializeDCPButton } from './public/scripts/deviceCapabilty';
+import { initializeDCP } from './public/scripts/deviceCapabilty';
+import { initializeAuth } from './public/scripts/auth';
+// import { initializeDCP } from './public/scripts/deviceCapabilty';
 
 (function () {
-    initializeDCPButton();
+    initializeDCP();
+    initializeAuth();
 })();
