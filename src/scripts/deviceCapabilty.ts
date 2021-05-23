@@ -4,6 +4,7 @@ import { printLog } from './../utils/utils';
 export const initializeDCP = () => {
   const logTag = "DCP";
   const defaultValue = "{\"mediaType\":1,\"maxMediaCount\":1,\"imageProps\":{\"sources\":[1,2],\"startMode\":1,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}"
+  const defaultValueV = "{\"mediaType\":1,\"maxMediaCount\":3,\"videoProps\":{\"sources\":[1,2],\"startMode\":1,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}"
   output("initializeDCP");
 
   // Call the initialize API first
@@ -16,7 +17,7 @@ export const initializeDCP = () => {
 
   (document.getElementById("selectMediaITA")as HTMLTextAreaElement).value = defaultValue;
   (document.getElementById("getMediaITA") as HTMLTextAreaElement).value = defaultValue;
-  (document.getElementById("viewImagesITA") as HTMLTextAreaElement).value = defaultValue;
+  (document.getElementById("viewImagesITA") as HTMLTextAreaElement).value = defaultValueV;
 
   var selectMediaBtn = (document.getElementById("selectMedia") as HTMLButtonElement);
   selectMediaBtn.onclick = () => {
