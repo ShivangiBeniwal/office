@@ -66,8 +66,9 @@ export const initializeDCP = () => {
         message += "[format: " + media.format + ", size: " + media.size
           + ", mimeType: " + media.mimeType + ", content: " + media.content
           + ", preview: " + preview + "]"
+
+          output(message);
       }
-      output(message);
     });
   }
 
