@@ -63,11 +63,13 @@ export const initializeDCP = () => {
           len = Math.min(len, media.preview.length);
           preview = media.preview.substr(0, len);
         }
-        message += "[format: " + media.format + ", size: " + media.size
+
+        message += "IMAGE " + (i + 1) + " - [format: " + media.format + ", size: " + media.size
           + ", mimeType: " + media.mimeType + ", content: " + media.content
           + ", preview: " + preview + "]"
 
           output(message);
+          message = "";
       }
     });
   }
