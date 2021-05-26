@@ -82,21 +82,23 @@ export const initializeDCP = () => {
         return;
       }
 
-      const media: microsoftTeams.media.Media = medias[0] as microsoftTeams.media.Media;
-      media.getMedia((gmErr: microsoftTeams.SdkError, blob: Blob) => {
-        if (gmErr) {
-          output(gmErr.errorCode + " " + gmErr.message);
-          return;
-        }
-
-        var reader = new FileReader();
-        reader.readAsDataURL(blob);
-        reader.onloadend = () => {
-          if (reader.result) {
-            output("Received Blob");
+      for (let i = 0; i < medias.length; i++) {
+        const media: microsoftTeams.media.Media = medias[i];
+        media.getMedia((gmErr: microsoftTeams.SdkError, blob: Blob) => {
+          if (gmErr) {
+            output(gmErr.errorCode + " " + gmErr.message);
+            return;
           }
-        }
-      });
+
+          var reader = new FileReader();
+          reader.readAsDataURL(blob);
+          reader.onloadend = () => {
+            if (reader.result) {
+              output("IMAGE " + (i + 1) + " - Received Blob " + blob + "" + reader.result);
+            }
+          }
+        });
+      }
     });
   }
 
