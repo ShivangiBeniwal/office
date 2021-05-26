@@ -48,7 +48,7 @@ export const initializeDCP = () => {
   };
 
   function selectMedia(mediaInputs: microsoftTeams.media.MediaInputs) {
-    output("selectMedia - " + mediaInputs);
+    output("selectMedia");
     microsoftTeams.media.selectMedia(mediaInputs, (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
       if (err) {
         output(err.errorCode + " " + err.message)
@@ -74,7 +74,7 @@ export const initializeDCP = () => {
             img.style.width = "80px"
             img.style.height = "100px"
             img.src = ("data:" + media.mimeType + ";base64," + media.preview)
-            blobDiv.insertBefore(img, blobDiv.firstChild)
+            blobDiv.appendChild(img)
           }
 
           if (media.mimeType.includes("video")) {
@@ -82,7 +82,7 @@ export const initializeDCP = () => {
             vid.style.width = "80px"
             vid.style.height = "100px"
             vid.src = ("data:" + media.mimeType + ";base64," + media.preview)
-            blobDiv.insertBefore(vid, blobDiv.firstChild)
+            blobDiv.appendChild(vid)
           }
 
           output(message)
@@ -92,7 +92,7 @@ export const initializeDCP = () => {
   }
 
   function getMedia(mediaInputs: microsoftTeams.media.MediaInputs) {
-    output("getMedia - " + mediaInputs);
+    output("getMedia");
     microsoftTeams.media.selectMedia(mediaInputs, (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
       if (err) {
         output(err.errorCode + " " + err.message)
@@ -112,15 +112,15 @@ export const initializeDCP = () => {
           reader.readAsDataURL(blob)
           reader.onloadend = () => {
             if (reader.result) {
-              output("MEDIA " + (i + 1) + " - Received Blob " + blob + "" + reader.result)
+              output("MEDIA " + (i + 1) + " - Received Blob " + reader.result)
 
               if (blob.type.includes("image")) {
                 var img = document.createElement("img") as HTMLImageElement
                 img.style.width = "80px"
                 img.style.height = "100px"
-                // img.src = (URL.createObjectURL(blob))
-                img.src = reader.result as string;
-                blobDiv.insertBefore(img, blobDiv.firstChild)
+                img.src = (URL.createObjectURL(blob))
+                // img.src = reader.result as string;
+                blobDiv.appendChild(img)
               }
 
               if (blob.type.includes("video")) {
@@ -128,7 +128,7 @@ export const initializeDCP = () => {
                 vid.style.width = "80px"
                 vid.style.height = "100px"
                 vid.src = (URL.createObjectURL(blob))
-                blobDiv.insertBefore(vid, blobDiv.firstChild)
+                blobDiv.appendChild(vid)
               }
             }
           }
@@ -138,7 +138,7 @@ export const initializeDCP = () => {
   }
 
   function viewImages(mediaInputs: microsoftTeams.media.MediaInputs) {
-    output("viewImages - " + mediaInputs)
+    output("viewImages")
     microsoftTeams.media.selectMedia(mediaInputs, (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
       if (err) {
         output(err.errorCode + " " + err.message)
