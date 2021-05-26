@@ -71,15 +71,16 @@ export const initializeDCP = () => {
           var blobDiv = document.getElementById("blob") as HTMLDivElement
           if (media.mimeType.includes("image")) {
             var img = document.createElement("img") as HTMLImageElement
-            img.style.width = "20px"
-            img.style.height = "50px"
+            img.style.width = "80px"
+            img.style.height = "100px"
             img.src = ("data:" + media.mimeType + ";base64," + media.preview)
             blobDiv.insertBefore(img, blobDiv.firstChild)
           }
 
           if (media.mimeType.includes("video")) {
             var vid = document.createElement("video") as HTMLVideoElement
-            vid.setAttribute("style", "height:80px, width:80px")
+            vid.style.width = "80px"
+            vid.style.height = "100px"
             vid.src = ("data:" + media.mimeType + ";base64," + media.preview)
             blobDiv.insertBefore(vid, blobDiv.firstChild)
           }
@@ -107,6 +108,7 @@ export const initializeDCP = () => {
           }
 
           var blobDiv = document.getElementById("blob") as HTMLDivElement;
+          output("MEDIA " + (i + 1) + " - Received Blob " + blob)
           var reader = new FileReader()
           reader.readAsDataURL(blob)
           reader.onloadend = () => {
@@ -115,14 +117,16 @@ export const initializeDCP = () => {
 
               if (blob.type.includes("image")) {
                 var img = document.createElement("img") as HTMLImageElement
-                img.setAttribute("style", "height:80px, width:80px")
+                img.style.width = "80px"
+                img.style.height = "100px"
                 img.src = (URL.createObjectURL(blob))
                 blobDiv.insertBefore(img, blobDiv.firstChild)
               }
 
               if (blob.type.includes("video")) {
                 var vid = document.createElement("video") as HTMLVideoElement
-                vid.setAttribute("style", "height:80px, width:80px")
+                vid.style.width = "80px"
+                vid.style.height = "100px"
                 vid.src = (URL.createObjectURL(blob))
                 blobDiv.insertBefore(vid, blobDiv.firstChild)
               }
