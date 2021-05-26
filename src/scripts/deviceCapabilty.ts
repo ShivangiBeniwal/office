@@ -102,7 +102,6 @@ export const initializeDCP = () => {
       for (let i = 0; i < medias.length; i++) {
         const media: microsoftTeams.media.Media = medias[i]
         media.getMedia((gmErr: microsoftTeams.SdkError, blob: Blob) => {
-          output("MEDIA " + (i + 1) + " - Received Blob ")
           if (gmErr) {
             output(gmErr.errorCode + " " + gmErr.message)
             return;
@@ -119,7 +118,8 @@ export const initializeDCP = () => {
                 var img = document.createElement("img") as HTMLImageElement
                 img.style.width = "80px"
                 img.style.height = "100px"
-                img.src = (URL.createObjectURL(blob))
+                // img.src = (URL.createObjectURL(blob))
+                img.src = reader.result as string;
                 blobDiv.insertBefore(img, blobDiv.firstChild)
               }
 

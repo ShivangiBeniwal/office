@@ -20,6 +20,7 @@ export function printLog(logTag: string, msg?: string) {
   p.innerText = finalMessage;
   logDiv.insertBefore(p, logDiv.firstChild);
 
+  // Commented this for now since WebChromeClient.onConsoleMessage is throwimg ANR
   // console.log(logTag + ": " + finalMessage);
 }
 
