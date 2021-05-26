@@ -102,13 +102,13 @@ export const initializeDCP = () => {
       for (let i = 0; i < medias.length; i++) {
         const media: microsoftTeams.media.Media = medias[i]
         media.getMedia((gmErr: microsoftTeams.SdkError, blob: Blob) => {
+          output("MEDIA " + (i + 1) + " - Received Blob ")
           if (gmErr) {
             output(gmErr.errorCode + " " + gmErr.message)
             return;
           }
 
           var blobDiv = document.getElementById("blob") as HTMLDivElement;
-          output("MEDIA " + (i + 1) + " - Received Blob " + blob)
           var reader = new FileReader()
           reader.readAsDataURL(blob)
           reader.onloadend = () => {
