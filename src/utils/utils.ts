@@ -20,7 +20,7 @@ export function printLog(logTag: string, msg?: string) {
   p.innerText = finalMessage;
   logDiv.insertBefore(p, logDiv.firstChild);
 
-  console.log(logTag + ": " + finalMessage);
+  // console.log(logTag + ": " + finalMessage);
 }
 
 // ------------------------------------------------------------------------
