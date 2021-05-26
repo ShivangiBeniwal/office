@@ -71,7 +71,8 @@ export const initializeDCP = () => {
           var blobDiv = document.getElementById("blob") as HTMLDivElement
           if (media.mimeType.includes("image")) {
             var img = document.createElement("img") as HTMLImageElement
-            img.setAttribute("style", "height:80px, width:80px")
+            img.style.width = "20px"
+            img.style.height = "50px"
             img.src = ("data:" + media.mimeType + ";base64," + media.preview)
             blobDiv.insertBefore(img, blobDiv.firstChild)
           }
