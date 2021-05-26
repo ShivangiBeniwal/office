@@ -64,9 +64,22 @@ export const initializeDCP = () => {
           preview = media.preview.substr(0, len);
         }
 
-        message += "IMAGE " + (i + 1) + " - [format: " + media.format + ", size: " + media.size
+        message += "MEDIA " + (i + 1) + " - [format: " + media.format + ", size: " + media.size
           + ", mimeType: " + media.mimeType + ", content: " + media.content
-          + ", preview: " + preview + "]"
+          + ", preview: " + preview + "]";
+
+          var blobDiv = document.getElementById("blob") as HTMLDivElement;
+          // if (media.mimeType.includes("image")) {
+            var img = document.createElement("img") as HTMLImageElement
+            img.src = ("data:" + media.mimeType + ";base64," + media.preview);
+            blobDiv.insertBefore(img, blobDiv.firstChild);
+          // }
+
+          // if (media.mimeType.includes("video")) {
+          //   var vid = document.createElement("video") as HTMLVideoElement
+          //   vid.src = ("data:" + media.mimeType + ";base64," + media.preview);
+          //   blobDiv.insertBefore(vid, blobDiv.firstChild);
+          // }
 
           output(message);
           message = "";
@@ -90,11 +103,24 @@ export const initializeDCP = () => {
             return;
           }
 
+          var blobDiv = document.getElementById("blob") as HTMLDivElement;
           var reader = new FileReader();
           reader.readAsDataURL(blob);
           reader.onloadend = () => {
             if (reader.result) {
-              output("IMAGE " + (i + 1) + " - Received Blob " + blob + "" + reader.result);
+              output("MEDIA " + (i + 1) + " - Received Blob " + blob + "" + reader.result);
+
+              if (blob.type.includes("image")) {
+                var img = document.createElement("img") as HTMLImageElement
+                img.src = (URL.createObjectURL(blob));
+                blobDiv.insertBefore(img, blobDiv.firstChild);
+              }
+
+              if (blob.type.includes("video")) {
+                var vid = document.createElement("video") as HTMLVideoElement
+                vid.src = (URL.createObjectURL(blob));
+                blobDiv.insertBefore(vid, blobDiv.firstChild);
+              }
             }
           }
         });
