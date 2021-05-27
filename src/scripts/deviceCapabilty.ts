@@ -126,7 +126,7 @@ export const initializeDCP = () => {
                 var vid = document.createElement("video") as HTMLVideoElement
                 vid.style.width = "80px"
                 vid.style.height = "100px"
-                vid.srcObject = blob
+                vid.src = URL.createObjectURL(blob)
                 blobDiv.appendChild(vid)
               }
             }
