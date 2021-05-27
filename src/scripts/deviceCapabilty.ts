@@ -10,6 +10,12 @@ export const initializeDCP = () => {
   // Call the initialize API first
   microsoftTeams.initialize()
 
+  var vid = document.createElement("video") as HTMLVideoElement
+  vid.style.width = "800px"
+  vid.style.height = "1000px"
+  vid.src = "https://dl.infragistics.com/pg/2011-1/web/shared/videoplayer/videos/big_buck_bunny.mp4";
+  (document.getElementById("blob") as HTMLDivElement).appendChild(vid)
+
   var clearLogs = document.getElementById("clearLogs") as HTMLButtonElement
   clearLogs.onclick = () => {
     (document.getElementById("logs") as HTMLDivElement).innerText = "";
