@@ -1,5 +1,5 @@
 import * as microsoftTeams from '@microsoft/teams-js';
-import { printLog } from './../utils/utils';
+import { printLog, formatFileSize } from './../utils/utils';
 
 export const initializeDCP = () => {
   const logTag = "DCP"
@@ -69,13 +69,13 @@ export const initializeDCP = () => {
           + ", preview: " + preview + "]"
 
           var blobDiv = document.getElementById("blob") as HTMLDivElement
-          // if (media.mimeType.includes("image")) {
+          if (media.mimeType.includes("image")) {
             var img = document.createElement("img") as HTMLImageElement
             img.style.width = "80px"
             img.style.height = "100px"
             img.src = ("data:" + media.mimeType + ";base64," + media.preview)
             blobDiv.appendChild(img)
-          // }
+          }
 
           if (media.mimeType.includes("video")) {
             var vid = document.createElement("video") as HTMLVideoElement
@@ -112,15 +112,15 @@ export const initializeDCP = () => {
           reader.readAsDataURL(blob)
           reader.onloadend = () => {
             if (reader.result) {
-              output("MEDIA " + (i + 1) + " - Received Blob " + reader.result + ", size - " + blob.size)
+              output("MEDIA " + (i + 1) + " - Received Blob " + reader.result + ", size - " + formatFileSize(blob.size) + " -- " + URL.createObjectURL(blob))
 
-              // if (blob.type.includes("image")) {
+              if (blob.type.includes("image")) {
                 var img = document.createElement("img") as HTMLImageElement
                 img.style.width = "80px"
                 img.style.height = "100px"
                 img.src = URL.createObjectURL(blob)
                 blobDiv.appendChild(img)
-              // }
+              }
 
               if (blob.type.includes("video")) {
                 var vid = document.createElement("video") as HTMLVideoElement
