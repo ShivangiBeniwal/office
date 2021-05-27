@@ -69,13 +69,13 @@ export const initializeDCP = () => {
           + ", preview: " + preview + "]"
 
           var blobDiv = document.getElementById("blob") as HTMLDivElement
-          if (media.mimeType.includes("image")) {
+          // if (media.mimeType.includes("image")) {
             var img = document.createElement("img") as HTMLImageElement
             img.style.width = "80px"
             img.style.height = "100px"
             img.src = ("data:" + media.mimeType + ";base64," + media.preview)
             blobDiv.appendChild(img)
-          }
+          // }
 
           if (media.mimeType.includes("video")) {
             var vid = document.createElement("video") as HTMLVideoElement
@@ -112,22 +112,21 @@ export const initializeDCP = () => {
           reader.readAsDataURL(blob)
           reader.onloadend = () => {
             if (reader.result) {
-              output("MEDIA " + (i + 1) + " - Received Blob " + reader.result)
+              output("MEDIA " + (i + 1) + " - Received Blob " + reader.result + ", size - " + blob.size)
 
-              if (blob.type.includes("image")) {
+              // if (blob.type.includes("image")) {
                 var img = document.createElement("img") as HTMLImageElement
                 img.style.width = "80px"
                 img.style.height = "100px"
-                img.src = (URL.createObjectURL(blob))
-                // img.src = reader.result as string;
+                img.src = URL.createObjectURL(blob)
                 blobDiv.appendChild(img)
-              }
+              // }
 
               if (blob.type.includes("video")) {
                 var vid = document.createElement("video") as HTMLVideoElement
                 vid.style.width = "80px"
                 vid.style.height = "100px"
-                vid.src = (URL.createObjectURL(blob))
+                vid.src = URL.createObjectURL(blob)
                 blobDiv.appendChild(vid)
               }
             }
