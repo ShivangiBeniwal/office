@@ -4,8 +4,7 @@ var path = require('path');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // res.render('index', { title: 'Test Auth' });
-  res.sendFile(path.join(__dirname, "../src/views/index.html"));
+  res.render('index', { title: 'Test Auth' });
 });
 
 module.exports = router;

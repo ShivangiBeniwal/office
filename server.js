@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+// var serveStatic = require('serve-static');
 
 var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
@@ -13,6 +14,9 @@ var app = express();
 // view engine setup
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'pug');
+
+// used if we want to use plain HTML views
+// app.use(serveStatic(path.join(__dirname, 'src/views')));
 
 app.use(logger('dev'));
 app.use(express.json());
