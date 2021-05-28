@@ -1,0 +1,53 @@
+doctype html
+//
+  *  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
+  *
+  *  Use of this source code is governed by a BSD-style license
+  *  that can be found in the LICENSE file in the root of the source
+  *  tree.
+html
+  head
+    meta(charset='utf-8')
+    |
+    meta(name='viewport', content='width=device-width, user-scalable=yes, initial-scale=1, maximum-scale=1')
+    |
+    base(target='_blank')
+    |
+    title MediaStream Recording
+    |
+    link(href='//fonts.googleapis.com/css?family=Roboto:300,400,500,700', rel='stylesheet', type='text/css')
+    |
+    link(rel='stylesheet', href='src/css/main.css')
+  body
+    #container
+      video#gum(playsinline='', autoplay='', muted='')
+      |
+      br
+      |
+      video#recorded(playsinline='', loop='')
+      |
+      div
+        button#start Start camera
+        |
+        button#record(disabled='') Start Recording
+        |
+        button#play(disabled='') Play
+        |
+        button#download(disabled='') Download
+      |
+      div
+        | Recording format:
+        select#codecPreferences(disabled='')
+      |
+      div
+        h4 Media Stream Constraints options
+        |
+        p
+          | Echo cancellation:
+          input#echoCancellation(type='checkbox')
+      |
+      div
+        span#errorMsg
+    // include adapter for srcObject shim
+    script(src='https://webrtc.github.io/adapter/adapter-latest.js')
+    script(src='src/js/main.js', async='')

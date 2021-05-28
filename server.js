@@ -41,6 +41,10 @@ app.get("/perf", (req, res) => {
   res.render("performance", { title: 'Auth Perf Testing' });
 });
 
+app.get("/liveTest", (req, res) => {
+  res.render("liveTest");
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
