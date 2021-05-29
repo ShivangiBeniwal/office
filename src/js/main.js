@@ -60,7 +60,7 @@ function handleDataAvailable(event) {
 }
 
 function getSupportedMimeTypes() {
-    printLog(MediaRecorder.getSupportedMimeTypes())
+    printLog(navigator.mediaDevices.getSupportedConstraints())
   const possibleTypes = [
     'video/webm;codecs=vp9,opus',
     'video/webm;codecs=vp8,opus',
@@ -79,7 +79,7 @@ function startRecording() {
 
   printLog("start")
   try {
-    mediaRecorder = new MediaRecorder(window.stream);
+    mediaRecorder = new MediaRecorder(window.stream, options);
     printLog("mediaReecorder")
   } catch (e) {
     console.error('Exception while creating MediaRecorder:', e);
