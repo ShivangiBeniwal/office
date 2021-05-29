@@ -1,14 +1,3 @@
-/*
-*  Copyright (c) 2015 The WebRTC project authors. All Rights Reserved.
-*
-*  Use of this source code is governed by a BSD-style license
-*  that can be found in the LICENSE file in the root of the source
-*  tree.
-*/
-
-// This code is adapted from
-// https://rawgit.com/Miguelao/demos/master/mediarecorder.html
-
 'use strict';
 
 /* globals MediaRecorder */
@@ -17,9 +6,9 @@ let mediaRecorder;
 let recordedBlobs;
 
 const codecPreferences = document.querySelector('#codecPreferences');
-
 const errorMsgElement = document.querySelector('span#errorMsg');
 const recordedVideo = document.querySelector('video#recorded');
+
 const recordButton = document.querySelector('button#record');
 recordButton.addEventListener('click', () => {
   if (recordButton.textContent === 'Start Recording') {
@@ -48,6 +37,7 @@ const downloadButton = document.querySelector('button#download');
 downloadButton.addEventListener('click', () => {
   const blob = new Blob(recordedBlobs, {type: 'video/webm'});
   const url = window.URL.createObjectURL(blob);
+
   const a = document.createElement('a');
   a.style.display = 'none';
   a.href = url;
@@ -88,19 +78,22 @@ function startRecording() {
     mediaRecorder = new MediaRecorder(window.stream, options);
   } catch (e) {
     console.error('Exception while creating MediaRecorder:', e);
-    errorMsgElement.innerHTML = `Exception while creating MediaRecorder: ${JSON.stringify(e)}`;
+    errorMsgElement.innerHTML = `Exception while creating MediaRecorder : ${JSON.stringify(e)}`;
     return;
   }
 
   console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
   recordButton.textContent = 'Stop Recording';
+
   playButton.disabled = true;
   downloadButton.disabled = true;
   codecPreferences.disabled = true;
+
   mediaRecorder.onstop = (event) => {
     console.log('Recorder stopped: ', event);
     console.log('Recorded Blobs: ', recordedBlobs);
   };
+
   mediaRecorder.ondataavailable = handleDataAvailable;
   mediaRecorder.start();
   console.log('MediaRecorder started', mediaRecorder);
@@ -115,8 +108,8 @@ function handleSuccess(stream) {
   console.log('getUserMedia() got stream:', stream);
   window.stream = stream;
 
-  const gumVideo = document.querySelector('video#gum');
-  gumVideo.srcObject = stream;
+  const liveVideo = document.querySelector('video#live');
+  liveVideo.srcObject = stream;
 
   getSupportedMimeTypes().forEach(mimeType => {
     const option = document.createElement('option');
@@ -133,16 +126,16 @@ async function init(constraints) {
     handleSuccess(stream);
   } catch (e) {
     console.error('navigator.getUserMedia error:', e);
-    errorMsgElement.innerHTML = `navigator.getUserMedia error:${e.toString()}`;
+    errorMsgElement.innerHTML = `navigator.getUserMedia error : ${e.toString()}`;
   }
 }
 
-document.querySelector('button#start').addEventListener('click', async () => {
-  document.querySelector('button#start').disabled = true;
-  const hasEchoCancellation = document.querySelector('#echoCancellation').checked;
+const startButton = document.querySelector('button#start');
+startButton.addEventListener('click', async () => {
+  startButton.disabled = true;
   const constraints = {
     audio: {
-      echoCancellation: {exact: hasEchoCancellation}
+      echoCancellation: {exact: true}
     },
     video: {
       width: 1280, height: 720
