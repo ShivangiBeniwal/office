@@ -1,5 +1,3 @@
-import { printLog } from "../utils/utils";
-
 'use strict';
 const logTag = "Live Stream"
 
@@ -62,6 +60,7 @@ function handleDataAvailable(event) {
 }
 
 function getSupportedMimeTypes() {
+    printLog(MediaRecorder.getSupportedMimeTypes())
   const possibleTypes = [
     'video/webm;codecs=vp9,opus',
     'video/webm;codecs=vp8,opus',
@@ -110,7 +109,10 @@ function stopRecording() {
 }
 
 function printLog(msg) {
-    printLog(logTag, msg)
+    var finalMessage = "[" + getCurrentDateTime() + "] " + msg;
+    var p = document.createElement("p");
+    p.innerText = finalMessage;
+    errorMsgElement.insertBefore(p, errorMsgElement.firstChild);
 }
 
 function handleSuccess(stream) {
