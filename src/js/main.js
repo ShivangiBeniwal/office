@@ -1,4 +1,7 @@
+import { printLog } from "../utils/utils";
+
 'use strict';
+const logTag = "Live Stream"
 
 /* globals MediaRecorder */
 
@@ -11,6 +14,7 @@ const recordedVideo = document.querySelector('video#recorded');
 
 const recordButton = document.querySelector('button#record');
 recordButton.addEventListener('click', () => {
+  printLog(recordButton.textContent)
   if (recordButton.textContent === 'Start Recording') {
     startRecording();
   } else {
@@ -74,8 +78,10 @@ function startRecording() {
   const mimeType = codecPreferences.options[codecPreferences.selectedIndex].value;
   const options = {mimeType};
 
+  printLog("start")
   try {
-    mediaRecorder = new MediaRecorder(window.stream, options);
+    mediaRecorder = new MediaRecorder(window.stream);
+    printLog("mediaReecorder")
   } catch (e) {
     console.error('Exception while creating MediaRecorder:', e);
     errorMsgElement.innerHTML = `Exception while creating MediaRecorder : ${JSON.stringify(e)}`;
@@ -101,6 +107,10 @@ function startRecording() {
 
 function stopRecording() {
   mediaRecorder.stop();
+}
+
+function printLog(msg) {
+    printLog(logTag, msg)
 }
 
 function handleSuccess(stream) {
