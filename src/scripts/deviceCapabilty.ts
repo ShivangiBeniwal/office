@@ -130,8 +130,9 @@ export const initializeDCP = () => {
               }
 
               if (blob.type.includes('video')) {
-                var vid = document.createElement('video') as HTMLVideoElement
-                vid.style.width = "100px"
+                // var vid = document.createElement('video') as HTMLVideoElement
+                var vid = document.querySelector('#videoBlob') as HTMLVideoElement
+                // vid.style.width = "100px"
                 vid.style.height = "120px"
                 vid.src = URL.createObjectURL(blob)
                 vid.controls = true;
