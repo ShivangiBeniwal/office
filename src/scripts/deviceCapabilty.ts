@@ -78,16 +78,16 @@ export const initializeDCP = () => {
           var blobDiv = document.getElementById('blob') as HTMLDivElement
           if (media.mimeType.includes('image')) {
             var img = document.createElement('img') as HTMLImageElement
-            img.style.width = "100px"
-            img.style.height = "120px"
+            img.style.width = "300px"
+            img.style.height = "400px"
             img.src = ("data:" + media.mimeType + ";base64," + media.preview)
             blobDiv.appendChild(img)
           }
 
           if (media.mimeType.includes('video')) {
             var vid = document.createElement('video') as HTMLVideoElement
-            vid.style.width = "100px"
-            vid.style.height = "120px"
+            vid.style.width = "300px"
+            vid.style.height = "400px"
             vid.src = ("data:" + media.mimeType + ";base64," + media.preview)
             vid.controls = true;
             blobDiv.appendChild(vid)
@@ -123,8 +123,8 @@ export const initializeDCP = () => {
 
               if (blob.type.includes('image')) {
                 var img = document.createElement('img') as HTMLImageElement
-                img.style.width = "100px"
-                img.style.height = "120px"
+                img.style.width = "300px"
+                img.style.height = "400px"
                 img.src = URL.createObjectURL(blob)
                 blobDiv.appendChild(img)
               }
