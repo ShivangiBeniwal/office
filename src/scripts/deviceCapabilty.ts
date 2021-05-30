@@ -3,8 +3,8 @@ import { printLog, formatFileSize } from './../utils/utils';
 
 export const initializeDCP = () => {
   const logTag = "DCP"
-  const defaultImageValue = "{\"mediaType\":1,\"maxMediaCount\":1,\"imageProps\":{\"sources\":[1,2],\"startMode\":1,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}"
-  const defaultVideoValue = "{\"mediaType\":2,\"maxMediaCount\":3,\"videoProps\":{\"sources\":[1,2],\"startMode\":5,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}"
+  const defaultImageValue = "{\"\nmediaType\" : 1,\"\nmaxMediaCount\" : 1,\"\nimageProps\" : {\"\n\nsources\":[1,2],\"startMode\":1,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}";
+  const defaultVideoValue = "{\"mediaType\":2,\"maxMediaCount\":3,\"videoProps\":{\"sources\":[1,2],\"startMode\":5,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}";
   output("initializeDCP")
 
   // Call the initialize API first
@@ -28,11 +28,17 @@ export const initializeDCP = () => {
 
   const clearLogs = document.getElementById('clearLogs') as HTMLButtonElement
   clearLogs.onclick = () => {
+    clearLogClick()
+  }
+  
+  function clearLogClick() {
     (document.getElementById('logs') as HTMLDivElement).innerText = "";
     (document.getElementById('blob') as HTMLDivElement).innerText = "";
   }
 
   startButton.onclick = () => {
+    clearLogClick()
+
     const mediaInput = JSON.parse(inputTextArea.value)
     const selectOption = apiType.options[apiType.selectedIndex].value
     output(`${selectOption} : ${JSON.stringify(mediaInput)}`)
