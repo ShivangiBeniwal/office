@@ -236,6 +236,21 @@
       padding: 0.2em 1em;
     }
 
+    video {
+        vertical-align: top;
+        --width: 75vw;
+        width: var(--width);
+        height: calc(var(--width) * 0.5625);
+      }
+
+      video:last-of-type {
+        margin: 0 0 0 0;
+      }
+
+      video#gumVideo {
+        margin: 0 0 0 0;
+      }
+
     h1 {
       font-size: 24px;
     }
@@ -249,12 +264,42 @@
     h1 {
       font-size: 22px;
     }
+
+    video {
+      vertical-align: top;
+      --width: 75vw;
+      width: var(--width);
+      height: calc(var(--width) * 0.5625);
+    }
+
+    video:last-of-type {
+      margin: 0 0 0 0;
+    }
+
+    video#gumVideo {
+      margin: 0 0 0 0;
+    }
   }
 
   @media screen and (max-width: 450px) {
     h1 {
       font-size: 20px;
     }
+
+    video {
+        vertical-align: top;
+        --width: 75vw;
+        width: var(--width);
+        height: calc(var(--width) * 0.5625);
+      }
+
+      video:last-of-type {
+        margin: 0 0 0 0;
+      }
+
+      video#gumVideo {
+        margin: 0 0 0 0;
+      }
   }
 
 /* ------- */
