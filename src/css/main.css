@@ -238,18 +238,10 @@
 
     video {
         vertical-align: top;
-        --width: 100vw;
+        --width: 100%;
         width: var(--width);
         height: calc(var(--width) * 0.5625);
-      }
-
-      video:last-of-type {
-        margin: 0 0 0 0;
-      }
-
-      video#gumVideo {
-        margin: 0 0 0 0;
-      }
+    }
 
     h1 {
       font-size: 24px;
@@ -267,17 +259,9 @@
 
     video {
       vertical-align: top;
-      --width: 100vw;
+      --width: 100%;
       width: var(--width);
       height: calc(var(--width) * 0.5625);
-    }
-
-    video:last-of-type {
-      margin: 0 0 0 0;
-    }
-
-    video#gumVideo {
-      margin: 0 0 0 0;
     }
   }
 
@@ -288,18 +272,10 @@
 
     video {
         vertical-align: top;
-        --width: 100vw;
+        --width: 100%;
         width: var(--width);
         height: calc(var(--width) * 0.5625);
-      }
-
-      video:last-of-type {
-        margin: 0 0 0 0;
-      }
-
-      video#gumVideo {
-        margin: 0 0 0 0;
-      }
+    }
   }
 
 /* ------- */
