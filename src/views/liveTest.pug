@@ -14,29 +14,43 @@ html
     link(rel='stylesheet', href='src/css/main.css')
   body
     #container
-      video#live(playsinline='', autoplay='', muted='')
-      |
-      br
-      |
-      video#recorded(playsinline='', loop='')
-      |
-      div
-        button#start Start camera
-        |
-        button#record(disabled='') Start Recording
-        |
-        button#play(disabled='') Play
-        |
-        button#download(disabled='') Download
-        |
-        button#pip(disabled='') Toggle PIP
-      |
-      div
-        | Recording format:
-        select#codecPreferences(disabled='')
-      |
-      div
-        span#errorMsg
+    table
+      tbody
+        tr
+          td
+            video#live(playsinline='', autoplay='', muted='')
+            |
+            br
+            |
+            video#recorded(playsinline='')
+          td
+            div
+              dl
+                dt
+                  button#start Start camera
+                br
+                |
+                dt
+                  button#record(disabled='') Start Recording
+                br
+                |
+                dt
+                  button#play(disabled='') Play
+                br
+                |
+                dt
+                  button#download(disabled='') Download
+                br
+                |
+                dt
+                  button#pip(disabled='') Toggle PIP
+            br
+            |
+            div
+              | Recording format:
+              select#codecPreferences(disabled='')
+    div
+      span#errorMsg
     // include adapter for srcObject shim
     script(src='https://webrtc.github.io/adapter/adapter-latest.js')
     script(src='public/utils.js')
