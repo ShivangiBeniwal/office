@@ -12,31 +12,37 @@ block content
         tbody
           tr
             td
-              button(id='selectMedia') Select Media
+              | API Type &nbsp;
+              select#apiType
+                option(value='selectMedia') Select Media
+                |
+                option(value='getMedia')  Get Media
+                |
+                option(value='viewImages') View Images
+              |
+              br
+              |
+              br
+              | Media Type &nbsp;
+              select#mediaType
+                option(value='video') Video
+                |
+                option(value='image')  Image
+                |
+                option(value='audio') Audio
+              |
+              br
+              |
+              br
+              button(id='start') Call API
+            td
+              textarea(id='inputTextArea')
+      table
+        tbody
           tr
             td
-              textarea(id='selectMediaITA')
-            //- td
-            //-   textarea(id='selectMediaOTA')
-          tr
-            td
-              button(id='getMedia') Get Media
-          tr
-            td
-              textarea(id='getMediaITA')
-            //- td
-            //-   textarea(id='getMediaOTA')
-          tr
-            td
-              button(id='viewImages') View Images
-          tr
-            td
-              textarea(id='viewImagesITA')
-            //- td
-            //-   textarea(id='viewImagesOTA')
-    //- br
-    button(id='clearLogs') Clear Logs
-    //- br
-    div(id='logs')
-    //- br
-    div(id='blob')
+              button(id='clearLogs') Clear Logs
+              |
+              div(id='logs')
+              |
+              div(id='blob')    

@@ -3,52 +3,49 @@ import { printLog, formatFileSize } from './../utils/utils';
 
 export const initializeDCP = () => {
   const logTag = "DCP"
-  const defaultValue = "{\"mediaType\":1,\"maxMediaCount\":1,\"imageProps\":{\"sources\":[1,2],\"startMode\":1,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}"
-  const defaultValueV = "{\"mediaType\":2,\"maxMediaCount\":3,\"videoProps\":{\"sources\":[1,2],\"startMode\":5,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}"
+  const defaultImageValue = "{\"mediaType\":1,\"maxMediaCount\":1,\"imageProps\":{\"sources\":[1,2],\"startMode\":1,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}"
+  const defaultVideoValue = "{\"mediaType\":2,\"maxMediaCount\":3,\"videoProps\":{\"sources\":[1,2],\"startMode\":5,\"ink\":true,\"cameraSwitcher\":true,\"textSticker\":true,\"enableFilter\":false}}"
   output("initializeDCP")
 
   // Call the initialize API first
   microsoftTeams.initialize()
 
-  var clearLogs = document.getElementById("clearLogs") as HTMLButtonElement
-  clearLogs.onclick = () => {
-    (document.getElementById("logs") as HTMLDivElement).innerText = "";
-    (document.getElementById("blob") as HTMLDivElement).innerText = "";
+  const apiType = document.querySelector('select#apiType') as HTMLSelectElement
+  const mediaType = document.querySelector('#mediaType') as HTMLSelectElement
+  const startButton = document.getElementById('start') as HTMLButtonElement
+  const inputTextArea = document.getElementById('inputTextArea') as HTMLTextAreaElement
+
+  inputTextArea.value = defaultVideoValue
+  mediaType.onchange = () => {
+    const selectOption = mediaType.options[mediaType.selectedIndex].value
+    if (selectOption == 'image') 
+      inputTextArea.value = defaultImageValue
+    else if (selectOption == 'audio') 
+      inputTextArea.value = defaultImageValue
+    else
+      inputTextArea.value = defaultVideoValue
   }
 
-  (document.getElementById("selectMediaITA") as HTMLTextAreaElement).value = defaultValue;
-  (document.getElementById("getMediaITA") as HTMLTextAreaElement).value = defaultValue;
-  (document.getElementById("viewImagesITA") as HTMLTextAreaElement).value = defaultValueV;
+  const clearLogs = document.getElementById('clearLogs') as HTMLButtonElement
+  clearLogs.onclick = () => {
+    (document.getElementById('logs') as HTMLDivElement).innerText = "";
+    (document.getElementById('blob') as HTMLDivElement).innerText = "";
+  }
 
-  var selectMediaBtn = (document.getElementById("selectMedia") as HTMLButtonElement)
-  selectMediaBtn.onclick = () => {
-    var selectMediaInput = (document.getElementById("selectMediaITA") as HTMLTextAreaElement).value
-    output(selectMediaInput)
+  startButton.onclick = () => {
+    const mediaInput = JSON.parse(inputTextArea.value)
+    const selectOption = apiType.options[apiType.selectedIndex].value
+    output(`${selectOption} : ${JSON.stringify(mediaInput)}`)
 
-    var mediaInputs = JSON.parse(selectMediaInput)
-    selectMedia(mediaInputs)
-  };
-
-  var getMediaBtn = (document.getElementById("getMedia") as HTMLButtonElement)
-  getMediaBtn.onclick = () => {
-    var getMediaInput = (document.getElementById("getMediaITA") as HTMLTextAreaElement).value
-    output(getMediaInput)
-
-    var mediaInputs = JSON.parse(getMediaInput)
-    getMedia(mediaInputs)
-  };
-
-  var viewImagesBtn = (document.getElementById("viewImages") as HTMLButtonElement)
-  viewImagesBtn.onclick = () => {
-    var viewImagesInput = (document.getElementById("viewImagesITA") as HTMLTextAreaElement).value
-    output(viewImagesInput)
-
-    var mediaInputs = JSON.parse(viewImagesInput)
-    viewImages(mediaInputs)
-  };
+    if (selectOption == 'getMedia')
+        getMedia(mediaInput)
+    else if(selectOption == 'viewImages')
+        viewImages(mediaInput)
+    else
+        selectMedia(mediaInput)
+  }
 
   function selectMedia(mediaInputs: microsoftTeams.media.MediaInputs) {
-    output("selectMedia");
     microsoftTeams.media.selectMedia(mediaInputs, (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
       if (err) {
         output(err.errorCode + " " + err.message)
@@ -68,17 +65,17 @@ export const initializeDCP = () => {
           + ", mimeType: " + media.mimeType + ", content: " + media.content
           + ", preview: " + preview + "]"
 
-          var blobDiv = document.getElementById("blob") as HTMLDivElement
-          if (media.mimeType.includes("image")) {
-            var img = document.createElement("img") as HTMLImageElement
+          var blobDiv = document.getElementById('blob') as HTMLDivElement
+          if (media.mimeType.includes('image')) {
+            var img = document.createElement('img') as HTMLImageElement
             img.style.width = "100px"
             img.style.height = "120px"
             img.src = ("data:" + media.mimeType + ";base64," + media.preview)
             blobDiv.appendChild(img)
           }
 
-          if (media.mimeType.includes("video")) {
-            var vid = document.createElement("video") as HTMLVideoElement
+          if (media.mimeType.includes('video')) {
+            var vid = document.createElement('video') as HTMLVideoElement
             vid.style.width = "100px"
             vid.style.height = "120px"
             vid.src = ("data:" + media.mimeType + ";base64," + media.preview)
@@ -93,7 +90,6 @@ export const initializeDCP = () => {
   }
 
   function getMedia(mediaInputs: microsoftTeams.media.MediaInputs) {
-    output("getMedia");
     microsoftTeams.media.selectMedia(mediaInputs, (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
       if (err) {
         output(err.errorCode + " " + err.message)
@@ -108,23 +104,23 @@ export const initializeDCP = () => {
             return;
           }
 
-          var blobDiv = document.getElementById("blob") as HTMLDivElement;
+          var blobDiv = document.getElementById('blob') as HTMLDivElement;
           var reader = new FileReader()
           reader.readAsDataURL(blob)
           reader.onloadend = () => {
             if (reader.result) {
               output("MEDIA " + (i + 1) + " - Received Blob " + reader.result + ", size - " + formatFileSize(blob.size) + " -- " + URL.createObjectURL(blob))
 
-              if (blob.type.includes("image")) {
-                var img = document.createElement("img") as HTMLImageElement
+              if (blob.type.includes('image')) {
+                var img = document.createElement('img') as HTMLImageElement
                 img.style.width = "100px"
                 img.style.height = "120px"
                 img.src = URL.createObjectURL(blob)
                 blobDiv.appendChild(img)
               }
 
-              if (blob.type.includes("video")) {
-                var vid = document.createElement("video") as HTMLVideoElement
+              if (blob.type.includes('video')) {
+                var vid = document.createElement('video') as HTMLVideoElement
                 vid.style.width = "100px"
                 vid.style.height = "120px"
                 vid.src = URL.createObjectURL(blob)
@@ -139,7 +135,6 @@ export const initializeDCP = () => {
   }
 
   function viewImages(mediaInputs: microsoftTeams.media.MediaInputs) {
-    output("viewImages")
     microsoftTeams.media.selectMedia(mediaInputs, (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
       if (err) {
         output(err.errorCode + " " + err.message)
@@ -169,4 +164,4 @@ export const initializeDCP = () => {
   function output(msg?: string) {
     printLog(logTag, msg)
   }
-};
+}
