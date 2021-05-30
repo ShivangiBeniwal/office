@@ -9,10 +9,10 @@ let recordedBlobs;
 const codecPreferences = document.querySelector('#codecPreferences');
 const errorMsgElement = document.querySelector('span#errorMsg');
 const recordedVideo = document.querySelector('video#recorded');
+const liveVideo = document.querySelector('video#live');
 
 const recordButton = document.querySelector('button#record');
 recordButton.addEventListener('click', () => {
-  printLog(recordButton.textContent)
   if (recordButton.textContent === 'Start Recording') {
     startRecording();
   } else {
@@ -53,19 +53,18 @@ downloadButton.addEventListener('click', () => {
 });
 
 function handleDataAvailable(event) {
-  console.log('handleDataAvailable', event);
+  printLog(`handleDataAvailable ${JSON.stringify(event)}`);
   if (event.data && event.data.size > 0) {
     recordedBlobs.push(event.data);
   }
 }
 
 function getSupportedMimeTypes() {
-    printLog(navigator.mediaDevices.getSupportedConstraints())
   const possibleTypes = [
     'video/webm;codecs=vp9,opus',
     'video/webm;codecs=vp8,opus',
     'video/webm;codecs=h264,opus',
-    'video/mp4;codecs=h264,aac',
+    'video/mp4;codecs=h264,aac'
   ];
   return possibleTypes.filter(mimeType => {
     return MediaRecorder.isTypeSupported(mimeType);
@@ -77,17 +76,14 @@ function startRecording() {
   const mimeType = codecPreferences.options[codecPreferences.selectedIndex].value;
   const options = {mimeType};
 
-  printLog("start")
   try {
     mediaRecorder = new MediaRecorder(window.stream, options);
-    printLog("mediaReecorder")
   } catch (e) {
-    console.error('Exception while creating MediaRecorder:', e);
-    errorMsgElement.innerHTML = `Exception while creating MediaRecorder : ${JSON.stringify(e)}`;
+    printLog(`Exception while creating MediaRecorder : ${JSON.stringify(e)}`);
     return;
   }
 
-  console.log('Created MediaRecorder', mediaRecorder, 'with options', options);
+  printLog(`Created MediaRecorder ${mediaRecorder.toString()} with options ${JSON.stringify(options)}`);
   recordButton.textContent = 'Stop Recording';
 
   playButton.disabled = true;
@@ -95,13 +91,13 @@ function startRecording() {
   codecPreferences.disabled = true;
 
   mediaRecorder.onstop = (event) => {
-    console.log('Recorder stopped: ', event);
-    console.log('Recorded Blobs: ', recordedBlobs);
+    printLog(`Recorder stopped : ${JSON.stringify(event)}`);
+    printLog(`Recorded Blobs : ${recordedBlobs.toString()}`);
   };
 
   mediaRecorder.ondataavailable = handleDataAvailable;
   mediaRecorder.start();
-  console.log('MediaRecorder started', mediaRecorder);
+  printLog(`MediaRecorder started : ${mediaRecorder.toString()}`);
 }
 
 function stopRecording() {
@@ -117,10 +113,9 @@ function printLog(msg) {
 
 function handleSuccess(stream) {
   recordButton.disabled = false;
-  console.log('getUserMedia() got stream:', stream);
-  window.stream = stream;
+  printLog(`getUserMedia() got stream : ${stream.toString()}`);
 
-  const liveVideo = document.querySelector('video#live');
+  window.stream = stream;
   liveVideo.srcObject = stream;
 
   getSupportedMimeTypes().forEach(mimeType => {
@@ -137,14 +132,16 @@ async function init(constraints) {
     const stream = await navigator.mediaDevices.getUserMedia(constraints);
     handleSuccess(stream);
   } catch (e) {
-    console.error('navigator.getUserMedia error:', e);
-    errorMsgElement.innerHTML = `navigator.getUserMedia error : ${e.toString()}`;
+    printLog(`navigator.getUserMedia error : ${e.toString()}`);
   }
 }
 
 const startButton = document.querySelector('button#start');
+const togglePipButton = document.querySelector('button#pip');
+
 startButton.addEventListener('click', async () => {
   startButton.disabled = true;
+  togglePipButton.disabled = false;
   const constraints = {
     audio: {
       echoCancellation: {exact: true}
@@ -153,6 +150,16 @@ startButton.addEventListener('click', async () => {
       width: 1280, height: 720
     }
   };
-  console.log('Using media constraints:', constraints);
+  printLog(`Using media constraints : ${JSON.stringify(constraints)}`);
   await init(constraints);
 });
+
+togglePipButton.addEventListener("click", async () => {
+    try {
+      if (liveVideo !== document.pictureInPictureElement)
+        await liveVideo.requestPictureInPicture();
+      else await document.exitPictureInPicture();
+    } catch (error) {
+      printLog(`> Argh! ${error}`);
+    }
+  });
