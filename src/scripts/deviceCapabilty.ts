@@ -20,6 +20,8 @@ export const initializeDCP = () => {
   const inputTextArea = document.getElementById('inputTextArea') as HTMLTextAreaElement
 
   inputTextArea.value = defaultVideoValue
+  inputTextArea.style.width = inputTextArea.scrollWidth + "px";
+  inputTextArea.style.height = inputTextArea.scrollHeight + "px";
   mediaType.onchange = () => {
     const selectOption = mediaType.options[mediaType.selectedIndex].value
     if (selectOption == 'image') 
