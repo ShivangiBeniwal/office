@@ -298,9 +298,9 @@
 
   video {
     vertical-align: top;
-    --width: 25vw;
-    width: var(--width);
-    height: calc(var(--width) * 0.5625);
+    /* --width: 25vw; */
+    width: 25vw;
+    height: 50vw;
   }
 
   video:last-of-type {
