@@ -80,16 +80,14 @@ export const initializeDCP = () => {
           var blobDiv = document.getElementById('blob') as HTMLDivElement
           if (media.mimeType.includes('image')) {
             var img = document.createElement('img') as HTMLImageElement
-            img.style.width = "300px"
-            img.style.height = "400px"
+            setSize(img)
             img.src = ("data:" + media.mimeType + ";base64," + media.preview)
             blobDiv.appendChild(img)
           }
 
           if (media.mimeType.includes('video')) {
             var vid = document.createElement('video') as HTMLVideoElement
-            vid.style.width = "300px"
-            vid.style.height = "400px"
+            setSize(vid)
             vid.src = ("data:" + media.mimeType + ";base64," + media.preview)
             vid.controls = true;
             blobDiv.appendChild(vid)
@@ -125,17 +123,15 @@ export const initializeDCP = () => {
 
               if (blob.type.includes('image')) {
                 var img = document.createElement('img') as HTMLImageElement
-                img.style.width = "300px"
-                img.style.height = "400px"
+                setSize(img)
                 img.src = URL.createObjectURL(blob)
                 blobDiv.appendChild(img)
               }
 
               if (blob.type.includes('video')) {
                 var vid = document.createElement('video') as HTMLVideoElement
-                vid.style.width = "300px"
-                vid.style.height = "400px"
                 vid.src = URL.createObjectURL(blob)
+                setSize(vid)
                 vid.controls = true;
                 blobDiv.appendChild(vid)
               }
@@ -171,6 +167,11 @@ export const initializeDCP = () => {
         output("Success")
       });
     });
+  }
+
+  function setSize(element: HTMLElement) {
+    element.style.width = "300px"
+    element.style.height = "400px"
   }
 
   function output(msg?: string) {

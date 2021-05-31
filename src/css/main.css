@@ -277,8 +277,8 @@
 
   video {
     vertical-align: top;
-    width: 25vw;
-    height: 25vw;
+    width: 30vh;
+    height: 30vh;
   }
 
   video:last-of-type {
