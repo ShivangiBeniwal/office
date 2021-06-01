@@ -33,9 +33,6 @@ export const initializeDCP = () => {
       inputTextArea.value = defaultAudioValue
     else
       inputTextArea.value = defaultVideoValue
-
-    inputTextArea.style.width = inputTextArea.scrollWidth + "px";
-    inputTextArea.style.height = inputTextArea.scrollHeight + "px";
   }
 
   const clearLogs = document.getElementById('clearLogs') as HTMLButtonElement
@@ -101,7 +98,6 @@ export const initializeDCP = () => {
           
           if (media.mimeType.includes('audio')) {
             var aud = document.createElement('audio') as HTMLAudioElement
-            aud.style.width = "300px"
             aud.src = ("data:" + media.mimeType + ";base64," + media.preview)
             aud.controls = true;
             blobDiv.appendChild(aud)
@@ -152,13 +148,10 @@ export const initializeDCP = () => {
               
               if (blob.type.includes('audio')) {
                 var aud = document.createElement('audio') as HTMLAudioElement
-                aud.style.width = "300px"
                 aud.src = URL.createObjectURL(blob)
                 aud.controls = true
                 blobDiv.appendChild(aud)
               }
-
-              
             }
           }
         });
