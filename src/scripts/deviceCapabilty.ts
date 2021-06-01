@@ -3,6 +3,9 @@ import { printLog, formatFileSize } from './../utils/utils';
 
 export const initializeDCP = () => {
   const logTag = "DCP"
+  const defaultAudioValue = "{\n  \"mediaType\" : 4,\n  \"maxMediaCount\" : 1,\n  \"audioProps\" : \n  "
+                          + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 1,\n    \"ink\" : true,"
+                          + "\n    \"maxDuration\" : 1\n  }\n}";
   const defaultImageValue = "{\n  \"mediaType\" : 1,\n  \"maxMediaCount\" : 1,\n  \"imageProps\" : \n  "
                           + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 1,\n    \"ink\" : true,"
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false\n  }\n}";
@@ -26,7 +29,7 @@ export const initializeDCP = () => {
   mediaType.onchange = () => {
     const selectOption = mediaType.options[mediaType.selectedIndex].value
     if (selectOption == 'image') 
-      inputTextArea.value = defaultImageValue
+      inputTextArea.value = defaultAudioValue
     else if (selectOption == 'audio') 
       inputTextArea.value = defaultImageValue
     else
@@ -90,8 +93,16 @@ export const initializeDCP = () => {
             var vid = document.createElement('video') as HTMLVideoElement
             setSize(vid)
             vid.src = ("data:" + media.mimeType + ";base64," + media.preview)
-            vid.controls = true;
+            vid.controls = true
             blobDiv.appendChild(vid)
+          }
+          
+          if (media.mimeType.includes('audio')) {
+            var aud = document.createElement('audio') as HTMLAudioElement
+            aud.style.width = "300px"
+            aud.src = ("data:" + media.mimeType + ";base64," + media.preview)
+            aud.controls = true;
+            blobDiv.appendChild(aud)
           }
 
           output(message)
@@ -133,9 +144,19 @@ export const initializeDCP = () => {
                 var vid = document.createElement('video') as HTMLVideoElement
                 vid.src = URL.createObjectURL(blob)
                 setSize(vid)
-                vid.controls = true;
+                vid.controls = true
                 blobDiv.appendChild(vid)
               }
+              
+              if (blob.type.includes('audio')) {
+                var aud = document.createElement('audio') as HTMLAudioElement
+                aud.style.width = "300px"
+                aud.src = URL.createObjectURL(blob)
+                aud.controls = true
+                blobDiv.appendChild(aud)
+              }
+
+              
             }
           }
         });
