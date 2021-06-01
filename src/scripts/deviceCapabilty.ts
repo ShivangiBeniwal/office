@@ -33,6 +33,9 @@ export const initializeDCP = () => {
       inputTextArea.value = defaultAudioValue
     else
       inputTextArea.value = defaultVideoValue
+
+    inputTextArea.style.width = inputTextArea.scrollWidth + "px";
+    inputTextArea.style.height = inputTextArea.scrollHeight + "px";
   }
 
   const clearLogs = document.getElementById('clearLogs') as HTMLButtonElement
