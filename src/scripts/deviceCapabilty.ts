@@ -150,6 +150,7 @@ export const initializeDCP = () => {
     var msg = document.createElement('p') as HTMLParagraphElement
     msg.innerText = message
     msg.style.overflow = 'auto'
+    msg.style.padding = '3px'
     innerBlock.appendChild(msg)
     
     var element
