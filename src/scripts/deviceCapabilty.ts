@@ -4,7 +4,8 @@ import { printLog, formatFileSize } from './../utils/utils';
 export const initializeDCP = () => {
   const logTag = "DCP"
   const defaultAudioValue = "{\n  \"mediaType\" : 4,\n  \"maxMediaCount\" : 1,\n  \"audioProps\" : \n  "
-                          + "{\n    \"maxDuration\" : 1,\n    \"videoEnable\" : true,\n    \"cameraMode\" : 1\n  }\n}";
+                          + "{\n    \"maxDuration\" : 1,\n    \"videoEnable\" : true,\n    \"cameraMode\" : 1,"
+                          + "\n    \"videoVisibility\": true\n  }\n}";
   const defaultImageValue = "{\n  \"mediaType\" : 1,\n  \"maxMediaCount\" : 1,\n  \"imageProps\" : \n  "
                           + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 1,\n    \"ink\" : true,"
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false\n  }\n}";
