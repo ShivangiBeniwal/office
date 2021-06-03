@@ -108,6 +108,7 @@ div#blobs {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
+  height: 500px;
 }
 
 div#blob {

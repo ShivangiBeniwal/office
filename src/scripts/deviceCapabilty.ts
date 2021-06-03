@@ -11,7 +11,7 @@ export const initializeDCP = () => {
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false\n  }\n}";
   const defaultVideoValue = "{\n  \"mediaType\" : 2,\n  \"maxMediaCount\" : 3,\n  \"videoProps\" : \n  "
                           + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
-                          + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false\n,"
+                          + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false,"
                           + "\n    \"maxDuration\" : 1\n  }\n}";
   output("initializeDCP")
 
@@ -22,6 +22,7 @@ export const initializeDCP = () => {
   const mediaType = document.querySelector('#mediaType') as HTMLSelectElement
   const startButton = document.getElementById('start') as HTMLButtonElement
   const inputTextArea = document.getElementById('inputTextArea') as HTMLTextAreaElement
+  const blobDiv = document.querySelector('div#blobs') as HTMLDivElement;
 
   inputTextArea.value = defaultVideoValue
   inputTextArea.style.width = inputTextArea.scrollWidth + "px";
@@ -35,6 +36,11 @@ export const initializeDCP = () => {
     else
       inputTextArea.value = defaultVideoValue
   }
+
+  var img = document.createElement('img') as HTMLImageElement
+  img.src = "https://mast.com.mx/images/easyblog_articles/40/url.jpg"
+  setSize(img)
+  blobDiv.insertBefore(img, blobDiv.firstChild)
 
   const clearLogs = document.getElementById('clearLogs') as HTMLButtonElement
   clearLogs.onclick = () => {
@@ -81,7 +87,6 @@ export const initializeDCP = () => {
           + ", mimeType: " + media.mimeType + ", content: " + media.content
           + ", preview: " + preview + "]"
 
-          var blobDiv = document.getElementById('div#blobs') as HTMLDivElement
           if (media.mimeType.includes('image')) {
             var img = document.createElement('img') as HTMLImageElement
             img.src = ("data:" + media.mimeType + ";base64," + media.preview)
@@ -126,7 +131,6 @@ export const initializeDCP = () => {
             return;
           }
 
-          var blobDiv = document.querySelector('div#blobs') as HTMLDivElement;
           var reader = new FileReader()
           reader.readAsDataURL(blob)
           reader.onloadend = () => {
