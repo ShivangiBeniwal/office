@@ -103,3 +103,16 @@ button:active:after {
   opacity: 1;
   transition: 0s;
 }
+
+div#blobs {
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: nowrap;
+}
+
+div#blob {
+  display: inline-block;
+  width: 300px;
+  height: 500px;
+  border:1px solid;
+}

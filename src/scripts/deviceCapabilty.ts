@@ -81,18 +81,18 @@ export const initializeDCP = () => {
           + ", mimeType: " + media.mimeType + ", content: " + media.content
           + ", preview: " + preview + "]"
 
-          var blobDiv = document.getElementById('blob') as HTMLDivElement
+          var blobDiv = document.getElementById('div#blobs') as HTMLDivElement
           if (media.mimeType.includes('image')) {
             var img = document.createElement('img') as HTMLImageElement
-            setSize(img)
             img.src = ("data:" + media.mimeType + ";base64," + media.preview)
+            setSize(img)
             blobDiv.appendChild(img)
           }
 
           if (media.mimeType.includes('video')) {
             var vid = document.createElement('video') as HTMLVideoElement
-            setSize(vid)
             vid.src = ("data:" + media.mimeType + ";base64," + media.preview)
+            setSize(vid)
             vid.controls = true
             blobDiv.appendChild(vid)
           }
@@ -100,6 +100,7 @@ export const initializeDCP = () => {
           if (media.mimeType.includes('audio')) {
             var aud = document.createElement('audio') as HTMLAudioElement
             aud.src = ("data:" + media.mimeType + ";base64," + media.preview)
+            setSize(aud)
             aud.controls = true;
             blobDiv.appendChild(aud)
           }
@@ -125,7 +126,7 @@ export const initializeDCP = () => {
             return;
           }
 
-          var blobDiv = document.getElementById('blob') as HTMLDivElement;
+          var blobDiv = document.querySelector('div#blobs') as HTMLDivElement;
           var reader = new FileReader()
           reader.readAsDataURL(blob)
           reader.onloadend = () => {
@@ -134,8 +135,8 @@ export const initializeDCP = () => {
 
               if (blob.type.includes('image')) {
                 var img = document.createElement('img') as HTMLImageElement
-                setSize(img)
                 img.src = URL.createObjectURL(blob)
+                setSize(img)
                 blobDiv.appendChild(img)
               }
 
@@ -150,6 +151,7 @@ export const initializeDCP = () => {
               if (blob.type.includes('audio')) {
                 var aud = document.createElement('audio') as HTMLAudioElement
                 aud.src = URL.createObjectURL(blob)
+                setSize(aud)
                 aud.controls = true
                 blobDiv.appendChild(aud)
               }
@@ -190,6 +192,7 @@ export const initializeDCP = () => {
   function setSize(element: HTMLElement) {
     element.style.width = "300px"
     element.style.height = "400px"
+    element.className = 'blob'
   }
 
   function output(msg?: string) {
