@@ -11,7 +11,7 @@ export const initializeDCP = () => {
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false\n  }\n}";
   const defaultVideoValue = "{\n  \"mediaType\" : 2,\n  \"maxMediaCount\" : 3,\n  \"videoProps\" : \n  "
                           + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
-                          + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false\n,"
+                          + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false,"
                           + "\n    \"maxDuration\" : 1\n  }\n}";
   output("initializeDCP")
 
@@ -100,7 +100,7 @@ export const initializeDCP = () => {
         if (media.mimeType.includes('audio')) {
           var aud = document.createElement('audio') as HTMLAudioElement
           aud.src = ("data:" + media.mimeType + ";base64," + media.preview)
-          setSize(vid)
+          setSize(aud)
           aud.controls = true;
           blobDiv.appendChild(aud)
         }
