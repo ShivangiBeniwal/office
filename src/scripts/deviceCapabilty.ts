@@ -77,8 +77,8 @@ export const initializeDCP = () => {
           preview = media.preview.substr(0, len)
         }
 
-        var message = "MEDIA " + (i + 1) + " - [format: " + media.format + ", \nsize: " + media.size
-                      + ", mimeType: " + media.mimeType + ", \ncontent: " + media.content
+        var message = "MEDIA " + (i + 1) + " - [format: " + media.format + ", size: " + media.size
+                      + ", mimeType: " + media.mimeType + ", content: " + media.content
                       + ", preview: " + preview + "]"
         createViewElement(message, media.mimeType, "data:" + media.mimeType + ";base64," + media.preview)
       }
@@ -149,8 +149,8 @@ export const initializeDCP = () => {
     var innerBlock = document.createElement('div') as HTMLDivElement
     var msg = document.createElement('p') as HTMLParagraphElement
     msg.innerText = message
-    msg.style.overflow = 'auto'
-    // msg.style.display = 'inline-block'
+    // msg.style.overflow = 'auto'
+    msg.style.width = '300px'
     innerBlock.appendChild(msg)
     
     var element
