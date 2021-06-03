@@ -80,8 +80,7 @@ export const initializeDCP = () => {
         var message = "MEDIA " + (i + 1) + " - [format: " + media.format + ", size: " + media.size
                       + ", mimeType: " + media.mimeType + ", content: " + media.content
                       + ", preview: " + preview + "]"
-        var src = ("data:" + media.mimeType + ";base64," + media.preview);           
-        createViewElement(message, media.mimeType, src)
+        createViewElement(message, media.mimeType, "data:" + media.mimeType + ";base64," + media.preview)
       }
     });
   }
@@ -107,8 +106,7 @@ export const initializeDCP = () => {
           reader.onloadend = () => {
             if (reader.result) {
               var message = "MEDIA " + (i + 1) + " - Received Blob : size - " + formatFileSize(blob.size) + " (" + blob.size + ")"
-              var src = URL.createObjectURL(blob)
-              createViewElement(message, blob.type, src)
+              createViewElement(message, blob.type, URL.createObjectURL(blob))
             }
           }
         });
@@ -151,6 +149,7 @@ export const initializeDCP = () => {
     var innerBlock = document.createElement('div') as HTMLDivElement
     var msg = document.createElement('p') as HTMLParagraphElement
     msg.innerText = message
+    msg.style.overflow = 'hidden';
     innerBlock.appendChild(msg)
     
     var element
