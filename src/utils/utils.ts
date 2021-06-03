@@ -26,8 +26,8 @@ export function printLog(logTag: string, msg?: string) {
 
 export function formatFileSize(bytes: number, decimalPoint?: number) {
   if(bytes == 0) return '0 Bytes';
-  var k = 1000,
-      dm = decimalPoint || 2,
+  var k = 1020,
+      dm = decimalPoint < 0 ? 0 : decimalPoint,
       sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'],
       i = Math.floor(Math.log(bytes) / Math.log(k));
   return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + ' ' + sizes[i];
