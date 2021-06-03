@@ -69,7 +69,6 @@ export const initializeDCP = () => {
         return
       }
 
-      let message = ""
       for (let i = 0; i < medias.length; i++) {
         const media: microsoftTeams.media.Media = medias[i]
         let preview = "", len = 20
@@ -78,15 +77,18 @@ export const initializeDCP = () => {
           preview = media.preview.substr(0, len)
         }
 
-        message += "MEDIA " + (i + 1) + " - [format: " + media.format + ", size: " + media.size
+        var innerBlock = document.createElement('div') as HTMLDivElement
+        var msg = document.createElement('p') as HTMLParagraphElement
+        msg.innerText = "MEDIA " + (i + 1) + " - [format: " + media.format + ", size: " + media.size
         + ", mimeType: " + media.mimeType + ", content: " + media.content
         + ", preview: " + preview + "]"
+        innerBlock.appendChild(msg)
 
         if (media.mimeType.includes('image')) {
           var img = document.createElement('img') as HTMLImageElement
           img.src = ("data:" + media.mimeType + ";base64," + media.preview)
           setSize(img)
-          blobDiv.appendChild(img)
+          innerBlock.appendChild(img)
         }
 
         if (media.mimeType.includes('video')) {
@@ -94,7 +96,7 @@ export const initializeDCP = () => {
           vid.src = ("data:" + media.mimeType + ";base64," + media.preview)
           setSize(vid)
           vid.controls = true
-          blobDiv.appendChild(vid)
+          innerBlock.appendChild(vid)
         }
           
         if (media.mimeType.includes('audio')) {
@@ -102,11 +104,11 @@ export const initializeDCP = () => {
           aud.src = ("data:" + media.mimeType + ";base64," + media.preview)
           setSize(aud)
           aud.controls = true;
-          blobDiv.appendChild(aud)
+          innerBlock.appendChild(aud)
         }
-
-        output(message)
-        message = ""
+        
+        innerBlock.className = 'blob'
+        blobDiv.appendChild(innerBlock)
       }
     });
   }
@@ -131,11 +133,10 @@ export const initializeDCP = () => {
           reader.readAsDataURL(blob)
           reader.onloadend = () => {
             if (reader.result) {
-              message += "MEDIA " + (i + 1) + " - Received Blob : size - " + formatFileSize(blob.size) + " (" + blob.size + ")"
-              
+
               var innerBlock = document.createElement('div') as HTMLDivElement
               var msg = document.createElement('p') as HTMLParagraphElement
-              msg.innerText = message
+              msg.innerText = "MEDIA " + (i + 1) + " - Received Blob : size - " + formatFileSize(blob.size) + " (" + blob.size + ")"
               innerBlock.appendChild(msg)
 
               if (blob.type.includes('image')) {
@@ -161,9 +162,8 @@ export const initializeDCP = () => {
                 innerBlock.appendChild(aud)
               }
               
+              innerBlock.className = 'blob'
               blobDiv.appendChild(innerBlock)
-              output(message)
-              message = ""
             }
           }
         });
@@ -201,7 +201,6 @@ export const initializeDCP = () => {
   function setSize(element: HTMLElement) {
     element.style.width = '300px'
     element.style.height = '400px'
-    element.className = 'blob'
   }
 
   function output(msg?: string) {

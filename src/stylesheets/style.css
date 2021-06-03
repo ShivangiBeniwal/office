@@ -109,12 +109,13 @@ button:active:after {
   overflow-y: hidden;
   white-space: nowrap;
   height: 500px;
-  border:1px solid #f2f2f2;
+  border: 1px solid #f2f2f2;
 }
 
 .blob {
   display: inline-block;
   width: 300px;
   height: 500px;
-  border:1px solid;
+  border: 1px solid;
+  margin-right: 3px;
 }
