@@ -108,8 +108,6 @@ button:active:after {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
-  /* height: 500px; */
-  border: 1px solid #f2f2f2;
 }
 
 .blob {

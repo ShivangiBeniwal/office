@@ -77,38 +77,11 @@ export const initializeDCP = () => {
           preview = media.preview.substr(0, len)
         }
 
-        var innerBlock = document.createElement('div') as HTMLDivElement
-        var msg = document.createElement('p') as HTMLParagraphElement
-        msg.innerText = "MEDIA " + (i + 1) + " - [format: " + media.format + ", size: " + media.size
-        + ", mimeType: " + media.mimeType + ", content: " + media.content
-        + ", preview: " + preview + "]"
-        innerBlock.appendChild(msg)
-
-        if (media.mimeType.includes('image')) {
-          var img = document.createElement('img') as HTMLImageElement
-          img.src = ("data:" + media.mimeType + ";base64," + media.preview)
-          setSize(img)
-          innerBlock.appendChild(img)
-        }
-
-        if (media.mimeType.includes('video')) {
-          var vid = document.createElement('video') as HTMLVideoElement
-          vid.src = ("data:" + media.mimeType + ";base64," + media.preview)
-          setSize(vid)
-          vid.controls = true
-          innerBlock.appendChild(vid)
-        }
-          
-        if (media.mimeType.includes('audio')) {
-          var aud = document.createElement('audio') as HTMLAudioElement
-          aud.src = ("data:" + media.mimeType + ";base64," + media.preview)
-          setSize(aud)
-          aud.controls = true;
-          innerBlock.appendChild(aud)
-        }
-        
-        innerBlock.className = 'blob'
-        blobDiv.appendChild(innerBlock)
+        var message = "MEDIA " + (i + 1) + " - [format: " + media.format + ", size: " + media.size
+                      + ", mimeType: " + media.mimeType + ", content: " + media.content
+                      + ", preview: " + preview + "]"
+        var src = ("data:" + media.mimeType + ";base64," + media.preview);           
+        createViewElement(message, media.mimeType, src)
       }
     });
   }
@@ -133,37 +106,9 @@ export const initializeDCP = () => {
           reader.readAsDataURL(blob)
           reader.onloadend = () => {
             if (reader.result) {
-
-              var innerBlock = document.createElement('div') as HTMLDivElement
-              var msg = document.createElement('p') as HTMLParagraphElement
-              msg.innerText = "MEDIA " + (i + 1) + " - Received Blob : size - " + formatFileSize(blob.size) + " (" + blob.size + ")"
-              innerBlock.appendChild(msg)
-
-              if (blob.type.includes('image')) {
-                var img = document.createElement('img') as HTMLImageElement
-                img.src = URL.createObjectURL(blob)
-                setSize(img)
-                innerBlock.appendChild(img)
-              }
-
-              if (blob.type.includes('video')) {
-                var vid = document.createElement('video') as HTMLVideoElement
-                vid.src = URL.createObjectURL(blob)
-                setSize(vid)
-                vid.controls = true
-                innerBlock.appendChild(vid)
-              }
-              
-              if (blob.type.includes('audio')) {
-                var aud = document.createElement('audio') as HTMLAudioElement
-                aud.src = URL.createObjectURL(blob)
-                setSize(aud)
-                aud.controls = true
-                innerBlock.appendChild(aud)
-              }
-              
-              innerBlock.className = 'blob'
-              blobDiv.appendChild(innerBlock)
+              var message = "MEDIA " + (i + 1) + " - Received Blob : size - " + formatFileSize(blob.size) + " (" + blob.size + ")"
+              var src = URL.createObjectURL(blob)
+              createViewElement(message, blob.type, src)
             }
           }
         });
@@ -198,12 +143,39 @@ export const initializeDCP = () => {
     });
   }
 
-  function setSize(element: HTMLElement) {
-    element.style.width = '300px'
-    element.style.height = '400px'
-  }
-
   function output(msg?: string) {
     printLog(logTag, msg)
+  }
+
+  function createViewElement(message: string, mediaType: string, src: string) {
+    var innerBlock = document.createElement('div') as HTMLDivElement
+    var msg = document.createElement('p') as HTMLParagraphElement
+    msg.innerText = message
+    innerBlock.appendChild(msg)
+    
+    var element
+    if (mediaType.includes('image')) {
+      element = document.createElement('img') as HTMLImageElement
+    }
+    
+    if (mediaType.includes('video')) {
+      element = document.createElement('video') as HTMLVideoElement
+      element.controls = true
+    }
+    
+    if (mediaType.includes('audio')) {
+      element = document.createElement('audio') as HTMLAudioElement
+      element.controls = true;
+    }
+    
+    if (element) {
+      element.src = src
+      element.style.width = '300px'
+      element.style.height = '400px'
+
+      innerBlock.appendChild(element) 
+      innerBlock.className = 'blob'
+      blobDiv.appendChild(innerBlock)
+    }
   }
 }
