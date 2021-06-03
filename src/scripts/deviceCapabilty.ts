@@ -4,15 +4,15 @@ import { printLog, formatFileSize } from './../utils/utils';
 export const initializeDCP = () => {
   const logTag = "DCP"
   const defaultAudioValue = "{\n  \"mediaType\" : 4,\n  \"maxMediaCount\" : 1,\n  \"audioProps\" : \n  "
-                          + "{\n    \"maxDuration\" : 1,\n    \"videoEnable\" : true,\n    \"cameraMode\" : 1,"
-                          + "\n    \"videoVisibility\": true\n  }\n}";
+                          + "{\n    \"maxDuration\" : 1,\n    \"videoEnable\" : true,\n    \"videoVisibility\" : true,"
+                          + "\n    \"cameraMode\": 1\n  }\n}";
   const defaultImageValue = "{\n  \"mediaType\" : 1,\n  \"maxMediaCount\" : 1,\n  \"imageProps\" : \n  "
                           + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 1,\n    \"ink\" : true,"
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false\n  }\n}";
   const defaultVideoValue = "{\n  \"mediaType\" : 2,\n  \"maxMediaCount\" : 3,\n  \"videoProps\" : \n  "
                           + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false\n,"
-                          + "\n    \"maxDuration\" : 1 }\n}";
+                          + "\n    \"maxDuration\" : 1\n  }\n}";
   output("initializeDCP")
 
   // Call the initialize API first
