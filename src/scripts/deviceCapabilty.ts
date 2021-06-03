@@ -24,7 +24,6 @@ export const initializeDCP = () => {
   const inputTextArea = document.getElementById('inputTextArea') as HTMLTextAreaElement
   const blobDiv = document.getElementById('blobs') as HTMLDivElement
 
-  blobDiv.innerText = "hi"
   inputTextArea.value = defaultVideoValue
   inputTextArea.style.width = inputTextArea.scrollWidth + "px";
   inputTextArea.style.height = inputTextArea.scrollHeight + "px";
@@ -45,7 +44,7 @@ export const initializeDCP = () => {
   
   function clearLogClick() {
     (document.getElementById('logs') as HTMLDivElement).innerText = "";
-    // blobDiv.innerText = "";
+    blobDiv.innerText = "";
   }
 
   startButton.onclick = () => {
