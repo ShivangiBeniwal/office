@@ -24,7 +24,7 @@ export function printLog(logTag: string, msg?: string) {
   // console.log(logTag + ": " + finalMessage);
 }
 
-export function formatFileSize(bytes: number, decimalPoint?: number) {
+export function formatFileSize(bytes: number, decimalPoint: number = 0) {
   if(bytes == 0) return '0 Bytes';
   var k = 1020,
       dm = decimalPoint < 0 ? 0 : decimalPoint,
