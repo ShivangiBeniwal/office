@@ -104,11 +104,12 @@ button:active:after {
   transition: 0s;
 }
 
-div#blobs {
+#blobs {
   overflow-x: scroll;
   overflow-y: hidden;
   white-space: nowrap;
   height: 500px;
+  border:1px solid red;
 }
 
 .blob {

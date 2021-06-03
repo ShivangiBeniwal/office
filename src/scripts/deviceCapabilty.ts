@@ -22,8 +22,9 @@ export const initializeDCP = () => {
   const mediaType = document.querySelector('#mediaType') as HTMLSelectElement
   const startButton = document.getElementById('start') as HTMLButtonElement
   const inputTextArea = document.getElementById('inputTextArea') as HTMLTextAreaElement
-  const blobDiv = document.querySelector('div#blobs') as HTMLDivElement
+  const blobDiv = document.getElementById('blobs') as HTMLDivElement
 
+  blobDiv.innerText = "hi"
   inputTextArea.value = defaultVideoValue
   inputTextArea.style.width = inputTextArea.scrollWidth + "px";
   inputTextArea.style.height = inputTextArea.scrollHeight + "px";
@@ -191,7 +192,7 @@ export const initializeDCP = () => {
   function setSize(element: HTMLElement) {
     element.style.width = '300px'
     element.style.height = '400px'
-    element.className = 'blob'
+    // element.className = 'blob'
   }
 
   function output(msg?: string) {
