@@ -14,11 +14,11 @@ export function getCurrentDateTime() {
 }
 
 export function printLog(logTag: string, msg?: string) {
-  var finalMessage = "[" + getCurrentDateTime() + "] " + msg;
-  var logDiv = document.getElementById("logs") as HTMLDivElement;
-  var p = document.createElement("p") as HTMLParagraphElement;
-  p.innerText = finalMessage;
-  logDiv.insertBefore(p, logDiv.firstChild);
+  var finalMessage = "[" + getCurrentDateTime() + "] " + msg
+  var logDiv = document.getElementById("logs") as HTMLDivElement
+  var p = document.createElement("p") as HTMLParagraphElement
+  p.innerText = finalMessage
+  logDiv.insertBefore(p, logDiv.firstChild)
 
   // Commented this for now since WebChromeClient.onConsoleMessage is throwimg ANR
   // console.log(logTag + ": " + finalMessage);

@@ -105,8 +105,8 @@ export const initializeDCP = () => {
           blobDiv.appendChild(aud)
         }
 
-          output(message)
-          message = ""
+        output(message)
+        message = ""
       }
     });
   }
@@ -118,6 +118,7 @@ export const initializeDCP = () => {
         return
       }
 
+      let message = ""
       for (let i = 0; i < medias.length; i++) {
         const media: microsoftTeams.media.Media = medias[i]
         media.getMedia((gmErr: microsoftTeams.SdkError, blob: Blob) => {
@@ -130,13 +131,18 @@ export const initializeDCP = () => {
           reader.readAsDataURL(blob)
           reader.onloadend = () => {
             if (reader.result) {
-              output("MEDIA " + (i + 1) + " - Received Blob " + reader.result + ", size - " + formatFileSize(blob.size) + " -- " + URL.createObjectURL(blob))
+              message += "MEDIA " + (i + 1) + " - Received Blob : size - " + formatFileSize(blob.size) + " (" + blob.size + ")"
+              
+              var innerBlock = document.createElement('div') as HTMLDivElement
+              var msg = document.createElement('p') as HTMLParagraphElement
+              msg.innerText = message
+              innerBlock.appendChild(msg)
 
               if (blob.type.includes('image')) {
                 var img = document.createElement('img') as HTMLImageElement
                 img.src = URL.createObjectURL(blob)
                 setSize(img)
-                blobDiv.appendChild(img)
+                innerBlock.appendChild(img)
               }
 
               if (blob.type.includes('video')) {
@@ -144,7 +150,7 @@ export const initializeDCP = () => {
                 vid.src = URL.createObjectURL(blob)
                 setSize(vid)
                 vid.controls = true
-                blobDiv.appendChild(vid)
+                innerBlock.appendChild(vid)
               }
               
               if (blob.type.includes('audio')) {
@@ -152,8 +158,12 @@ export const initializeDCP = () => {
                 aud.src = URL.createObjectURL(blob)
                 setSize(aud)
                 aud.controls = true
-                blobDiv.appendChild(aud)
+                innerBlock.appendChild(aud)
               }
+              
+              blobDiv.appendChild(innerBlock)
+              output(message)
+              message = ""
             }
           }
         });
