@@ -11,7 +11,7 @@ export const initializeDCP = () => {
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false\n  }\n}";
   const defaultVideoValue = "{\n  \"mediaType\" : 2,\n  \"maxMediaCount\" : 3,\n  \"videoProps\" : \n  "
                           + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
-                          + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false,"
+                          + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false\n,"
                           + "\n    \"maxDuration\" : 1\n  }\n}";
   output("initializeDCP")
 
@@ -22,7 +22,7 @@ export const initializeDCP = () => {
   const mediaType = document.querySelector('#mediaType') as HTMLSelectElement
   const startButton = document.getElementById('start') as HTMLButtonElement
   const inputTextArea = document.getElementById('inputTextArea') as HTMLTextAreaElement
-  const blobDiv = document.querySelector('div#blobs') as HTMLDivElement;
+  const blobDiv = document.querySelector('div#blobs') as HTMLDivElement
 
   inputTextArea.value = defaultVideoValue
   inputTextArea.style.width = inputTextArea.scrollWidth + "px";
@@ -37,11 +37,6 @@ export const initializeDCP = () => {
       inputTextArea.value = defaultVideoValue
   }
 
-  var img = document.createElement('img') as HTMLImageElement
-  img.src = "https://mast.com.mx/images/easyblog_articles/40/url.jpg"
-  setSize(img)
-  blobDiv.insertBefore(img, blobDiv.firstChild)
-
   const clearLogs = document.getElementById('clearLogs') as HTMLButtonElement
   clearLogs.onclick = () => {
     clearLogClick()
@@ -49,7 +44,7 @@ export const initializeDCP = () => {
   
   function clearLogClick() {
     (document.getElementById('logs') as HTMLDivElement).innerText = "";
-    (document.getElementById('blob') as HTMLDivElement).innerText = "";
+    blobDiv.innerText = "";
   }
 
   startButton.onclick = () => {
@@ -89,15 +84,15 @@ export const initializeDCP = () => {
 
           if (media.mimeType.includes('image')) {
             var img = document.createElement('img') as HTMLImageElement
-            img.src = ("data:" + media.mimeType + ";base64," + media.preview)
             setSize(img)
+            img.src = ("data:" + media.mimeType + ";base64," + media.preview)
             blobDiv.appendChild(img)
           }
 
           if (media.mimeType.includes('video')) {
             var vid = document.createElement('video') as HTMLVideoElement
-            vid.src = ("data:" + media.mimeType + ";base64," + media.preview)
             setSize(vid)
+            vid.src = ("data:" + media.mimeType + ";base64," + media.preview)
             vid.controls = true
             blobDiv.appendChild(vid)
           }
@@ -105,7 +100,6 @@ export const initializeDCP = () => {
           if (media.mimeType.includes('audio')) {
             var aud = document.createElement('audio') as HTMLAudioElement
             aud.src = ("data:" + media.mimeType + ";base64," + media.preview)
-            setSize(aud)
             aud.controls = true;
             blobDiv.appendChild(aud)
           }
@@ -139,8 +133,8 @@ export const initializeDCP = () => {
 
               if (blob.type.includes('image')) {
                 var img = document.createElement('img') as HTMLImageElement
-                img.src = URL.createObjectURL(blob)
                 setSize(img)
+                img.src = URL.createObjectURL(blob)
                 blobDiv.appendChild(img)
               }
 
