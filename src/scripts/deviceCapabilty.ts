@@ -191,7 +191,7 @@ export const initializeDCP = () => {
   function setSize(element: HTMLElement) {
     element.style.width = '300px'
     element.style.height = '400px'
-    // element.className = 'blob'
+    element.className = 'blob'
   }
 
   function output(msg?: string) {
