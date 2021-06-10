@@ -29,9 +29,9 @@ export const initializeDCP = () => {
   inputTextArea.style.height = inputTextArea.scrollHeight + "px";
   mediaType.onchange = () => {
     const selectOption = mediaType.options[mediaType.selectedIndex].value
-    if (selectOption == 'image') 
+    if (selectOption == 'image')
       inputTextArea.value = defaultImageValue
-    else if (selectOption == 'audio') 
+    else if (selectOption == 'audio')
       inputTextArea.value = defaultAudioValue
     else
       inputTextArea.value = defaultVideoValue
@@ -41,7 +41,7 @@ export const initializeDCP = () => {
   clearLogs.onclick = () => {
     clearLogClick()
   }
-  
+
   function clearLogClick() {
     (document.getElementById('logs') as HTMLDivElement).innerText = "";
     blobDiv.innerText = "";
@@ -92,8 +92,10 @@ export const initializeDCP = () => {
         return
       }
 
-      let message = ""
+      var timeMap = new Map();
       for (let i = 0; i < medias.length; i++) {
+        timeMap.set(i, new Date().getTime());
+
         const media: microsoftTeams.media.Media = medias[i]
         media.getMedia((gmErr: microsoftTeams.SdkError, blob: Blob) => {
           if (gmErr) {
@@ -105,7 +107,9 @@ export const initializeDCP = () => {
           reader.readAsDataURL(blob)
           reader.onloadend = () => {
             if (reader.result) {
-              var message = "MEDIA " + (i + 1) + " - Received Blob : size - " + formatFileSize(blob.size) + " (" + blob.size + ")"
+              var timeTaken = new Date().getTime() - timeMap.get(i);
+              var message = "MEDIA " + (i + 1) + " - Received Blob : \n[size - " + formatFileSize(blob.size) + " (" + blob.size + "),\n"
+                          + "timeTaken - " + timeTaken + "]"
               createViewElement(message, blob.type, URL.createObjectURL(blob))
             }
           }
