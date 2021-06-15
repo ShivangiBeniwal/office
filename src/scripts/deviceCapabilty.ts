@@ -13,26 +13,9 @@ export const initializeDCP = () => {
                           + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : false,"
                           + "\n    \"maxDuration\" : 1\n  }\n}";
-
-                          let videoProps: microsoftTeams.media.VideoProps = {
-                            sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
-                            startMode: microsoftTeams.media.CameraStartMode.Photo,
-                            ink: false,
-                            cameraSwitcher: false,
-                            textSticker: false,
-                            enableFilter: true,
-                            propType: "video"
-                        };
-
-                        let mediaInput: microsoftTeams.media.MediaInputs = {
-                            mediaType: microsoftTeams.media.MediaType.Image,
-                            maxMediaCount: 10,
-                            videoProps: videoProps
-                        };
   output("initializeDCP")
 
   // Call the initialize API first
-  // "@microsoft/teams-js": "^1.10.0",
   microsoftTeams.initialize()
 
   const apiType = document.querySelector('select#apiType') as HTMLSelectElement
@@ -41,7 +24,7 @@ export const initializeDCP = () => {
   const inputTextArea = document.getElementById('inputTextArea') as HTMLTextAreaElement
   const blobDiv = document.getElementById('blobs') as HTMLDivElement
 
-  inputTextArea.value = JSON.stringify(mediaInput)
+  inputTextArea.value = defaultVideoValue
   inputTextArea.style.width = inputTextArea.scrollWidth + "px";
   inputTextArea.style.height = inputTextArea.scrollHeight + "px";
   mediaType.onchange = () => {

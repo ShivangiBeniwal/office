@@ -1,0 +1,7 @@
+{
+    "azureFunctions.stopFuncTaskPostDebug": false,
+    "azureFunctions.showProjectWarning": false,
+    "csharp.suppressDotnetRestoreNotification": true,
+    "appService.defaultWebAppToDeploy": "/subscriptions/fc7ebf7d-b3ae-45c2-9c08-67d0ae8ce012/resourceGroups/ShivangiBeniwal/providers/Microsoft.Web/sites/ShivangiTest",
+    "appService.deploySubpath": "."
+}
