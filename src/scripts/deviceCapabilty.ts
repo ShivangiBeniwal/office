@@ -140,7 +140,7 @@ export const initializeDCP = () => {
         var message = "MEDIA " + (i + 1) + " - [format: " + media.format + ",\n [size: " + formatFileSize(media.size) + " (" + media.size + ")]"
                       + ", \nmimeType: " + media.mimeType + ", content: " + media.content
                       + ", \npreview: " + preview + "]"
-        var mediaType = getMediaType(mediaInputs)
+        var mediaType = getSelectMediaMimeType(mediaInputs, media.mimeType)
         var src = "data:" + mediaType + ";base64," + media.preview
         createViewElement(message, mediaType, src)
       }
@@ -172,8 +172,7 @@ export const initializeDCP = () => {
               var timeTaken = new Date().getTime() - timeMap.get(i);
               var message = "MEDIA " + (i + 1) + " - Received Blob : \n[size - " + formatFileSize(blob.size) + " (" + blob.size + "),\n"
                           + "timeTaken - " + timeTaken + "]"
-              var mediaType = getMediaType(mediaInputs)
-              var poster = "data:" + mediaType + ";base64," + media.preview
+              var poster = "data:" + getSelectMediaMimeType(mediaInputs, media.mimeType) + ";base64," + media.preview
               createViewElement(message, blob.type, URL.createObjectURL(blob), poster, i)
             } else {
               output("error occurred")
@@ -232,6 +231,7 @@ export const initializeDCP = () => {
       var audio = document.createElement('audio') as HTMLAudioElement
       audio.controls = true
       element = audio
+      output("audio recieved")
     } else {
       var img = document.createElement('img') as HTMLImageElement
       element = img
@@ -246,11 +246,11 @@ export const initializeDCP = () => {
     blobDiv.appendChild(innerBlock)
   }
 
-  function getMediaType(mediaInputs: microsoftTeams.media.MediaInputs): string {
-    if (mediaInputs.mediaType == 4) {
-      return "audio"
+  function getSelectMediaMimeType(mediaInputs: microsoftTeams.media.MediaInputs, mimeType: string): string {
+    if (mediaInputs.mediaType == 3) {
+      return "image"
     }
-    return "image"
+    return mimeType
   }
 
   function output(msg?: string) {
