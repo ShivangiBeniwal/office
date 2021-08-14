@@ -14,9 +14,9 @@ block content
             td
               | API Type &nbsp;
               select#apiType
-                option(value='selectMedia') Select Media
-                |
                 option(value='getMedia')  Get Media
+                |
+                option(value='selectMedia') Select Media
                 |
                 option(value='viewImages') View Images
               |
@@ -25,6 +25,8 @@ block content
               br
               | Media Type &nbsp;
               select#mediaType
+                option(value='videoAndImage') Video & Image
+                |
                 option(value='video') Video
                 |
                 option(value='image')  Image
