@@ -14,38 +14,40 @@ export const initializeDCP = () => {
                           + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : true,"
                           + "\n    \"maxDuration\" : 4\n  }\n}";
+  const defaultVideoAndImageValue = "{\n  \"mediaType\" : 3,\n  \"maxMediaCount\" : 6,\n  \"videoAndImageProps\" : \n  "
+                          + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
+                          + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : true,"
+                          + "\n    \"maxDuration\" : 4\n  }\n}";
 
 
-  const defaultVideoAndImageProps: microsoftTeams.media.VideoAndImageProps = {
-    sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
-    startMode: microsoftTeams.media.CameraStartMode.Photo,
-    ink: true,
-    cameraSwitcher: true,
-    textSticker: true,
-    enableFilter: true,
-    maxDuration: 4,
-    resolution: microsoftTeams.media.VideoResolution.SD_360P
-  }
+  // const defaultVideoAndImageProps: microsoftTeams.media.VideoAndImageProps = {
+  //   sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
+  //   startMode: microsoftTeams.media.CameraStartMode.Photo,
+  //   ink: true,
+  //   cameraSwitcher: true,
+  //   textSticker: true,
+  //   enableFilter: true,
+  //   maxDuration: 4
+  // }
 
-  const defaultVideoAndImageMediaInput: microsoftTeams.media.MediaInputs = {
-    mediaType: microsoftTeams.media.MediaType.VideoAndImage,
-    maxMediaCount: 6,
-    videoAndImageProps: defaultVideoAndImageProps
-  }
+  // const defaultVideoAndImageMediaInput: microsoftTeams.media.MediaInputs = {
+  //   mediaType: microsoftTeams.media.MediaType.VideoAndImage,
+  //   maxMediaCount: 6,
+  //   videoAndImageProps: defaultVideoAndImageProps
+  // }
 
-  const defaultVideoProps: microsoftTeams.media.VideoProps = {
-    sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
-    startMode: microsoftTeams.media.CameraStartMode.Photo,
-    cameraSwitcher: true,
-    maxDuration: 4,
-    resolution: microsoftTeams.media.VideoResolution.SD_360P
-  }
+  // const defaultVideoProps: microsoftTeams.media.VideoProps = {
+  //   sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
+  //   startMode: microsoftTeams.media.CameraStartMode.Photo,
+  //   cameraSwitcher: true,
+  //   maxDuration: 4
+  // }
 
-  const defaultVideoMediaInput: microsoftTeams.media.MediaInputs = {
-    mediaType: microsoftTeams.media.MediaType.VideoAndImage,
-    maxMediaCount: 6,
-    videoAndImageProps: defaultVideoProps
-  }
+  // const defaultVideoMediaInput: microsoftTeams.media.MediaInputs = {
+  //   mediaType: microsoftTeams.media.MediaType.VideoAndImage,
+  //   maxMediaCount: 6,
+  //   videoAndImageProps: defaultVideoProps
+  // }
 
   const defaultImageProps: microsoftTeams.media.ImageProps = {
     sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
@@ -81,13 +83,15 @@ export const initializeDCP = () => {
   const inputTextArea = document.getElementById('inputTextArea') as HTMLTextAreaElement
   const blobDiv = document.getElementById('blobs') as HTMLDivElement
 
-  inputTextArea.value = JSON.stringify(defaultVideoAndImageMediaInput, undefined, 4)
+  inputTextArea.value = defaultVideoAndImageValue
+  // JSON.stringify(defaultVideoAndImageMediaInput, undefined, 4)
   inputTextArea.style.width = inputTextArea.scrollWidth + "px";
   inputTextArea.style.height = inputTextArea.scrollHeight + "px";
 
   mediaType.onchange = () => {
     const selectOption = mediaType.options[mediaType.selectedIndex].value
-    var value = JSON.stringify(defaultVideoAndImageMediaInput, undefined, 4)
+    var value = defaultVideoAndImageValue
+    // JSON.stringify(defaultVideoAndImageMediaInput, undefined, 4)
     if (selectOption == 'image')
       value = JSON.stringify(defaultImageMediaInput, undefined, 4)
     else if (selectOption == 'audio')
@@ -140,7 +144,7 @@ export const initializeDCP = () => {
         var message = "MEDIA " + (i + 1) + " - [format: " + media.format + ",\n [size: " + formatFileSize(media.size) + " (" + media.size + ")]"
                       + ", \nmimeType: " + media.mimeType + ", content: " + media.content
                       + ", \npreview: " + preview + "]"
-        var mediaType = getSelectMediaMimeType(mediaInputs, media.mimeType)
+        var mediaType = getSelectMediaMimeType(media.mimeType)
         var src = "data:" + mediaType + ";base64," + media.preview
         createViewElement(message, mediaType, src)
       }
@@ -172,7 +176,7 @@ export const initializeDCP = () => {
               var timeTaken = new Date().getTime() - timeMap.get(i);
               var message = "MEDIA " + (i + 1) + " - Received Blob : \n[size - " + formatFileSize(blob.size) + " (" + blob.size + "),\n"
                           + "timeTaken - " + timeTaken + "]"
-              var poster = "data:" + getSelectMediaMimeType(mediaInputs, media.mimeType) + ";base64," + media.preview
+              var poster = "data:" + getSelectMediaMimeType(media.mimeType) + ";base64," + media.preview
               createViewElement(message, blob.type, URL.createObjectURL(blob), poster, i)
             } else {
               output("error occurred")
@@ -246,8 +250,8 @@ export const initializeDCP = () => {
     blobDiv.appendChild(innerBlock)
   }
 
-  function getSelectMediaMimeType(mediaInputs: microsoftTeams.media.MediaInputs, mimeType: string): string {
-    if (mediaInputs.mediaType == 3) {
+  function getSelectMediaMimeType(mimeType: string): string {
+    if (mimeType.includes("video")) {
       return "image"
     }
     return mimeType
