@@ -20,34 +20,55 @@ export const initializeDCP = () => {
                           + "\n    \"maxDuration\" : 4\n  }\n}";
 
 
-  // const defaultVideoAndImageProps: microsoftTeams.media.VideoAndImageProps = {
-  //   sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
-  //   startMode: microsoftTeams.media.CameraStartMode.Photo,
-  //   ink: true,
-  //   cameraSwitcher: true,
-  //   textSticker: true,
-  //   enableFilter: true,
-  //   maxDuration: 4
-  // }
+  const defaultVideoAndImageProps: microsoftTeams.media.VideoAndImageProps = {
+    sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
+    startMode: microsoftTeams.media.CameraStartMode.Photo,
+    ink: true,
+    cameraSwitcher: true,
+    textSticker: true,
+    enableFilter: true,
+    maxDuration: 4
+  }
 
-  // const defaultVideoAndImageMediaInput: microsoftTeams.media.MediaInputs = {
-  //   mediaType: microsoftTeams.media.MediaType.VideoAndImage,
-  //   maxMediaCount: 6,
-  //   videoAndImageProps: defaultVideoAndImageProps
-  // }
+  const defaultVideoAndImageMediaInput: microsoftTeams.media.MediaInputs = {
+    mediaType: microsoftTeams.media.MediaType.VideoAndImage,
+    maxMediaCount: 6,
+    videoAndImageProps: defaultVideoAndImageProps
+  }
 
-  // const defaultVideoProps: microsoftTeams.media.VideoProps = {
-  //   sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
-  //   startMode: microsoftTeams.media.CameraStartMode.Photo,
-  //   cameraSwitcher: true,
-  //   maxDuration: 4
-  // }
+  let videoControllerCallback: microsoftTeams.media.VideoControllerCallback = {
+    onPreviewStart() {
+      console.log("onPreviewStart Callback Invoked");
+    },
+    onRecordingStart() {
+      console.log("onRecordingStart Callback Invoked");
+    },
+    onRecordingPause() {
+      console.log("onRecordingPause Callback Invoked");
+    },
+    onRecordingResume() {
+      console.log("onRecordingResume Callback Invoked");
+    },
+    onPictureInPictureMode() {
+      console.log("onPictureInPictureMode Callback Invoked");
+    }
+  };
+  const videoController: microsoftTeams.media.VideoController = new microsoftTeams.media.VideoController(videoControllerCallback);
 
-  // const defaultVideoMediaInput: microsoftTeams.media.MediaInputs = {
-  //   mediaType: microsoftTeams.media.MediaType.VideoAndImage,
-  //   maxMediaCount: 6,
-  //   videoAndImageProps: defaultVideoProps
-  // }
+  const defaultVideoProps: microsoftTeams.media.VideoProps = {
+    sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
+    startMode: microsoftTeams.media.CameraStartMode.Photo,
+    cameraSwitcher: true,
+    maxDuration: 4,
+    isFullScreenMode: false,
+    videoController: videoController
+  }
+
+  const defaultVideoMediaInput: microsoftTeams.media.MediaInputs = {
+    mediaType: microsoftTeams.media.MediaType.VideoAndImage,
+    maxMediaCount: 6,
+    videoAndImageProps: defaultVideoProps
+  }
 
   const defaultImageProps: microsoftTeams.media.ImageProps = {
     sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
@@ -83,27 +104,25 @@ export const initializeDCP = () => {
   const inputTextArea = document.getElementById('inputTextArea') as HTMLTextAreaElement
   const blobDiv = document.getElementById('blobs') as HTMLDivElement
 
-  inputTextArea.value = defaultVideoAndImageValue
-  // JSON.stringify(defaultVideoAndImageMediaInput, undefined, 4)
+  const clearLogs = document.getElementById('clearLogs') as HTMLButtonElement
+  clearLogs.onclick = () => {
+    clearLogClick()
+  }
+
+  inputTextArea.value = JSON.stringify(defaultVideoAndImageMediaInput, undefined, 4)
   inputTextArea.style.width = inputTextArea.scrollWidth + "px";
   inputTextArea.style.height = inputTextArea.scrollHeight + "px";
 
   mediaType.onchange = () => {
     const selectOption = mediaType.options[mediaType.selectedIndex].value
-    var value = defaultVideoAndImageValue
-    // JSON.stringify(defaultVideoAndImageMediaInput, undefined, 4)
+    var value = JSON.stringify(defaultVideoAndImageMediaInput, undefined, 4)
     if (selectOption == 'image')
       value = JSON.stringify(defaultImageMediaInput, undefined, 4)
     else if (selectOption == 'audio')
       value = JSON.stringify(defaultAudioMediaInput, undefined, 4)
     else if (selectOption == 'video')
-      value = defaultVideoValue
+      value = JSON.stringify(defaultVideoMediaInput, undefined, 4)
     inputTextArea.value = value
-  }
-
-  const clearLogs = document.getElementById('clearLogs') as HTMLButtonElement
-  clearLogs.onclick = () => {
-    clearLogClick()
   }
 
   function clearLogClick() {
