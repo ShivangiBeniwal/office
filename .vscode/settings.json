@@ -2,5 +2,9 @@
     "azureFunctions.stopFuncTaskPostDebug": false,
     "azureFunctions.showProjectWarning": false,
     "csharp.suppressDotnetRestoreNotification": true,
-    "appService.deploySubpath": "."
+    "appService.deploySubpath": ".",
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ]
 }

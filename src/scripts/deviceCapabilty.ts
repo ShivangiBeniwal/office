@@ -38,19 +38,19 @@ export const initializeDCP = () => {
 
   let videoControllerCallback: microsoftTeams.media.VideoControllerCallback = {
     onPreviewStart() {
-      console.log("onPreviewStart Callback Invoked");
+      output("onPreviewStart Callback Invoked");
     },
     onRecordingStart() {
-      console.log("onRecordingStart Callback Invoked");
+      output("onRecordingStart Callback Invoked");
     },
     onRecordingPause() {
-      console.log("onRecordingPause Callback Invoked");
+      output("onRecordingPause Callback Invoked");
     },
     onRecordingResume() {
-      console.log("onRecordingResume Callback Invoked");
+      output("onRecordingResume Callback Invoked");
     },
     onPictureInPictureMode() {
-      console.log("onPictureInPictureMode Callback Invoked");
+      output("onPictureInPictureMode Callback Invoked");
     }
   };
   const videoController: microsoftTeams.media.VideoController = new microsoftTeams.media.VideoController(videoControllerCallback);
