@@ -4,7 +4,7 @@ import { printLog, formatFileSize } from './../utils/utils';
 export const initializeDCP = () => {
   const logTag = "DCP"
   output("initializeDCP")
-  const defaultAudioValue = "{\n  \"mediaType\" : 4,\n  \"maxMediaCount\" : 6,\n  \"audioProps\" : \n  "
+  const defaultAudioValue = "{\n  \"mediaType\" : 4,\n  \"maxMediaCount\" : 1,\n  \"audioProps\" : \n  "
                           + "{\n    \"maxDuration\" : 4,\n    \"videoEnable\" : true,\n    \"videoVisibility\" : true,"
                           + "\n    \"cameraMode\": 1\n  }\n}";
   const defaultImageValue = "{\n  \"mediaType\" : 1,\n  \"maxMediaCount\" : 6,\n  \"imageProps\" : \n  "
@@ -13,11 +13,11 @@ export const initializeDCP = () => {
   const defaultVideoValue = "{\n  \"mediaType\" : 2,\n  \"maxMediaCount\" : 6,\n  \"videoProps\" : \n  "
                           + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : true,"
-                          + "\n    \"maxDuration\" : 4\n  }\n}";
+                          + "\n    \"maxDuration\" : 30\n  }\n}";
   const defaultVideoAndImageValue = "{\n  \"mediaType\" : 3,\n  \"maxMediaCount\" : 6,\n  \"videoAndImageProps\" : \n  "
                           + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : true,"
-                          + "\n    \"maxDuration\" : 4\n  }\n}";
+                          + "\n    \"maxDuration\" : 30\n  }\n}";
 
 
   const defaultVideoAndImageProps: microsoftTeams.media.VideoAndImageProps = {
@@ -27,7 +27,7 @@ export const initializeDCP = () => {
     cameraSwitcher: true,
     textSticker: true,
     enableFilter: true,
-    maxDuration: 4
+    maxDuration: 30
   }
 
   const defaultVideoAndImageMediaInput: microsoftTeams.media.MediaInputs = {
@@ -59,15 +59,15 @@ export const initializeDCP = () => {
     sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
     startMode: microsoftTeams.media.CameraStartMode.Photo,
     cameraSwitcher: true,
-    maxDuration: 4,
+    maxDuration: 30,
     isFullScreenMode: false,
     videoController: videoController
   }
 
   const defaultVideoMediaInput: microsoftTeams.media.MediaInputs = {
-    mediaType: microsoftTeams.media.MediaType.VideoAndImage,
+    mediaType: microsoftTeams.media.MediaType.Video,
     maxMediaCount: 6,
-    videoAndImageProps: defaultVideoProps
+    videoProps: defaultVideoProps
   }
 
   const defaultImageProps: microsoftTeams.media.ImageProps = {
@@ -91,20 +91,20 @@ export const initializeDCP = () => {
 
   const defaultAudioMediaInput: microsoftTeams.media.MediaInputs = {
     mediaType: microsoftTeams.media.MediaType.Audio,
-    maxMediaCount: 6,
+    maxMediaCount: 1,
     audioProps: defaultAudioProps
   }
 
   // Call the initialize API first
   microsoftTeams.initialize()
 
-  const apiType = document.querySelector('select#apiType') as HTMLSelectElement
+  const apiType = document.querySelector('#apiType') as HTMLSelectElement
   const mediaType = document.querySelector('#mediaType') as HTMLSelectElement
-  const startButton = document.getElementById('start') as HTMLButtonElement
-  const inputTextArea = document.getElementById('inputTextArea') as HTMLTextAreaElement
-  const blobDiv = document.getElementById('blobs') as HTMLDivElement
+  const startButton = document.querySelector('#start') as HTMLButtonElement
+  const inputTextArea = document.querySelector('#inputTextArea') as HTMLTextAreaElement
+  const blobDiv = document.querySelector('#blobs') as HTMLDivElement
 
-  const clearLogs = document.getElementById('clearLogs') as HTMLButtonElement
+  const clearLogs = document.querySelector('#clearLogs') as HTMLButtonElement
   clearLogs.onclick = () => {
     clearLogClick()
   }
@@ -126,7 +126,7 @@ export const initializeDCP = () => {
   }
 
   function clearLogClick() {
-    (document.getElementById('logs') as HTMLDivElement).innerText = "";
+    (document.querySelector('#logs') as HTMLDivElement).innerText = "";
     blobDiv.innerText = "";
   }
 
