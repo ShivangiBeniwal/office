@@ -40,6 +40,7 @@ export const initializeDCP = () => {
     onRecordingStarted() {
       console.log('onRecordingStarted Callback Invoked');
       output("onRecordingStarted Callback Invoked");
+      stopMedia.style.display = 'block'
     },
   };
 
@@ -99,6 +100,20 @@ export const initializeDCP = () => {
   const inputTextArea = document.querySelector('#inputTextArea') as HTMLTextAreaElement
   const blobDiv = document.querySelector('#blobs') as HTMLDivElement
 
+  const stopMedia = document.querySelector('#stopMedia') as HTMLButtonElement
+  stopMedia.style.display = 'none'
+  stopMedia.onclick = () => {
+    new microsoftTeams.media.VideoController().stop((err?: microsoftTeams.SdkError) => {
+      if (err) {
+        output(`[] Error occured while stopping the video - ${err.errorCode} : ${err.message}`)
+        // Retry
+      }
+      stopMedia.style.display = 'none'
+      output(`[] Video successfully stopped`)
+      // Success case handling
+    })
+  }
+
   const clearLogs = document.querySelector('#clearLogs') as HTMLButtonElement
   clearLogs.onclick = () => {
     clearLogClick()
@@ -132,18 +147,20 @@ export const initializeDCP = () => {
     const selectOption = apiType.options[apiType.selectedIndex].value
     output(`${selectOption} : ${JSON.stringify(mediaInput, undefined, 4)}`)
 
-    if (mediaInput.mediaType === microsoftTeams.media.MediaType.Video && mediaInput.videoProps.isFullScreenMode === false) {
+    if (mediaInput.mediaType === microsoftTeams.media.MediaType.Video && mediaInput.videoProps && mediaInput.videoProps.isFullScreenMode === false) {
       if (mediaInput.videoProps.videoController) {
         mediaInput.videoProps.videoController = defaultVideoProps.videoController
       }
 
+      stopMedia.style.display = 'block'
       microsoftTeams.menus.setNavBarMenu([stopItem], (id: string) => {
         if (id === "stop") {
-          mediaInput.videoProps.videoController.stop((err?: microsoftTeams.SdkError) => {
+          new microsoftTeams.media.VideoController().stop((err?: microsoftTeams.SdkError) => {
             if (err) {
-              output(`Error occured while stopping the video - ${err}`)
+              output(`Error occured while stopping the video - ${err.errorCode} : ${err.message}`)
               // Retry
             }
+            stopMedia.style.display = 'none'
             output(`Video successfully stopped`)
             // Success case handling
           })
@@ -163,6 +180,7 @@ export const initializeDCP = () => {
   function selectMedia(mediaInputs: microsoftTeams.media.MediaInputs) {
     microsoftTeams.media.selectMedia(mediaInputs, (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
       microsoftTeams.menus.setNavBarMenu([], (id: string) => {return true});
+      stopMedia.style.display = 'none'
       if (err) {
         output(err.errorCode + " " + err.message)
         return
@@ -189,6 +207,7 @@ export const initializeDCP = () => {
   function getMedia(mediaInputs: microsoftTeams.media.MediaInputs) {
     microsoftTeams.media.selectMedia(mediaInputs, (err: microsoftTeams.SdkError, medias: microsoftTeams.media.Media[]) => {
       microsoftTeams.menus.setNavBarMenu([], (id: string) => {return true});
+      stopMedia.style.display = 'none'
       if (err) {
         output(err.errorCode + " " + err.message)
         return
