@@ -44,17 +44,30 @@ export const initializeDCP = () => {
     },
   };
 
-  const defaultVideoProps: microsoftTeams.media.VideoProps = {
+  const defaultNativeVideoProps: microsoftTeams.media.VideoProps = {
     maxDuration: 30,
     isFullScreenMode: false,
     isStopButtonVisible: false,
     videoController: new microsoftTeams.media.VideoController(videoControllerCallback)
   }
 
-  const defaultVideoMediaInput: microsoftTeams.media.MediaInputs = {
+  const defaultNativeVideoMediaInput: microsoftTeams.media.MediaInputs = {
     mediaType: microsoftTeams.media.MediaType.Video,
     maxMediaCount: 1,
-    videoProps: defaultVideoProps
+    videoProps: defaultNativeVideoProps
+  }
+
+  const defaultLensVideoProps: microsoftTeams.media.VideoProps = {
+    sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
+    startMode: microsoftTeams.media.CameraStartMode.Photo,
+    cameraSwitcher: true,
+    maxDuration: 30
+  }
+
+  const defaultLensVideoMediaInput: microsoftTeams.media.MediaInputs = {
+    mediaType: microsoftTeams.media.MediaType.Video,
+    maxMediaCount: 6,
+    videoProps: defaultLensVideoProps
   }
 
   const defaultImageProps: microsoftTeams.media.ImageProps = {
@@ -91,6 +104,24 @@ export const initializeDCP = () => {
     selected: false
   }
 
+  let videoControllerCallbackD: microsoftTeams.media.VideoControllerCallback = {
+    onRecordingStarted() {
+        console.log('Dylan - onRecordingStarted Callback Invoked');
+        output('Dylan - onRecordingStarted Callback Invoked');
+    }
+  };
+
+  const mediaInputD: microsoftTeams.media.MediaInputs = {
+    mediaType: microsoftTeams.media.MediaType.Video,
+    maxMediaCount: 1,
+    videoProps: {
+      maxDuration: 30,
+      isFullScreenMode: false,
+      isStopButtonVisible: false,
+      videoController: new microsoftTeams.media.VideoController(videoControllerCallbackD)
+    }
+  };
+
   // Call the initialize API first
   microsoftTeams.initialize()
 
@@ -119,19 +150,23 @@ export const initializeDCP = () => {
     clearLogClick()
   }
 
-  inputTextArea.value = JSON.stringify(defaultVideoMediaInput, undefined, 4)
+  inputTextArea.value = JSON.stringify(defaultNativeVideoMediaInput, undefined, 4)
   inputTextArea.style.width = inputTextArea.scrollWidth + "px";
   inputTextArea.style.height = inputTextArea.scrollHeight + "px";
 
   mediaType.onchange = () => {
     const selectOption = mediaType.options[mediaType.selectedIndex].value
-    var value = JSON.stringify(defaultVideoMediaInput, undefined, 4)
+    var value = JSON.stringify(defaultNativeVideoMediaInput, undefined, 4)
     if (selectOption == 'image')
       value = JSON.stringify(defaultImageMediaInput, undefined, 4)
     else if (selectOption == 'audio')
       value = JSON.stringify(defaultAudioMediaInput, undefined, 4)
     else if (selectOption == 'videoAndImage')
       value = JSON.stringify(defaultVideoAndImageMediaInput, undefined, 4)
+    else if (selectOption == 'lensVideo')
+      value = JSON.stringify(defaultLensVideoMediaInput, undefined, 4)
+    else if (selectOption == 'AssignmentVideo')
+      value = JSON.stringify(mediaInputD, undefined, 4)
     inputTextArea.value = value
   }
 
@@ -147,26 +182,17 @@ export const initializeDCP = () => {
     const selectOption = apiType.options[apiType.selectedIndex].value
     output(`${selectOption} : ${JSON.stringify(mediaInput, undefined, 4)}`)
 
+    if (mediaType.options[mediaType.selectedIndex].value == 'AssignmentVideo') {
+      getMedia(mediaInputD)
+      enableStopButton()
+      return;
+    }
+
     if (mediaInput.mediaType === microsoftTeams.media.MediaType.Video && mediaInput.videoProps && mediaInput.videoProps.isFullScreenMode === false) {
       if (mediaInput.videoProps.videoController) {
-        mediaInput.videoProps.videoController = defaultVideoProps.videoController
+        mediaInput.videoProps.videoController = defaultNativeVideoProps.videoController
       }
-
-      stopMedia.style.display = 'block'
-      microsoftTeams.menus.setNavBarMenu([stopItem], (id: string) => {
-        if (id === "stop") {
-          new microsoftTeams.media.VideoController().stop((err?: microsoftTeams.SdkError) => {
-            if (err) {
-              output(`Error occured while stopping the video - ${err.errorCode} : ${err.message}`)
-              // Retry
-            }
-            stopMedia.style.display = 'none'
-            output(`Video successfully stopped`)
-            // Success case handling
-          })
-        }
-        return true;
-      })
+      enableStopButton()
     }
 
     if (selectOption == 'getMedia')
@@ -175,6 +201,24 @@ export const initializeDCP = () => {
         viewImages(mediaInput)
     else
         selectMedia(mediaInput)
+  }
+
+  function enableStopButton() {
+    stopMedia.style.display = 'block'
+    microsoftTeams.menus.setNavBarMenu([stopItem], (id: string) => {
+      if (id === "stop") {
+        new microsoftTeams.media.VideoController().stop((err?: microsoftTeams.SdkError) => {
+          if (err) {
+            output(`Error occured while stopping the video - ${err.errorCode} : ${err.message}`)
+            // Retry
+          }
+          stopMedia.style.display = 'none'
+          output(`Video successfully stopped`)
+          // Success case handling
+        })
+      }
+      return true;
+    })
   }
 
   function selectMedia(mediaInputs: microsoftTeams.media.MediaInputs) {
