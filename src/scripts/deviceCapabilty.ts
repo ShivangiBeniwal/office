@@ -104,24 +104,6 @@ export const initializeDCP = () => {
     selected: false
   }
 
-  let videoControllerCallbackD: microsoftTeams.media.VideoControllerCallback = {
-    onRecordingStarted() {
-        console.log('Dylan - onRecordingStarted Callback Invoked');
-        output('Dylan - onRecordingStarted Callback Invoked');
-    }
-  };
-
-  const mediaInputD: microsoftTeams.media.MediaInputs = {
-    mediaType: microsoftTeams.media.MediaType.Video,
-    maxMediaCount: 1,
-    videoProps: {
-      maxDuration: 30,
-      isFullScreenMode: false,
-      isStopButtonVisible: false,
-      videoController: new microsoftTeams.media.VideoController(videoControllerCallbackD)
-    }
-  };
-
   // Call the initialize API first
   microsoftTeams.initialize()
 
@@ -165,8 +147,6 @@ export const initializeDCP = () => {
       value = JSON.stringify(defaultVideoAndImageMediaInput, undefined, 4)
     else if (selectOption == 'lensVideo')
       value = JSON.stringify(defaultLensVideoMediaInput, undefined, 4)
-    else if (selectOption == 'AssignmentVideo')
-      value = JSON.stringify(mediaInputD, undefined, 4)
     inputTextArea.value = value
   }
 
@@ -181,12 +161,6 @@ export const initializeDCP = () => {
     const mediaInput = JSON.parse(inputTextArea.value)
     const selectOption = apiType.options[apiType.selectedIndex].value
     output(`${selectOption} : ${JSON.stringify(mediaInput, undefined, 4)}`)
-
-    if (mediaType.options[mediaType.selectedIndex].value == 'AssignmentVideo') {
-      getMedia(mediaInputD)
-      enableStopButton()
-      return;
-    }
 
     if (mediaInput.mediaType === microsoftTeams.media.MediaType.Video && mediaInput.videoProps && mediaInput.videoProps.isFullScreenMode === false) {
       if (mediaInput.videoProps.videoController) {
