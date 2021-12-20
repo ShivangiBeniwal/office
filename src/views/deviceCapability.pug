@@ -2,6 +2,7 @@ extends layout
 
 block scripts
   script(src="/public/index.js")
+  script(src="//mozilla.github.io/pdf.js/build/pdf.js")
 
 block content
   div(style='text-align:center')
@@ -54,3 +55,4 @@ block content
             button#clearLogs Clear Logs
             |
             div#logs
+      canvas#the-canvas
