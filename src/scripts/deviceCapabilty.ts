@@ -1,31 +1,13 @@
 import * as microsoftTeams from '@microsoft/teams-js';
 import { printLog, formatFileSize } from './../utils/utils';
 
-var pdfDoc = null,
-    pageNum = 1,
-    pageRendering = false,
-    pageNumPending = null,
-    scale = 0.8,
-    canvas = <HTMLCanvasElement> document.getElementById('the-canvas'),
-    ctx = canvas.getContext('2d');
-
 export const initializeDCP = () => {
   const logTag = "DCP"
   output("initializeDCP")
-  const defaultAudioValue = "{\n  \"mediaType\" : 4,\n  \"maxMediaCount\" : 1,\n  \"audioProps\" : \n  "
-                          + "{\n    \"maxDuration\" : 4,\n    \"videoEnable\" : true,\n    \"videoVisibility\" : true,"
-                          + "\n    \"cameraMode\": 1\n  }\n}";
-  const defaultImageValue = "{\n  \"mediaType\" : 1,\n  \"maxMediaCount\" : 6,\n  \"imageProps\" : \n  "
-                          + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 1,\n    \"ink\" : true,"
+  const defaultImageOutputValue = "{\n  \"mediaType\" : 1,\n  \"maxMediaCount\" : 6,\n  \"imageProps\" : \n  "
+                          + "{\n    \"sources\" : [1,2], \"imageOutputFormats\":[2],\n    \"startMode\" : 1,\n    \"ink\" : true," 
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : true\n  }\n}";
-  const defaultVideoValue = "{\n  \"mediaType\" : 2,\n  \"maxMediaCount\" : 6,\n  \"videoProps\" : \n  "
-                          + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
-                          + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : true,"
-                          + "\n    \"maxDuration\" : 30\n  }\n}";
-  const defaultVideoAndImageValue = "{\n  \"mediaType\" : 3,\n  \"maxMediaCount\" : 6,\n  \"videoAndImageProps\" : \n  "
-                          + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
-                          + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : true,"
-                          + "\n    \"maxDuration\" : 30\n  }\n}";
+
   const defaultVideoAndImageProps: microsoftTeams.media.VideoAndImageProps = {
     sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
     startMode: microsoftTeams.media.CameraStartMode.Photo,
@@ -153,6 +135,8 @@ export const initializeDCP = () => {
       value = JSON.stringify(defaultVideoAndImageMediaInput, undefined, 4)
     else if (selectOption == 'lensVideo')
       value = JSON.stringify(defaultLensVideoMediaInput, undefined, 4)
+    else if (selectOption == 'imageOutputFormats')
+      value = defaultImageOutputValue
     inputTextArea.value = value
   }
 
@@ -250,16 +234,13 @@ export const initializeDCP = () => {
           
           var reader = new FileReader()
           reader.readAsDataURL(blob)
-          reader.onloadend = () => {
-            var base64data = reader.result;                
-            console.log(base64data);
-            output("\n\n");
-            output(base64data.toString());
+          reader.onloadend = () => {            
             if (reader.result) {
               var timeTaken = new Date().getTime() - timeMap.get(i);
               var message = "MEDIA " + (i + 1) + " - Received Blob : \n[size - " + formatFileSize(blob.size) + " (" + blob.size + "),\n"
                           + "timeTaken - " + timeTaken + "]"
               var poster = "data:" + getSelectMediaMimeType(media.mimeType) + ";base64," + media.preview
+              showPdfData(blob, reader);  
               createViewElement(message, blob.type, URL.createObjectURL(blob), poster, i)
             } else {
               output("error occurred")
@@ -268,6 +249,18 @@ export const initializeDCP = () => {
         });
       }
     });
+
+    function showPdfData(blob: Blob, reader: FileReader) {
+      const pdfTextArea = document.querySelector('#pdfText') as HTMLTextAreaElement;
+      if (blob.type.includes('application/pdf')) {
+        pdfTextArea.hidden = false;
+        pdfTextArea.style.width = pdfTextArea.scrollWidth + "px";
+        pdfTextArea.style.height = pdfTextArea.scrollHeight + "px";
+        pdfTextArea.value = reader.result.toString();
+      } else {
+        pdfTextArea.hidden = true;
+      }
+    }
   }
 
   function viewImages(mediaInputs: microsoftTeams.media.MediaInputs) {
@@ -320,7 +313,8 @@ export const initializeDCP = () => {
       element = audio
       output("audio recieved")
     } else if (mediaType.includes('application/pdf')) {
-      loadPdfInViewer(src)
+      var img = document.createElement('img') as HTMLImageElement
+      element = img
     } else {
       var img = document.createElement('img') as HTMLImageElement
       element = img
@@ -345,99 +339,5 @@ export const initializeDCP = () => {
   function output(msg?: string) {
     printLog(logTag, msg)
     console.log(msg)
-  }
-
-  function loadPdfInViewer(url : String){
-    const prev = document.querySelector('#prev') as HTMLButtonElement; 
-    const next = document.querySelector('#next') as HTMLButtonElement;
-    prev.onclick = () => {
-      onPrevPage()
-    }
-    next.onclick = () => {
-      onNextPage()
-    }
-    // Loaded via <script> tag, create shortcut to access PDF.js exports.
-    var pdfjsLib = window['pdfjs-dist/build/pdf'];
-    pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
-
-    pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
-      pdfDoc = pdfDoc_;
-      //document.querySelector('page_count').textContent = pdfDoc.numPages;
-      // Initial/first page rendering
-      renderPage(pageNum);
-    });
-
-    /**
-     * Asynchronously downloads PDF.
-     */
-    pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
-      pdfDoc = pdfDoc_;
-      //document.querySelector('page_count').textContent = pdfDoc.numPages;
-      // Initial/first page rendering
-      renderPage(pageNum);
-    });
-  }
-
-  function renderPage(num) {
-    pageRendering = true;
-    // Using promise to fetch the page
-    pdfDoc.getPage(num).then(function(page) {
-      var viewport = page.getViewport({scale: scale});
-      canvas.height = viewport.height;
-      canvas.width = viewport.width;
-  
-      // Render PDF page into canvas context
-      var renderContext = {
-        canvasContext: ctx,
-        viewport: viewport
-      };
-      var renderTask = page.render(renderContext);
-  
-      // Wait for rendering to finish
-      renderTask.promise.then(function() {
-        pageRendering = false;
-        if (pageNumPending !== null) {
-          // New page rendering is pending
-          renderPage(pageNumPending);
-          pageNumPending = null;
-        }
-      });
-    });
-  
-    // Update page counters
-    //document.querySelector('page_num').textContent = num;
-  }
-  
-  /**
-   * If another page rendering in progress, waits until the rendering is
-   * finised. Otherwise, executes rendering immediately.
-   */
-  function queueRenderPage(num) {
-    if (pageRendering) {
-      pageNumPending = num;
-    } else {
-      renderPage(num);
-    }
-  }
-  
-  /**
-   * Displays previous page.
-   */
-  function onPrevPage() {
-    if (pageNum <= 1) {
-      return;
-    }
-    pageNum--;
-    queueRenderPage(pageNum);
-  }
-  /**
-   * Displays next page.
-   */
-  function onNextPage() {
-    if (pageNum >= pdfDoc.numPages) {
-      return;
-    }
-    pageNum++;
-    queueRenderPage(pageNum);
   }
 }

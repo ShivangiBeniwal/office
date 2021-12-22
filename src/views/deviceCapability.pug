@@ -35,6 +35,8 @@ block content
                 option(value='videoAndImage') Video & Image
                 |
                 option(value='audio') Audio
+                |
+                option(value='imageOutputFormats') Image Output Formats
               |
               br
               |
@@ -55,7 +57,9 @@ block content
             button#clearLogs Clear Logs
             |
             div#logs
-    div#pdfViewer 
+    div(hidden = 'true')#pdfViewer
       button#prev Previous        
       button#next Next       
       canvas#the-canvas
+    div
+    textarea(hidden = 'true')#pdfText
