@@ -1,5 +1,5 @@
-import { initializeDCP } from './scripts/deviceCapabilty';
+import { initialize } from './init';
 
 (function () {
-    initializeDCP();
+    initialize();
 })();
