@@ -349,7 +349,6 @@ export const initializeDCP = () => {
       pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
       pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
       pdfDoc = pdfDoc_;
-     //document.querySelector('page_count').textContent = pdfDoc.numPages;
      // Initial/first page rendering
         renderPage(pageNum);
       });
@@ -382,7 +381,8 @@ export const initializeDCP = () => {
     });
   
     // Update page counters
-    //document.querySelector('page_num').textContent = num;
+    const pageNum = document.querySelector('#page_num') as HTMLElement;
+    pageNum.innerText = num + "/" + pdfDoc.numPages;
   }
   
   /**
