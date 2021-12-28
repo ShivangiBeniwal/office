@@ -23,7 +23,7 @@ block content
               |
               br
               |
-              br
+              b
               | Media Type &nbsp;
               select#mediaType
                 option(value='nativeVideo') Native Video
@@ -57,9 +57,7 @@ block content
             button#clearLogs Clear Logs
             |
             div#logs
-    div(hidden = 'true')#pdfViewer
+    div#pdfViewer
       button#prev Previous        
       button#next Next       
       canvas#the-canvas
-    div
-    textarea(hidden = 'true')#pdfText
