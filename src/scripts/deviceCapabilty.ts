@@ -133,6 +133,7 @@ export const initializeDCP = () => {
   inputTextArea.style.height = inputTextArea.scrollHeight + "px";
 
   mediaType.onchange = () => {
+    hidePdfView();
     const selectOption = mediaType.options[mediaType.selectedIndex].value
     var value = JSON.stringify(defaultNativeVideoMediaInput, undefined, 4)
     if (selectOption == 'image')
@@ -155,7 +156,7 @@ export const initializeDCP = () => {
 
   startButton.onclick = () => {
     clearLogClick()
-
+    hidePdfView();
     const mediaInput = JSON.parse(inputTextArea.value)
     const selectOption = apiType.options[apiType.selectedIndex].value
     output(`${selectOption} : ${JSON.stringify(mediaInput, undefined, 4)}`)
@@ -348,6 +349,7 @@ export const initializeDCP = () => {
       var pdfjsLib = window['pdfjs-dist/build/pdf'];
       pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
       pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+      showPdfView();
       pdfDoc = pdfDoc_;
      // Initial/first page rendering
         renderPage(pageNum);
@@ -418,3 +420,12 @@ export const initializeDCP = () => {
     queueRenderPage(pageNum);
   }
 }
+function hidePdfView() {
+  const pdfViewer = document.querySelector('#pdfViewer') as HTMLDivElement;
+  pdfViewer.hidden = true;
+}
+function showPdfView() {
+  const pdfViewer = document.querySelector('#pdfViewer') as HTMLDivElement;
+  pdfViewer.hidden = false;
+}
+
