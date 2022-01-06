@@ -133,7 +133,7 @@ export const initializeDCP = () => {
   inputTextArea.style.height = inputTextArea.scrollHeight + "px";
 
   mediaType.onchange = () => {
-    hidePdfView();
+    shouldHidePdfView(true);
     const selectOption = mediaType.options[mediaType.selectedIndex].value
     var value = JSON.stringify(defaultNativeVideoMediaInput, undefined, 4)
     if (selectOption == 'image')
@@ -148,6 +148,11 @@ export const initializeDCP = () => {
       value = defaultImageOutputValue
     inputTextArea.value = value
   }
+ 
+  apiType.onchange = () => {
+    hideImageOutputFormatOption(apiType.options[apiType.selectedIndex].value)
+    shouldHidePdfView(true);
+  }
 
   function clearLogClick() {
     (document.querySelector('#logs') as HTMLDivElement).innerText = "";
@@ -156,7 +161,7 @@ export const initializeDCP = () => {
 
   startButton.onclick = () => {
     clearLogClick()
-    hidePdfView();
+    shouldHidePdfView(true);
     const mediaInput = JSON.parse(inputTextArea.value)
     const selectOption = apiType.options[apiType.selectedIndex].value
     output(`${selectOption} : ${JSON.stringify(mediaInput, undefined, 4)}`)
@@ -349,10 +354,10 @@ export const initializeDCP = () => {
       var pdfjsLib = window['pdfjs-dist/build/pdf'];
       pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
       pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
-      showPdfView();
+      shouldHidePdfView(false);
       pdfDoc = pdfDoc_;
-     // Initial/first page rendering
-        renderPage(pageNum);
+      // Initial/first page rendering
+      renderPage(pageNum);
       });
   }
 
@@ -420,12 +425,19 @@ export const initializeDCP = () => {
     queueRenderPage(pageNum);
   }
 }
-function hidePdfView() {
+
+function shouldHidePdfView(isVisible : boolean) {
   const pdfViewer = document.querySelector('#pdfViewer') as HTMLDivElement;
-  pdfViewer.hidden = true;
-}
-function showPdfView() {
-  const pdfViewer = document.querySelector('#pdfViewer') as HTMLDivElement;
-  pdfViewer.hidden = false;
+  pdfViewer.hidden = isVisible;
 }
 
+function hideImageOutputFormatOption(value: string) {
+  const mediaType = document.querySelector('#mediaType') as HTMLSelectElement
+  const IMAGE_OUTPUT_FORMATS_INDEX = 5;
+  if (value == 'viewImages') {
+    //TODO Find a better way to hide by key
+    mediaType.options[IMAGE_OUTPUT_FORMATS_INDEX].hidden = true
+  } else {
+    mediaType.options[IMAGE_OUTPUT_FORMATS_INDEX].hidden = false
+  }
+}
