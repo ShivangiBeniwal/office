@@ -19,9 +19,7 @@ export function printLog(logTag: string, msg?: string) {
   var p = document.createElement("p") as HTMLParagraphElement
   p.innerText = finalMessage
   logDiv.insertBefore(p, logDiv.firstChild)
-
-  // Commented this for now since WebChromeClient.onConsoleMessage is throwimg ANR
-  // console.log(logTag + ": " + finalMessage);
+  console.log(logTag + ": " + finalMessage);
 }
 
 export function formatFileSize(bytes: number, decimalPoint: number = 0) {

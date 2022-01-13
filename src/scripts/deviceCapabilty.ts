@@ -338,7 +338,6 @@ export const initializeDCP = () => {
 
   function output(msg?: string) {
     printLog(logTag, msg)
-    console.log(msg)
   }
 
   function loadPdfInViewer(url : String){
