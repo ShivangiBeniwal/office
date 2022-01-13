@@ -1,24 +1,20 @@
 import * as microsoftTeams from '@microsoft/teams-js';
 import { printLog, formatFileSize } from './../utils/utils';
 
+var pdfDoc = null,
+    pageNum = 1,
+    pageRendering = false,
+    pageNumPending = null,
+    scale = 0.8,
+    canvas = <HTMLCanvasElement> document.getElementById('the-canvas'),
+    ctx = canvas.getContext('2d');
+
 export const initializeDCP = () => {
   const logTag = "DCP"
   output("initializeDCP")
-  const defaultAudioValue = "{\n  \"mediaType\" : 4,\n  \"maxMediaCount\" : 1,\n  \"audioProps\" : \n  "
-                          + "{\n    \"maxDuration\" : 4,\n    \"videoEnable\" : true,\n    \"videoVisibility\" : true,"
-                          + "\n    \"cameraMode\": 1\n  }\n}";
-  const defaultImageValue = "{\n  \"mediaType\" : 1,\n  \"maxMediaCount\" : 6,\n  \"imageProps\" : \n  "
-                          + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 1,\n    \"ink\" : true,"
+  const defaultImageOutputValue = "{\n  \"mediaType\" : 1,\n  \"maxMediaCount\" : 6,\n  \"imageProps\" : \n  "
+                          + "{\n    \"sources\" : [1,2], \"imageOutputFormats\":[2],\n    \"startMode\" : 1,\n    \"ink\" : true," 
                           + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : true\n  }\n}";
-  const defaultVideoValue = "{\n  \"mediaType\" : 2,\n  \"maxMediaCount\" : 6,\n  \"videoProps\" : \n  "
-                          + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
-                          + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : true,"
-                          + "\n    \"maxDuration\" : 30\n  }\n}";
-  const defaultVideoAndImageValue = "{\n  \"mediaType\" : 3,\n  \"maxMediaCount\" : 6,\n  \"videoAndImageProps\" : \n  "
-                          + "{\n    \"sources\" : [1,2],\n    \"startMode\" : 5,\n    \"ink\" : true,"
-                          + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : true,"
-                          + "\n    \"maxDuration\" : 30\n  }\n}";
-
 
   const defaultVideoAndImageProps: microsoftTeams.media.VideoAndImageProps = {
     sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
@@ -137,6 +133,7 @@ export const initializeDCP = () => {
   inputTextArea.style.height = inputTextArea.scrollHeight + "px";
 
   mediaType.onchange = () => {
+    shouldHidePdfView(true);
     const selectOption = mediaType.options[mediaType.selectedIndex].value
     var value = JSON.stringify(defaultNativeVideoMediaInput, undefined, 4)
     if (selectOption == 'image')
@@ -147,7 +144,14 @@ export const initializeDCP = () => {
       value = JSON.stringify(defaultVideoAndImageMediaInput, undefined, 4)
     else if (selectOption == 'lensVideo')
       value = JSON.stringify(defaultLensVideoMediaInput, undefined, 4)
+    else if (selectOption == 'imageOutputFormats')
+      value = defaultImageOutputValue
     inputTextArea.value = value
+  }
+ 
+  apiType.onchange = () => {
+    hideImageOutputFormatOption(apiType.options[apiType.selectedIndex].value)
+    shouldHidePdfView(true);
   }
 
   function clearLogClick() {
@@ -157,7 +161,7 @@ export const initializeDCP = () => {
 
   startButton.onclick = () => {
     clearLogClick()
-
+    shouldHidePdfView(true);
     const mediaInput = JSON.parse(inputTextArea.value)
     const selectOption = apiType.options[apiType.selectedIndex].value
     output(`${selectOption} : ${JSON.stringify(mediaInput, undefined, 4)}`)
@@ -241,10 +245,10 @@ export const initializeDCP = () => {
             output("MEDIA " + (i + 1) + gmErr.errorCode + " " + gmErr.message)
             return;
           }
-
+          
           var reader = new FileReader()
           reader.readAsDataURL(blob)
-          reader.onloadend = () => {
+          reader.onloadend = () => {            
             if (reader.result) {
               var timeTaken = new Date().getTime() - timeMap.get(i);
               var message = "MEDIA " + (i + 1) + " - Received Blob : \n[size - " + formatFileSize(blob.size) + " (" + blob.size + "),\n"
@@ -309,6 +313,8 @@ export const initializeDCP = () => {
       audio.controls = true
       element = audio
       output("audio recieved")
+    } else if (mediaType.includes('application/pdf')) {
+      loadPdfInViewer(src)
     } else {
       var img = document.createElement('img') as HTMLImageElement
       element = img
@@ -332,5 +338,105 @@ export const initializeDCP = () => {
 
   function output(msg?: string) {
     printLog(logTag, msg)
+  }
+
+  function loadPdfInViewer(url : String){
+      const prev = document.querySelector('#prev') as HTMLButtonElement; 
+      const next = document.querySelector('#next') as HTMLButtonElement;
+      prev.onclick = () => {
+        onPrevPage()
+      }
+      next.onclick = () => {
+        onNextPage()
+      }
+      // Loaded via <script> tag, create shortcut to access PDF.js exports.
+      var pdfjsLib = window['pdfjs-dist/build/pdf'];
+      pdfjsLib.GlobalWorkerOptions.workerSrc = '//mozilla.github.io/pdf.js/build/pdf.worker.js';
+      pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+      shouldHidePdfView(false);
+      pdfDoc = pdfDoc_;
+      // Initial/first page rendering
+      renderPage(pageNum);
+      });
+  }
+
+  function renderPage(num) {
+    pageRendering = true;
+    // Using promise to fetch the page
+    pdfDoc.getPage(num).then(function(page) {
+      var viewport = page.getViewport({scale: scale});
+      canvas.height = viewport.height;
+      canvas.width = viewport.width;
+  
+      // Render PDF page into canvas context
+      var renderContext = {
+        canvasContext: ctx,
+        viewport: viewport
+      };
+      var renderTask = page.render(renderContext);
+  
+      // Wait for rendering to finish
+      renderTask.promise.then(function() {
+        pageRendering = false;
+        if (pageNumPending !== null) {
+          // New page rendering is pending
+          renderPage(pageNumPending);
+          pageNumPending = null;
+        }
+      });
+    });
+  
+    // Update page counters
+    const pageNum = document.querySelector('#page_num') as HTMLElement;
+    pageNum.innerText = num + "/" + pdfDoc.numPages;
+  }
+  
+  /**
+   * If another page rendering in progress, waits until the rendering is
+   * finised. Otherwise, executes rendering immediately.
+   */
+  function queueRenderPage(num) {
+    if (pageRendering) {
+      pageNumPending = num;
+    } else {
+      renderPage(num);
+    }
+  }
+  
+  /**
+   * Displays previous page.
+   */
+  function onPrevPage() {
+    if (pageNum <= 1) {
+      return;
+    }
+    pageNum--;
+    queueRenderPage(pageNum);
+  }
+  /**
+   * Displays next page.
+   */
+  function onNextPage() {
+    if (pageNum >= pdfDoc.numPages) {
+      return;
+    }
+    pageNum++;
+    queueRenderPage(pageNum);
+  }
+}
+
+function shouldHidePdfView(isVisible : boolean) {
+  const pdfViewer = document.querySelector('#pdfViewer') as HTMLDivElement;
+  pdfViewer.hidden = isVisible;
+}
+
+function hideImageOutputFormatOption(value: string) {
+  const mediaType = document.querySelector('#mediaType') as HTMLSelectElement
+  const IMAGE_OUTPUT_FORMATS_INDEX = 5;
+  if (value == 'viewImages') {
+    //TODO Find a better way to hide by key
+    mediaType.options[IMAGE_OUTPUT_FORMATS_INDEX].hidden = true
+  } else {
+    mediaType.options[IMAGE_OUTPUT_FORMATS_INDEX].hidden = false
   }
 }

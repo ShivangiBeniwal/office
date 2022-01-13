@@ -2,6 +2,7 @@ extends layout
 
 block scripts
   script(src="/public/index.js")
+  script(src="//mozilla.github.io/pdf.js/build/pdf.js")
 
 block content
   div(style='text-align:center')
@@ -22,7 +23,7 @@ block content
               |
               br
               |
-              br
+              b
               | Media Type &nbsp;
               select#mediaType
                 option(value='nativeVideo') Native Video
@@ -34,6 +35,8 @@ block content
                 option(value='videoAndImage') Video & Image
                 |
                 option(value='audio') Audio
+                |
+                option(value='imageOutputFormats') Image Output Formats
               |
               br
               |
@@ -54,3 +57,9 @@ block content
             button#clearLogs Clear Logs
             |
             div#logs
+    div(hidden='true')#pdfViewer
+      canvas#the-canvas
+      p#page_num
+      button#prev Previous        
+      button#next Next  
+      
