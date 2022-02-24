@@ -8,6 +8,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes');
 var usersRouter = require('./routes/users');
 var dcpRouter = require('./routes/dcp');
+var navigationRouter = require('./routes/navigation');
 var configRouter = require('./routes/configure');
 
 var app = express();
@@ -28,6 +29,7 @@ app.use(express.static(path.join(__dirname, '')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/dcp', dcpRouter);
+app.use('/navigation', navigationRouter);
 app.use('/config', configRouter);
 
 // Static routes

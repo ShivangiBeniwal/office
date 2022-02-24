@@ -1,0 +1,46 @@
+extends layout
+
+block scripts
+  script(src="/public/index.js")
+
+block content
+  div(style='text-align:center')
+    h1 Platform Extensibility App
+    p Welcome to #{title}
+    div
+      table
+        tbody
+          tr 
+            td 
+              br
+              | Return Value on Back Press &nbsp;
+              select#registerBackReturn
+                option(value='true') True
+                |
+                option(value='false') False
+              |
+              br
+              br
+              |
+              button#registerBackButton Register Back
+              br
+          tr 
+            td 
+              br
+              | Payload 
+              textarea#setNavBarMenuInput
+              |
+              br
+              |
+              button#setNavBarMenuButton Set Nav Bar Menu    
+              br
+      table
+        tbody
+          tr
+            div#blobs
+          tr
+            br
+            |
+            button#clearLogs Clear Logs
+            |
+            div#logs
