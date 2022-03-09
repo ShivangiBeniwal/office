@@ -12,9 +12,6 @@ var pdfDoc = null,
 export const initializeDCP = () => {
   const logTag = "DCP"
   output("initializeDCP")
-  const defaultImageOutputValue = "{\n  \"mediaType\" : 1,\n  \"maxMediaCount\" : 6,\n  \"imageProps\" : \n  "
-                          + "{\n    \"sources\" : [1,2], \"imageOutputFormats\":[2],\n    \"startMode\" : 1,\n    \"ink\" : true," 
-                          + "\n    \"cameraSwitcher\" : true,\n    \"textSticker\" : true,\n    \"enableFilter\" : true\n  }\n}";
 
   const defaultVideoAndImageProps: microsoftTeams.media.VideoAndImageProps = {
     sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
@@ -91,6 +88,22 @@ export const initializeDCP = () => {
     audioProps: defaultAudioProps
   }
 
+  const defaultImageOutputProps: microsoftTeams.media.ImageProps = {
+    sources: [microsoftTeams.media.Source.Camera, microsoftTeams.media.Source.Gallery],
+    startMode: microsoftTeams.media.CameraStartMode.Photo,
+    imageOutputFormats: [microsoftTeams.media.ImageOutputFormats.PDF],
+    ink: true,
+    cameraSwitcher: true,
+    textSticker: true,
+    enableFilter: true
+  }
+
+  const defaultOutputFormatMediaInput: microsoftTeams.media.MediaInputs = {
+    mediaType: microsoftTeams.media.MediaType.Image,
+    maxMediaCount: 6,
+    imageProps: defaultImageOutputProps
+  }
+
   const stopItem: microsoftTeams.menus.MenuItem = {
     id: "stop",
     title: "STOP",
@@ -145,7 +158,7 @@ export const initializeDCP = () => {
     else if (selectOption == 'lensVideo')
       value = JSON.stringify(defaultLensVideoMediaInput, undefined, 4)
     else if (selectOption == 'imageOutputFormats')
-      value = defaultImageOutputValue
+    value = JSON.stringify(defaultOutputFormatMediaInput, undefined, 4)
     inputTextArea.value = value
   }
  
