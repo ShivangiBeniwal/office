@@ -6,7 +6,7 @@
     // Save configuration changes
     microsoftTeams.settings.registerOnSaveHandler(function (saveEvent) {
 
-        var tabUrl = 'https://329d-139-5-254-252.ngrok.io/#/youtube?providerId=youtube001&organizer=95b362ee-a2f5-410d-9a3c-e78cc5966e9f&userRole=organizer';
+        var tabUrl = 'https://devicecapabilitypermission.azurewebsites.net//cowatch';
 
         // Let the Microsoft Teams platform know what you want to load based on
         // what the user configured on this page
@@ -24,5 +24,12 @@
     });
 
     microsoftTeams.settings.setValidityState(true);
+
+    var start = document.getElementById("start")
+    start.onclick = () => {
+        window.open(
+            `${window.location.origin}/#${navigationRoute.youtube}?${queryParam.providerId}=${appId}&${queryParam.organizer}=${context?.userObjectId}`,
+        );
+    }
 
 })();

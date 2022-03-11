@@ -11,6 +11,7 @@ var dcpRouter = require('./routes/dcp');
 var navigationRouter = require('./routes/navigation');
 var configRouter = require('./routes/configure');
 var cowatchConfigRouter = require('./routes/cowatchConfigure');
+var cowatchRouter = require('./routes/cowatch');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use('/users', usersRouter);
 app.use('/dcp', dcpRouter);
 app.use('/navigation', navigationRouter);
 app.use('/config', configRouter);
+app.use('/cowatch', cowatchRouter);
 app.use('/cowatchConfig', cowatchConfigRouter);
 
 // Static routes
