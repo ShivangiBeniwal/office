@@ -13,6 +13,11 @@
         if (false) {
             window.open("http://localhost:3001");
         } else {
+
+            microsoftTeams.meeting.getMeetingDetails((error, meetingDetails) => {
+                console.log(">>> Inside getMeetingDetails %s, %s", JSON.stringify(error), JSON.stringify(meetingDetails));
+            })
+
             var appContentUrl = `${window.location.origin}//cowatch`;
             console.log(">>> Start click %s", appContentUrl);
             microsoftTeams.meeting.shareAppContentToStage((error, result) => {
