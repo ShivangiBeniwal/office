@@ -9,6 +9,7 @@
             window.open("http://localhost:3001");
         } else {
             var urlToShare = 'https://devicecapabilitytestapp.azurewebsites.net/cowatch';
+            console.log(">>> Start click %s", urlToShare);
             microsoftTeams.meeting.shareAppContentToStage((error, result) => {
                 console.log(">>> Inside shareAppContentToStage %s, %s", JSON.stringify(error), result);
             }, urlToShare);
