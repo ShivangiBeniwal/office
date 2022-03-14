@@ -6,7 +6,7 @@
     // Save configuration changes
     microsoftTeams.settings.registerOnSaveHandler(function (saveEvent) {
 
-        var tabUrl = `https://${window.location.origin}//cowatch`;
+        var tabUrl = `${window.location.origin}//cowatch`;
 
         // Let the Microsoft Teams platform know what you want to load based on
         // what the user configured on this page

@@ -6,7 +6,7 @@
     // Save configuration changes
     microsoftTeams.settings.registerOnSaveHandler(function (saveEvent) {
 
-        var tabUrl = `https://${window.location.origin}//dcp`;
+        var tabUrl = `${window.location.origin}//dcp`;
 
         // Let the Microsoft Teams platform know what you want to load based on
         // what the user configured on this page
