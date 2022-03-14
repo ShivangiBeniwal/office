@@ -17,6 +17,7 @@
             suggestedDisplayName: "CoWatch Config Tab"
         });
 
+        console.log("Cowatch Config %s", tabUrl);
         // Tells Microsoft Teams platform that we are done saving our settings. Microsoft Teams waits
         // for the app to call this API before it dismisses the dialog. If the wait times out, you will
         // see an error indicating that the configuration settings could not be saved.
