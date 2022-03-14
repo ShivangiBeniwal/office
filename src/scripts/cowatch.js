@@ -11,14 +11,9 @@
     var start = document.getElementById("start")
     start.onclick = () => {
         if (false) {
-            window.open("http://localhost:3001");
+            window.open("https://329d-139-5-254-252.ngrok.io/");
         } else {
-
-            microsoftTeams.meeting.getMeetingDetails((error, meetingDetails) => {
-                console.log(">>> Inside getMeetingDetails %s, %s", JSON.stringify(error), JSON.stringify(meetingDetails));
-            })
-
-            var appContentUrl = `${window.location.origin}//cowatch`;
+            var appContentUrl = "https://329d-139-5-254-252.ngrok.io/";
             console.log(">>> Start click %s", appContentUrl);
             microsoftTeams.meeting.shareAppContentToStage((error, result) => {
                 console.log(">>> Inside shareAppContentToStage %s, %s", JSON.stringify(error), result);
