@@ -24,12 +24,4 @@
     });
 
     microsoftTeams.settings.setValidityState(true);
-
-    var start = document.getElementById("start")
-    start.onclick = () => {
-        window.open(
-            `${window.location.origin}/#${navigationRoute.youtube}?${queryParam.providerId}=${appId}&${queryParam.organizer}=${context?.userObjectId}`,
-        );
-    }
-
 })();
