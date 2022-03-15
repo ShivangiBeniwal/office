@@ -1,13 +1,19 @@
 import * as microsoftTeams from '@microsoft/teams-js';
 import { printLog, formatFileSize } from './../utils/utils';
 
-var pdfDoc = null,
-    pageNum = 1,
-    pageRendering = false,
-    pageNumPending = null,
-    scale = 0.8,
-    canvas = <HTMLCanvasElement> document.getElementById('the-canvas'),
-    ctx = canvas.getContext('2d');
+var canvas = <HTMLCanvasElement> document.getElementById('the-canvas');
+console.log("canvas :- " + JSON.stringify(canvas));
+
+
+if(canvas != null) {
+  var pdfDoc = null,
+      pageNum = 1,
+      pageRendering = false,
+      pageNumPending = null,
+      scale = 0.8,
+      ctx = canvas.getContext('2d');
+}
+
 
 export const initializeDCP = () => {
   const logTag = "DCP"
