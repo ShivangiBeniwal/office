@@ -16,7 +16,8 @@
 
         printLog(logTag, `Selected value for ShareToStage is ${ShareToStage} - ${ShareToStage == "false"}`)
         if (ShareToStage == "false") {
-            window.open(appContentUrl);
+            // window.open(appContentUrl);
+            document.location.href = appContentUrl;
         } else {
             microsoftTeams.meeting.shareAppContentToStage((error, result) => {
                 printLog(logTag, `>>> Inside shareAppContentToStage ${JSON.stringify(error)}, ${result}`);
