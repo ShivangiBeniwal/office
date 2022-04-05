@@ -1,20 +1,26 @@
 (function () {
 
+    const logTag = "Config";
+    const tabType = document.querySelector('#tabType');
+
     // Call the initialize API first
     microsoftTeams.initialize();
+    printLog(logTag, "initialize");
 
     // Save configuration changes
     microsoftTeams.settings.registerOnSaveHandler(function (saveEvent) {
 
-        var tabUrl = `${window.location.origin}//dcp`;
+        const selectOption = tabType.options[tabType.selectedIndex].value;
+
+        var tabUrl = `${window.location.origin}//${selectOption}`;
 
         // Let the Microsoft Teams platform know what you want to load based on
         // what the user configured on this page
         microsoftTeams.settings.setSettings({
             websiteUrl: tabUrl,
             contentUrl: tabUrl, // Mandatory parameter
-            entityId: "Native Video",    // Mandatory parameter
-            suggestedDisplayName: "DN - Native Video"
+            entityId: selectOption,    // Mandatory parameter
+            suggestedDisplayName: selectOption
         });
 
         // Tells Microsoft Teams platform that we are done saving our settings. Microsoft Teams waits
@@ -24,5 +30,13 @@
     });
 
     microsoftTeams.settings.setValidityState(true);
+
+    const checkButton = document.getElementById('check');
+    checkButton.onclick = () => {
+        const selectOption = tabType.options[tabType.selectedIndex].value;
+        printLog(logTag, `checkButton - ${selectOption}`);
+        var tabUrl = `${window.location.origin}/${selectOption}`;
+        window.open(tabUrl);
+    }
 
 })();

@@ -10,4 +10,26 @@ block content
         p Welcome to #{title}
         div
             label(for="tabChoice")
-            | Click Save below to set up the tab
+            | Select tab and click save below to set up the tab
+            |
+            br
+            br
+            |
+            | Tab &nbsp;
+            select#tabType
+              option(value='dcp') DCP
+              |
+              option(value='cowatch') CoWatch
+              |
+              option(value='timer') Timer
+            |
+            |
+            br
+            br
+            |
+            button#check Check
+            |
+            br
+            br
+            |
+            div#logs

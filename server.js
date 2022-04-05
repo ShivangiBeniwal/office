@@ -12,6 +12,7 @@ var navigationRouter = require('./routes/navigation');
 var configRouter = require('./routes/configure');
 var cowatchConfigRouter = require('./routes/cowatchConfigure');
 var cowatchRouter = require('./routes/cowatch');
+var timerRouter = require('./routes/timer');
 
 var app = express();
 
@@ -32,6 +33,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/dcp', dcpRouter);
 app.use('/navigation', navigationRouter);
+app.use('/timer', timerRouter);
 app.use('/config', configRouter);
 app.use('/cowatch', cowatchRouter);
 app.use('/cowatchConfig', cowatchConfigRouter);
