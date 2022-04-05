@@ -1,0 +1,21 @@
+extends layout
+
+block scripts
+  script(src="/public/utils.js")
+  script(src="/src/scripts/timer.js")
+
+block content
+    div(style='text-align:center')
+        h1 Platform Extensibility App
+        p Welcome to #{title}
+        div
+            button#start Start
+            |
+            br
+            br
+            |
+            button#stop Stop
+            |
+            br
+            br
+            div#logs
