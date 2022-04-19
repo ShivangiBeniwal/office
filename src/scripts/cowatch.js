@@ -20,9 +20,13 @@
             // window.open(appContentUrl);
             document.location.href = appContentUrl;
         } else {
-            microsoftTeams.meeting.shareAppContentToStage((error, result) => {
-                printLog(logTag, `>>> Inside shareAppContentToStage ${JSON.stringify(error)}, ${result}`);
-            }, appContentUrl);
+            microsoftTeams.meeting.getAppContentStageSharingState((error, result) => {
+                printLog(logTag, `>>> Inside getAppContentStageSharingState ${JSON.stringify(error)}, ${result}`);
+
+                // microsoftTeams.meeting.shareAppContentToStage((error, result) => {
+                //     printLog(logTag, `>>> Inside shareAppContentToStage ${JSON.stringify(error)}, ${result}`);
+                // }, appContentUrl);
+            });
         }
     }
 })();
