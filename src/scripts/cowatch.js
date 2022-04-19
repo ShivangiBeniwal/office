@@ -21,7 +21,7 @@
             document.location.href = appContentUrl;
         } else {
             microsoftTeams.meeting.getAppContentStageSharingState((error, result) => {
-                printLog(logTag, `>>> Inside getAppContentStageSharingState ${JSON.stringify(error)}, ${result}`);
+                printLog(logTag, `>>> Inside getAppContentStageSharingState ${JSON.stringify(error)}, ${JSON.stringify(result)}`);
 
                 // microsoftTeams.meeting.shareAppContentToStage((error, result) => {
                 //     printLog(logTag, `>>> Inside shareAppContentToStage ${JSON.stringify(error)}, ${result}`);
