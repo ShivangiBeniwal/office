@@ -1,0 +1,33 @@
+extends layout
+
+block scripts
+  script(src="/public/utils.js")
+  script(src="/src/scripts/settings.js")
+
+block content
+    div(style='text-align:center')
+        h1 Platform Extensibility App
+        p Welcome to #{title}
+        div
+            br
+            input#tabName(type='text' placeholder='Tab Name')
+            =" "
+            |
+            br
+            br
+            |
+            | Settings API &nbsp;
+            select#settingsApiType
+              option(value='getSettings') Get Settings
+              |
+              option(value='setSettings') Set Settings
+            |
+            |
+            br
+            br
+            button#start Start
+            |
+            |
+            br
+            br
+            div#logs

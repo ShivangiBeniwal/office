@@ -12,6 +12,7 @@ var navigationRouter = require('./routes/navigation');
 var configRouter = require('./routes/configure');
 var cowatchRouter = require('./routes/cowatch');
 var timerRouter = require('./routes/timer');
+var settingsRouter = require('./routes/settings');
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use('/navigation', navigationRouter);
 app.use('/timer', timerRouter);
 app.use('/config', configRouter);
 app.use('/cowatch', cowatchRouter);
+app.use('/settings', settingsRouter);
 
 // Static routes
 app.get("/privacypolicy", (req, res) => {
