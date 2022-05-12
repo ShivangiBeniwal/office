@@ -10,7 +10,6 @@ var usersRouter = require('./routes/users');
 var dcpRouter = require('./routes/dcp');
 var navigationRouter = require('./routes/navigation');
 var configRouter = require('./routes/configure');
-var cowatchConfigRouter = require('./routes/cowatchConfigure');
 var cowatchRouter = require('./routes/cowatch');
 var timerRouter = require('./routes/timer');
 
@@ -36,7 +35,6 @@ app.use('/navigation', navigationRouter);
 app.use('/timer', timerRouter);
 app.use('/config', configRouter);
 app.use('/cowatch', cowatchRouter);
-app.use('/cowatchConfig', cowatchConfigRouter);
 
 // Static routes
 app.get("/privacypolicy", (req, res) => {
