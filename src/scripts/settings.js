@@ -36,7 +36,7 @@
         const tabName = document.getElementById("tabName").value;
         const instanceSettings = {
             suggestedDisplayName: tabName,
-            contentUrl: window.location.href
+            contentUrl: window.location.origin
           }
 
         printLog(logTag, `>>> Inside setSettings ${JSON.stringify(instanceSettings)}`);
