@@ -1,6 +1,21 @@
 import * as microsoftTeams from '@microsoft/teams-js';
 import { printLog, formatFileSize } from './../utils/utils';
 
+var share = <HTMLButtonElement> document.getElementById('share') as HTMLButtonElement;
+share.onclick = () => {
+  console.log("shareToteams", "share clicked");
+  microsoftTeams.sharing.shareWebContent({
+    content: [
+      {
+        type: 'URL',
+        url: 'https://www.youtube.com/watch?v=971YIvosuUk&t=7s',
+        message: 'Youtube URL',
+        preview: false
+      }
+    ]
+  });
+}
+
 var canvas = <HTMLCanvasElement> document.getElementById('the-canvas');
 console.log("canvas :- " + JSON.stringify(canvas));
 
